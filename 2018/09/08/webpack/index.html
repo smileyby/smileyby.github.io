@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="安装相关包 tips:网络不好，请使用淘宝镜像安装  1npm install -g cnpm --registry=https://registry.npm.taobao.org 开始安装webpack模块1npm install webpack webpack-cli webpack-dev-server --save-dev JavaScript模块 tips:这里由于版本兼容性问题，bab">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-08T15:58:44.566Z">
+<meta property="og:updated_time" content="2018-09-08T16:01:17.852Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack使用攻略">
 <meta name="twitter:description" content="安装相关包 tips:网络不好，请使用淘宝镜像安装  1npm install -g cnpm --registry=https://registry.npm.taobao.org 开始安装webpack模块1npm install webpack webpack-cli webpack-dev-server --save-dev JavaScript模块 tips:这里由于版本兼容性问题，bab">
@@ -115,14 +115,74 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install file-loader url-loader --save-dev</span><br></pre></td></tr></table></figure>
 <h4 id="html模块"><a href="#html模块" class="headerlink" title="html模块"></a>html模块</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">npm install html-webpack-plugin --save-dev</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">#### vue模块</span><br><span class="line"></span><br><span class="line">&gt; tips:</span><br><span class="line">&gt; 这里我是用vue写页面，所以安装vue相关依赖</span><br></pre></td></tr></table></figure>
 <p>npm install vue vue-cli vue-loader vue-template-compiler<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">### 配置文件</span><br><span class="line"></span><br><span class="line">#### webpack.config.js</span><br></pre></td></tr></table></figure></p>
-<p>let path = require(‘path’);<br>let HtmlWebpackPlugin = require(‘html-webpack-plugin’);<br>let VueLoaderPlugin = require(‘vue-loader/lib/plugin’);<br>module.exports = {<br>  mode: ‘development’,<br>  entry: ‘./src/main.js’,<br>  output: {<br>      filename: ‘bundle.js’,<br>      path: path.resolve(‘./dist’)<br>  },<br>  module: {<br>      rules: [<br>          {test: /.js$/, use: ‘babel-loader’, exclude: /node_module/},<br>          {test: /.css$/, use: [‘style-loader’, ‘css-loader’]},<br>          {test: /.less$/, use: [‘style-loader’, ‘css-loader’, ‘less-loader’]},<br>          {test: /.(jpg|png|gif|jpeg)/, use: ‘url-loader?limit=8192’},<br>          {test:/.vue$/, use: ‘vue-loader’}<br>      ]<br>  },<br>  plugins: [<br>      new HtmlWebpackPlugin({<br>          template: ‘./src/index.html’<br>      }),<br>      new VueLoaderPlugin()<br>  ]<br>};<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### npm init 生成的package.json文件</span><br></pre></td></tr></table></figure></p>
-<p>{<br>  “name”: “webpack-vue”,<br>  “version”: “1.0.0”,<br>  “description”: “”,<br>  “main”: “index.js”,<br>  “scripts”: {<br>    “build”: “webpack”,<br>    “dev”: “webpack-dev-server”<br>  },<br>  “keywords”: [],<br>  “author”: “”,<br>  “license”: “ISC”,<br>  “devDependencies”: {<br>    “babel-core”: “^6.26.3”,<br>    “babel-loader”: “^7.1.5”,<br>    “babel-preset-env”: “^1.7.0”,<br>    “babel-preset-stage-0”: “^6.24.1”,<br>    “css-loader”: “^1.0.0”,<br>    “file-loader”: “^2.0.0”,<br>    “html-webpack-plugin”: “^3.2.0”,<br>    “less”: “^3.8.1”,<br>    “less-loader”: “^4.1.0”,<br>    “style-loader”: “^0.23.0”,<br>    “url-loader”: “^1.1.1”,<br>    “vue-loader”: “^15.4.1”,<br>    “vue-template-compiler”: “^2.5.17”,<br>    “webpack”: “^4.17.2”,<br>    “webpack-cli”: “^3.1.0”,<br>    “webpack-dev-server”: “^3.1.7”<br>  }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### js配置 .babelrc文件</span><br></pre></td></tr></table></figure></p>
-<p>{<br>  “presets”: [“env”, “stage-0”]<br>}<br><code>`</code></p>
+<pre><code>let path = require(&apos;path&apos;);
+let HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;);
+let VueLoaderPlugin = require(&apos;vue-loader/lib/plugin&apos;);
+module.exports = {
+  mode: &apos;development&apos;,
+  entry: &apos;./src/main.js&apos;,
+  output: {
+      filename: &apos;bundle.js&apos;,
+      path: path.resolve(&apos;./dist&apos;)
+  },
+  module: {
+      rules: [
+          {test: /\.js$/, use: &apos;babel-loader&apos;, exclude: /node_module/},
+          {test: /\.css$/, use: [&apos;style-loader&apos;, &apos;css-loader&apos;]},
+          {test: /\.less$/, use: [&apos;style-loader&apos;, &apos;css-loader&apos;, &apos;less-loader&apos;]},
+          {test: /\.(jpg|png|gif|jpeg)/, use: &apos;url-loader?limit=8192&apos;},
+          {test:/\.vue$/, use: &apos;vue-loader&apos;}
+      ]
+  },
+  plugins: [
+      new HtmlWebpackPlugin({
+          template: &apos;./src/index.html&apos;
+      }),
+      new VueLoaderPlugin()
+  ]
+};
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### npm init 生成的package.json文件</span><br></pre></td></tr></table></figure>
+<pre><code>{
+  &quot;name&quot;: &quot;webpack-vue&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;build&quot;: &quot;webpack&quot;,
+    &quot;dev&quot;: &quot;webpack-dev-server&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;devDependencies&quot;: {
+    &quot;babel-core&quot;: &quot;^6.26.3&quot;,
+    &quot;babel-loader&quot;: &quot;^7.1.5&quot;,
+    &quot;babel-preset-env&quot;: &quot;^1.7.0&quot;,
+    &quot;babel-preset-stage-0&quot;: &quot;^6.24.1&quot;,
+    &quot;css-loader&quot;: &quot;^1.0.0&quot;,
+    &quot;file-loader&quot;: &quot;^2.0.0&quot;,
+    &quot;html-webpack-plugin&quot;: &quot;^3.2.0&quot;,
+    &quot;less&quot;: &quot;^3.8.1&quot;,
+    &quot;less-loader&quot;: &quot;^4.1.0&quot;,
+    &quot;style-loader&quot;: &quot;^0.23.0&quot;,
+    &quot;url-loader&quot;: &quot;^1.1.1&quot;,
+    &quot;vue-loader&quot;: &quot;^15.4.1&quot;,
+    &quot;vue-template-compiler&quot;: &quot;^2.5.17&quot;,
+    &quot;webpack&quot;: &quot;^4.17.2&quot;,
+    &quot;webpack-cli&quot;: &quot;^3.1.0&quot;,
+    &quot;webpack-dev-server&quot;: &quot;^3.1.7&quot;
+  }
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### js配置 .babelrc文件</span><br></pre></td></tr></table></figure>
+<pre><code>{
+  &quot;presets&quot;: [&quot;env&quot;, &quot;stage-0&quot;]
+}
+</code></pre><p><code>`</code></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/08/webpack/" data-id="cjltm6z340003vkv6fmue5juk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/08/webpack/" data-id="cjltmcszf00000wv6bq3py3iz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
