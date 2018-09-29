@@ -122,11 +122,26 @@
 </ul>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">&#125;, <span class="number">50</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">&#125;, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">3</span>);</span><br><span class="line">&#125;, <span class="number">30</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">100000000</span>; i += <span class="number">1</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(i === <span class="number">99999999</span>)&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="number">4</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="JS中固定步长和固定时间的匀速运动动画"><a href="#JS中固定步长和固定时间的匀速运动动画" class="headerlink" title="JS中固定步长和固定时间的匀速运动动画"></a>JS中固定步长和固定时间的匀速运动动画</h2><blockquote>
+<p>1、步长固定（每走一步多少固定），但是多长时间运动完成不固定</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var oBox = document.getElementById(&apos;box&apos;),</span><br><span class="line">	target =  document.documentElement.clientWidth - oBox.offsetWidth;</span><br><span class="line">	//=&gt; 动画：每隔一段时间都在自己原有的left基础上累加步长10排序，一直到达目标值结束</span><br><span class="line">	var timer = setInterval(function()&#123;</span><br><span class="line">		var curL = oBox.offsetLeft;</span><br><span class="line">		curL += 10;</span><br><span class="line">		oBox.style.left = curL + &apos;px&apos;;</span><br><span class="line">		if(curL &gt;= target)&#123;</span><br><span class="line">			oBox.style.left = target + &apos;px&apos;;</span><br><span class="line">			clearInterval(timer);</span><br><span class="line">			timer = null;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;, 17);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>2、固定时间的匀速动画</p>
+<ul>
+<li>target： 目标值</li>
+<li>start： 起始值</li>
+<li>change：总距离 target-start</li>
+<li>duration： 总时间</li>
+<li>time：已经运动的时间</li>
+</ul>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">linear</span>(<span class="params">time, begin, change, duration</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> time/duration*change + begin</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> oBox = <span class="built_in">document</span>.getElementById(<span class="string">'box'</span>),</span><br><span class="line">	time = <span class="number">0</span>,</span><br><span class="line">	duration  = <span class="number">1000</span>,</span><br><span class="line">	begin = <span class="built_in">parseInt</span>(getComputedStyle(oBox).left),</span><br><span class="line">	target = <span class="built_in">document</span>.documentElement.clientWidth - oBox.offsetWidth,</span><br><span class="line">	change = target - begin;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">var</span> timer = setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		time += <span class="number">17</span>;</span><br><span class="line">		<span class="keyword">var</span> curL = linear(time, begin, change, duration);</span><br><span class="line">		<span class="keyword">if</span>(time &gt;= duration)&#123;</span><br><span class="line">			clearInterval(timer);</span><br><span class="line">			timer = <span class="literal">null</span>;</span><br><span class="line">			curL = target;</span><br><span class="line">		&#125;</span><br><span class="line">		oBox.style.left = curL + <span class="string">'px'</span>;</span><br><span class="line">	&#125;, <span class="number">17</span>);</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/27/定时器/" data-id="cjmm72pyn00002kv6tqxlimty" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/27/定时器/" data-id="cjmnmumsi0003xcv6wo1uaj0q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setTimeout/">setTimeout</a></li></ul>
@@ -255,7 +270,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/08/webpack/" data-id="cjmm72pzn000c2kv6fv45tmb5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/08/webpack/" data-id="cjmnmumt6000cxcv6huncy1ox" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
@@ -294,7 +309,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/31/smileyby2/" data-id="cjmm72pyy00032kv6tji9x4bf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/31/smileyby2/" data-id="cjmnmumsc0001xcv605piusxc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
@@ -333,7 +348,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/31/smileyby/" data-id="cjmm72pyt00012kv6s07xwsw8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/31/smileyby/" data-id="cjmnmums40000xcv68kfob9rc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/测试/">测试</a></li></ul>
@@ -380,7 +395,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/31/hello-world/" data-id="cjmm72pzi000b2kv6crshnenm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/31/hello-world/" data-id="cjmnmumsl0004xcv6tfbqjh87" class="article-share-link">Share</a>
       
       
     </footer>
