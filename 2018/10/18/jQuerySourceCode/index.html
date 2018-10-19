@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="简介虽然jQuery在近几年已经不再那么火热，伴随着新兴框架VUE/React等框架的崛起，jQuery的作用正在被弱化，传统的jQuery已经被新兴的框架化工程化所代替。但jQuery中的一些优秀的思想、特质，还是非常值得我们学习的。本文主要讲述这些优秀的思想。 jQ的版本和下载 jQuery的版本 1.x：兼容IE6~8浏览器，是目前PC端开发常用的类库 2.x/3.x：不支持IE6~8的兼容">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-18T15:50:22.762Z">
+<meta property="og:updated_time" content="2018-10-19T16:24:11.986Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jQuerySourceCode">
 <meta name="twitter:description" content="简介虽然jQuery在近几年已经不再那么火热，伴随着新兴框架VUE/React等框架的崛起，jQuery的作用正在被弱化，传统的jQuery已经被新兴的框架化工程化所代替。但jQuery中的一些优秀的思想、特质，还是非常值得我们学习的。本文主要讲述这些优秀的思想。 jQ的版本和下载 jQuery的版本 1.x：兼容IE6~8浏览器，是目前PC端开发常用的类库 2.x/3.x：不支持IE6~8的兼容">
@@ -105,11 +105,16 @@
 <p>看JQ的API手册： <a href="http://jquery.cuishifeng.cn/" target="_blank" rel="noopener">http://jquery.cuishifeng.cn/</a></p>
 <p>锋利的JQ第二版：对于JQ的基础知识和实战应用讲解得非常好<a href="http://oqpmmru7y.bkt.clouddn.com/%E9%94%8B%E5%88%A9%E7%9A%84JQ%E6%BA%90%E7%A0%81%E7%AC%AC%E4%BA%8C%E7%89%88.zip" target="_blank" rel="noopener">点击下载.zip</a></p>
 </blockquote>
+<h3 id="JQ的核心原理解读（分析源代码）"><a href="#JQ的核心原理解读（分析源代码）" class="headerlink" title="JQ的核心原理解读（分析源代码）"></a>JQ的核心原理解读（分析源代码）</h3><blockquote>
+<p>jQuery 是一个常用方法类库，提供了很多真是项目中需要使用的属性和方法（这些方法jQ已经帮我们完善了浏览器兼容处理以及一些细节的优化）</p>
+<p>jQuery本身就是一个类（jQ是基于构造函数模式构建的）</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> jQuery = <span class="function"><span class="keyword">function</span>(<span class="params">selector, context</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> jQuery.fn.init( selector, context );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">jQuery.fn = jQuery.prototype = &#123;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">init = jQuery.fn.init = <span class="function"><span class="keyword">function</span>(<span class="params"> selector, context </span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> ( <span class="keyword">typeof</span> selector === <span class="string">"string"</span> ) &#123;</span><br><span class="line">		...</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( selector.nodeType ) &#123;</span><br><span class="line">		...</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( jQuery.isFunction( selector ) ) &#123;</span><br><span class="line">		...</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> jQuery.makeArray( selector, <span class="keyword">this</span> );  <span class="comment">//=&gt; 返回一个类数组</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/18/jQuerySourceCode/" data-id="cjnerjaxg00000kv6c69udljo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/10/18/jQuerySourceCode/" data-id="cjng86kwn0000vov6kwp11rif" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Idea/">Idea</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>

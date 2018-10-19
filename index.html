@@ -102,11 +102,16 @@
 <p>看JQ的API手册： <a href="http://jquery.cuishifeng.cn/" target="_blank" rel="noopener">http://jquery.cuishifeng.cn/</a></p>
 <p>锋利的JQ第二版：对于JQ的基础知识和实战应用讲解得非常好<a href="http://oqpmmru7y.bkt.clouddn.com/%E9%94%8B%E5%88%A9%E7%9A%84JQ%E6%BA%90%E7%A0%81%E7%AC%AC%E4%BA%8C%E7%89%88.zip" target="_blank" rel="noopener">点击下载.zip</a></p>
 </blockquote>
+<h3 id="JQ的核心原理解读（分析源代码）"><a href="#JQ的核心原理解读（分析源代码）" class="headerlink" title="JQ的核心原理解读（分析源代码）"></a>JQ的核心原理解读（分析源代码）</h3><blockquote>
+<p>jQuery 是一个常用方法类库，提供了很多真是项目中需要使用的属性和方法（这些方法jQ已经帮我们完善了浏览器兼容处理以及一些细节的优化）</p>
+<p>jQuery本身就是一个类（jQ是基于构造函数模式构建的）</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> jQuery = <span class="function"><span class="keyword">function</span>(<span class="params">selector, context</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> jQuery.fn.init( selector, context );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">jQuery.fn = jQuery.prototype = &#123;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">init = jQuery.fn.init = <span class="function"><span class="keyword">function</span>(<span class="params"> selector, context </span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> ( <span class="keyword">typeof</span> selector === <span class="string">"string"</span> ) &#123;</span><br><span class="line">		...</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( selector.nodeType ) &#123;</span><br><span class="line">		...</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( jQuery.isFunction( selector ) ) &#123;</span><br><span class="line">		...</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> jQuery.makeArray( selector, <span class="keyword">this</span> );  <span class="comment">//=&gt; 返回一个类数组</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/18/jQuerySourceCode/" data-id="cjnerjaxg00000kv6c69udljo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/10/18/jQuerySourceCode/" data-id="cjng86kwn0000vov6kwp11rif" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Idea/">Idea</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
@@ -198,7 +203,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/27/定时器/" data-id="cjnerjaxu00050kv60ocpuh19" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/27/定时器/" data-id="cjng86kxn000evov66qy3n8j1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setTimeout/">setTimeout</a></li></ul>
@@ -327,7 +332,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/08/webpack/" data-id="cjnerjayc000j0kv6vrk6ihha" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/08/webpack/" data-id="cjng86kxp000fvov68qc3cvjx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
@@ -366,7 +371,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/31/smileyby2/" data-id="cjnerjaxt00040kv6nh39c1kt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/31/smileyby2/" data-id="cjng86kwv0001vov6nvmbv7bm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
@@ -405,7 +410,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/31/smileyby/" data-id="cjnerjaxn00010kv679r1by1n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/31/smileyby/" data-id="cjng86kx10003vov6gsqblzjd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/测试/">测试</a></li></ul>
@@ -452,7 +457,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/31/hello-world/" data-id="cjnerjaxr00030kv6ne9klscj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/31/hello-world/" data-id="cjng86kx40004vov6i9gokpfp" class="article-share-link">Share</a>
       
       
     </footer>
