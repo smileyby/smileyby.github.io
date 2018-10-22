@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="简介虽然jQuery在近几年已经不再那么火热，伴随着新兴框架VUE/React等框架的崛起，jQuery的作用正在被弱化，传统的jQuery已经被新兴的框架化工程化所代替。但jQuery中的一些优秀的思想、特质，还是非常值得我们学习的。本文主要讲述这些优秀的思想。 jQ的版本和下载 jQuery的版本 1.x：兼容IE6~8浏览器，是目前PC端开发常用的类库 2.x/3.x：不支持IE6~8的兼容">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-21T15:36:00.655Z">
+<meta property="og:updated_time" content="2018-10-22T15:56:21.672Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jQuerySourceCode">
 <meta name="twitter:description" content="简介虽然jQuery在近几年已经不再那么火热，伴随着新兴框架VUE/React等框架的崛起，jQuery的作用正在被弱化，传统的jQuery已经被新兴的框架化工程化所代替。但jQuery中的一些优秀的思想、特质，还是非常值得我们学习的。本文主要讲述这些优秀的思想。 jQ的版本和下载 jQuery的版本 1.x：兼容IE6~8浏览器，是目前PC端开发常用的类库 2.x/3.x：不支持IE6~8的兼容">
@@ -129,11 +129,21 @@
 <p>一般css或者css3中支持的选择器，jq都支持</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; 基本选择器</span></span><br><span class="line">$(<span class="string">'.aa'</span>)</span><br><span class="line">$(<span class="string">'#aa'</span>)</span><br><span class="line">$(<span class="string">'div'</span>)</span><br><span class="line">$(<span class="string">'*'</span>)</span><br><span class="line">$(<span class="string">'.aa,#bb'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; 后代选择器</span></span><br><span class="line">$(<span class="string">'.box a'</span>)</span><br><span class="line">$(<span class="string">'.box&gt;a'</span>)</span><br><span class="line">$(<span class="string">'.box~a'</span>)</span><br><span class="line">$(<span class="string">'.box+a'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; 伪类选择器</span></span><br><span class="line">$(<span class="string">'.box:contains(xxx)'</span>) <span class="comment">//=&gt; 包含xxx内容的</span></span><br><span class="line">$(<span class="string">'a:first'</span>)</span><br><span class="line">$(<span class="string">'a:last'</span>)</span><br><span class="line">$(<span class="string">'a:eq(1)'</span>) <span class="comment">//=&gt; 索引为1的</span></span><br><span class="line">$(<span class="string">'a:gt(1)'</span>) <span class="comment">//=&gt; 索引大于1</span></span><br><span class="line">$(<span class="string">'a:lt(10)'</span>) <span class="comment">//=&gt; 索引小于10</span></span><br><span class="line">$(<span class="string">'a:not()'</span>) <span class="comment">//=&gt; 不包含</span></span><br><span class="line">$(<span class="string">'a:not(:gt(5))'</span>)</span><br></pre></td></tr></table></figure>
+<p><code>jQ对象和原生js对象转换</code></p>
+<blockquote>
+<p>JQ对象：通过$()获取的JQ实例（类数组）<br>原生JS对象：通过ES中提供的属性或者方法获取的JS元素对象（nodeType === 1）</p>
+<p>把原生JS对象转换为JQ对象</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oBox = <span class="built_in">document</span>.getElementById(<span class="string">'box'</span>); <span class="comment">//=&gt; 原生JS对象</span></span><br><span class="line"></span><br><span class="line">oBox.addClass(); <span class="comment">//=&gt; 报错：oBox不是JQ对象，不能使用JQ原型上的方法</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> $box = $(oBox); <span class="comment">//=&gt; 把原生JS对象转化为JQ对象</span></span><br><span class="line">$box.addClass(<span class="string">'bg'</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>把JQ对象转换为原生JS对象</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> $body = $(<span class="string">'body'</span>);</span><br><span class="line">$body[<span class="number">0</span>]; </span><br><span class="line">$body.get(<span class="number">0</span>); <span class="comment">//=&gt; 获取到的是原生JS对象</span></span><br><span class="line">$body.eq(<span class="number">0</span>); <span class="comment">//=&gt; 获取结果还是一个JQ对象</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/18/jQuerySourceCode/" data-id="cjnj1cerh0000vsv60cmic0az" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/10/18/jQuerySourceCode/" data-id="cjnkhhjjc0001b0v6kad2f9ic" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Idea/">Idea</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
