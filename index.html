@@ -136,11 +136,24 @@
 <p>把JQ对象转换为原生JS对象</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> $body = $(<span class="string">'body'</span>);</span><br><span class="line">$body[<span class="number">0</span>]; </span><br><span class="line">$body.get(<span class="number">0</span>); <span class="comment">//=&gt; 获取到的是原生JS对象</span></span><br><span class="line">$body.eq(<span class="number">0</span>); <span class="comment">//=&gt; 获取结果还是一个JQ对象</span></span><br></pre></td></tr></table></figure>
+<p><code>selector是一个方法</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; 当页面中的dom结构加载完成就会执行回调函数中的js代码</span></span><br><span class="line">	<span class="comment">//=&gt; 类似玉window.onload : 等到页面中的DOM元素以及资源文件都加载完成才会执行对应的js代码</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; 这种写法和上面的写法一模一样</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>和window.onload不太一样<br>1、$(function(){}) 可以在同一个页面使用多次，多次都生效（所以在使用jQuery完成代码的时候，我们一般都会把代码放在回调函数中；首先不仅是等到结构加载完在执行，而且还形成了一个闭包）<br>原理：利用了DOM二级事件绑定（可执行多次），监听的是DOMContentLoaded时间（DOM结构加载完成就会触发）</p>
+<p>2、window.onload 本身就是资源都加载完成才会执行，使用的是DOM零级事件，在同一个页面中只能使用一次</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; 只能留最后一个，最后一次赋值替换了原有的赋值</span></span><br></pre></td></tr></table></figure>
+<h3 id="JQ既是一个类也是一个对象"><a href="#JQ既是一个类也是一个对象" class="headerlink" title="JQ既是一个类也是一个对象"></a>JQ既是一个类也是一个对象</h3><blockquote>
+<p>jQuery.prototype上设置了很多的属性和方法，这些是供JQ实例（DOM集合或DOM元素）使用的属性和方法</p>
+<p>addClass<br>css<br>removeClass<br>attr<br>…</p>
+<p>jQuery也是一个普通的对象，在对象上也有一些自己的属性和方法（和实例没有任何关系），这些都是工具类的方法</p>
+<p>ajax<br>isFunction<br>unique<br>…</p>
+</blockquote>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/18/jQuerySourceCode/" data-id="cjnkhhjjc0001b0v6kad2f9ic" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/10/18/jQuerySourceCode/" data-id="cjnlx8drq0000xgv6rfvlaemv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Idea/">Idea</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
@@ -232,7 +245,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/27/定时器/" data-id="cjnkhhjko000hb0v6kneh0wnx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/27/定时器/" data-id="cjnlx8dte000bxgv60i8p9ksy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setTimeout/">setTimeout</a></li></ul>
@@ -361,7 +374,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/08/webpack/" data-id="cjnkhhjjm0004b0v64kdlg6gz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/08/webpack/" data-id="cjnlx8dtt000jxgv6ew04xji7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
@@ -400,7 +413,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/31/smileyby2/" data-id="cjnkhhjjk0003b0v6tjrt9hgs" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/31/smileyby2/" data-id="cjnlx8dt90008xgv6aucj9hzz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
@@ -439,7 +452,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/31/smileyby/" data-id="cjnkhhjj20000b0v61pl4ygn0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/31/smileyby/" data-id="cjnlx8dtb0009xgv6zed7qw48" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/测试/">测试</a></li></ul>
@@ -486,7 +499,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/31/hello-world/" data-id="cjnkhhjkj000gb0v6mtnj416c" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/31/hello-world/" data-id="cjnlx8ds70001xgv6ds0grmdj" class="article-share-link">Share</a>
       
       
     </footer>
