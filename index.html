@@ -62,6 +62,121 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ES6-Review" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/29/ES6-Review/" class="article-date">
+  <time datetime="2018-11-29T14:55:24.000Z" itemprop="datePublished">2018-11-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/29/ES6-Review/">ES6-Review</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JS语法规范ECMAScript-ES6-基础知识及核心原理"><a href="#JS语法规范ECMAScript-ES6-基础知识及核心原理" class="headerlink" title="JS语法规范ECMAScript(ES6)基础知识及核心原理"></a>JS语法规范ECMAScript(ES6)基础知识及核心原理</h2><h2 id="ES6-发展史"><a href="#ES6-发展史" class="headerlink" title="ES6 发展史"></a>ES6 发展史</h2><blockquote>
+<p>这里推荐阅读<a href="http://es6.ruanyifeng.com/" target="_blank" rel="noopener">阮一峰ECMAScript 6 入门</a></p>
+</blockquote>
+<h3 id="使用babel对ES6进行编译"><a href="#使用babel对ES6进行编译" class="headerlink" title="使用babel对ES6进行编译"></a>使用babel对ES6进行编译</h3><blockquote>
+<p>1、 下载安装Babel<br>环境：需要在电脑上安装node（node自带npm包管理器）</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install babel-cli -g 把模块安装在全局环境下（在任何的项目中，都可以使用命令来变异我们的代码）</span><br><span class="line"></span><br><span class="line">npm uninstall babel-cli -g 把全局下安装的babel-cli 卸载掉</span><br></pre></td></tr></table></figure>
+<p>安装日志</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ npm install babel-cli -g</span><br><span class="line">C:\Users\xxx\AppData\Roaming\npm\babel-doctor -&gt; C:\Users\yuboyang\AppData\Roaming\npm\node_modules\babel-cli\bin\babel-doctor.js</span><br><span class="line">C:\Users\xxx\AppData\Roaming\npm\babel -&gt; C:\Users\xxx\AppData\Roaming\npm\node_modules\babel-cli\bin\babel.js</span><br><span class="line">C:\Users\xxx\AppData\Roaming\npm\babel-external-helpers -&gt; C:\Users\yuboyang\AppData\Roaming\npm\node_modules\babel-cli\bin\babel-external-helpers.js</span><br><span class="line">C:\Users\xxx\AppData\Roaming\npm\babel-node -&gt; C:\Users\yuboyang\AppData\Roaming\npm\node_modules\babel-cli\bin\babel-node.js</span><br><span class="line">C:\Users\xxx\AppData\Roaming\npm</span><br><span class="line">`-- babel-cli@6.26.0</span><br><span class="line"></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p><code>C:\Users\xxx\AppData\Roaming\npm</code> 这个路径很重要</p>
+<blockquote>
+<p>1、在该路径下可以看到，安装babel后声称的xxx.cmd文件（可以在doc窗口执行命令）<br><code>babel.cmd</code>以后可以使用babel命令<br><code>babel-node.cmd</code></p>
+<p>2、执行babel命令后我们可以完成一些变异或者其他任务，主要原因是执行babel命令后，会自动加在一些处理任务的文件</p>
+</blockquote>
+<blockquote>
+<p>二、配置.babelrc文件，安装一些语言解析包</p>
+<p>1、我们需要把.babelrc文件配置在当前项目的根目录下（这个文件没有文件名，后缀名就是.babelrc）</p>
+<p>a：在电脑上不能直接创建没有文件名的文件，我们需要使用WS中的new-&gt;file创建，或者使用命令创建<code>dir&gt;.babelrc</code></p>
+<p>b：babelrc这个后缀名在某些ws中是不识别的，它其实是一个json文件，我们需要在ws中配置一下（让它隶属于json文件）</p>
+</blockquote>
+<blockquote>
+<p>2、在文件中编写一些内容</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	"persets": [], //=&gt; 存放的是，我们变异代码的时候需要以来的语言解析包</span><br><span class="line">	"plugins": [] //=&gt; 存放的是，我们变异代码时候需要以来的插件信息</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>3、安装以来的语言解析包</p>
+<p>在当前项目的根目录下安装（不是安装在全局），需要特别注意的是：需要在当前项目根目录中打开doc命令才可以</p>
+<p><code>npm install babel-preset-latest</code> 安装最新已经发布的语言标准解析模块<br><code>npm install babel-preset-stage-2</code> 安装当前还没有发布但是已经进入草案的语言解析模块（如果你的代码中用到了发布非标准的语法，我们需要安装它）</p>
+<p>安装成功后，会在当前目录下存在一个<code>node_modules</code>文件夹，在这个文件夹中有我们安装的模块</p>
+<p>4、完成最后.babelrc文件的配置</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">"persets"</span>: [</span><br><span class="line">		<span class="string">"latest"</span>,</span><br><span class="line">		<span class="string">"stage-2"</span></span><br><span class="line">	],</span><br><span class="line">	<span class="attr">"plugins"</span>: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>三、使用命令变异js代码</p>
+<p>基本上所有支持命令操作的模块都有一个命令<br><code>babel --help / babel -h</code> 查看帮助</p>
+<p><code>babel --version / babel -V</code> 查看版本号</p>
+<p><code>babel --out-file / babel -o</code> 把某一个js文件中的es6代码进行编译</p>
+<p><code>babel --out-dir / babel -d</code> 把某一个文件夹中所有的js文件中的es6代码进行编译</p>
+<p><code>babel --watch / babel -w</code> 监听文件中代码的改变，当代码改变后，会自动进行编译</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">babel ES6/1.js -o ES5/1.js //=&gt; 当个文件编译后保存</span><br><span class="line"></span><br><span class="line">babel ES6 -d ES5 //=&gt; 将ES6下全部js文件编译后保存到ES5下</span><br><span class="line"></span><br><span class="line">babel ES6 -d ES5 -w  //=&gt; 监听改变自动编译</span><br><span class="line"></span><br><span class="line">//=&gt; 结束监听 ctrl+c 两次即可</span><br></pre></td></tr></table></figure>
+<h3 id="ES6中的let和const"><a href="#ES6中的let和const" class="headerlink" title="ES6中的let和const"></a>ES6中的let和const</h3><p><code>let 基础语法</code></p>
+<blockquote>
+<p><code>let 变量名 = 变量值</code></p>
+</blockquote>
+<blockquote>
+<p>1、 let声明变量不存在变量提升</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(str); <span class="comment">//=&gt; undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(fn); <span class="comment">//=&gt; fn本身</span></span><br><span class="line"><span class="built_in">console</span>.log(avg); <span class="comment">//=&gt; undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(sum); <span class="comment">//=&gt; sum is not defined</span></span><br><span class="line"><span class="built_in">console</span>.log(num); <span class="comment">//=&gt; num in not defined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">'aa'</span>;</span><br><span class="line"><span class="keyword">let</span> num = <span class="number">12</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> avg = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">let</span> sum = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="comment">//=&gt; ES6当中只提供了创建变量的信誉发标准，创建函数还是沿用ES5中的function（还会存在变量提升），如果想让函数也不存在变量提升，偶使用函数表达式赋值的方式：let fn = fuction()&#123;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; 创建变量</span></span><br><span class="line"><span class="keyword">let</span> xxx = xxx;</span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; 创建函数</span></span><br><span class="line"><span class="keyword">let</span> xxx = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; 自执行函数</span></span><br><span class="line">;(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>2、使用let定义的变量不允许在<code>同一个作用域中</code>重复生命</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">12</span>;</span><br><span class="line"><span class="keyword">var</span> num = <span class="number">13</span>;</span><br><span class="line"><span class="built_in">console</span>.log(num); <span class="comment">//=&gt; 13</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> str = <span class="string">'aa'</span>;</span><br><span class="line"><span class="keyword">let</span> str = <span class="string">'bb'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str); <span class="comment">//=&gt; Identifier 'str' has already been declared 当前报错，上面代码也不会执行（在JS代码执行之前，就已经知道有重复声明的了，也就是浏览器依然存在类似于变量提升的机制:在JS代码执行之前先把所有let声明的变量过一遍，发现有重复的直接报错）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> num = <span class="number">12</span>,</span><br><span class="line">	fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">let</span> num = <span class="number">12</span>;</span><br><span class="line">	&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(num); <span class="comment">//=&gt; 12 当前作用域下别重复声明即可（不同作用域中的变量是自己私有的，名字重复没关系）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> att = <span class="number">200</span>;</span><br><span class="line"><span class="keyword">let</span> att = <span class="number">100</span>; <span class="comment">//=&gt; Identifier 'att' has already been declared</span></span><br><span class="line"><span class="comment">//=&gt; 不管之前使用什么方式在当前作用域中声明的变量，再使用let声明的时候都会报错</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>3、暂时性死区：使用typeof检测一个未被声明过的变量</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"><span class="comment">// console.log(typeof num); //=&gt; undefined 当前变量不存在，但是使用typeof检测的时候，不会提示错误，而是返回undefined</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// console.log(typeof num); //=&gt; Uncaught ReferenceError: num is not defined ES6中检测一个没有被生命过的变量直接报错，不像之前ES5中的值是undefined一样了</span></span><br><span class="line"><span class="comment">// let num;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>4、ES6语法创建的变量（let）存在会级作用域，ES5语法创建变量（var/function）没有会级作用域</p>
+<p>[ES5]<br>window全局作用域<br>函数执行形成的私有作用域</p>
+<p>[ES6]<br>除了ES5中的两个作用域，ES6中新增加块级作用域（我们可以把块级作用域理解为私有作用域：存在私有变量和作用域链的一些机制）</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> num = <span class="number">12</span>,</span><br><span class="line">	str = <span class="string">''</span>;</span><br><span class="line"><span class="keyword">let</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">str</span>)</span>&#123;</span><br><span class="line">	str = <span class="string">'hello'</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="built_in">arguments</span>[<span class="number">0</span>]); <span class="comment">//=&gt; hello 当前JS并没有开启严格模式，所以形参变量和arguments存在映射机制（但我们应尽量不要这样处理，因为把ES6编译成ES5之后，会默认的开启严格模式，映射机制会终端，此处的值依然是‘word’）</span></span><br><span class="line">	<span class="built_in">console</span>.log(num); <span class="comment">//=&gt; Uncaught ReferenceError: num is not defined</span></span><br><span class="line">	<span class="keyword">let</span> num = <span class="number">13</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(num, str); <span class="comment">//=&gt; 13 hello</span></span><br><span class="line">&#125;;</span><br><span class="line">fn(<span class="string">'word'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(num, str); <span class="comment">//=&gt; 12 ''</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">"use strict"</span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">10</span> &gt;= <span class="number">10</span>)&#123;</span><br><span class="line">	<span class="keyword">var</span> total = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(total); <span class="comment">//=&gt; Uncaught ReferenceError: total is not defined 判断体也是一个块级作用域，在这个作用域中声明的变量时私有变量，再块级作用域之外时无法使用的</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i += <span class="number">1</span>)&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(i); <span class="comment">//=&gt; Uncaught ReferenceError: i is not defined 循环体也是一个块级作用域（每一次循环都会形成一个新的块级作用域，当前例子形成五个块级作用域，每一个块级作用域中都有一个私有变量i，分别存储的时0-4）</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> i = <span class="number">10</span>;</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">let</span> i = <span class="number">20</span>;</span><br><span class="line">	&#123;</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(i); <span class="comment">//=&gt; Uncaught ReferenceError: i is not defined 虽然ES6没有变量提升，但是每一次进入当前作用域都会把let定义的变量找一边（不提升但是找了，找到了说明当前作用域中是有这个变量的，提前用都会报错） </span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">let</span> i = <span class="number">30</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> i = <span class="number">100</span>;</span><br><span class="line">&#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">	<span class="keyword">let</span> k = <span class="number">200</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(i); <span class="comment">//=&gt; Uncaught ReferenceError: i is not defined</span></span><br><span class="line"><span class="built_in">console</span>.log(k); <span class="comment">//=&gt; Uncaught ReferenceError: k is not defined</span></span><br><span class="line"><span class="comment">//=&gt; try catch 中的任何大括号都是块级作用域</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span>(<span class="number">10</span>)&#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">10</span>:</span><br><span class="line">		<span class="keyword">let</span> i = <span class="number">10</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(i); <span class="comment">//=&gt; Uncaught ReferenceError: i is not defined</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;<span class="attr">name</span>: <span class="string">'a'</span>&#125;;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">in</span> obj)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(key); <span class="comment">//=&gt; Uncaught ReferenceError: k is not defined</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>增加这些块级作用域的作用</code></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> list = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'item'</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; list.length; i += <span class="number">1</span>)&#123;</span><br><span class="line">	list[i].onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>const的基础语法</code><br>const的细节知识点和let一样，和let的主要区别在于：let是创建变量，const是创建常量</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> num = <span class="number">12</span>;</span><br><span class="line">num = <span class="number">13</span>;</span><br><span class="line"><span class="built_in">console</span>.log(num); <span class="comment">//=&gt; 13</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">'hello'</span>;</span><br><span class="line">str = <span class="string">'world'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str); <span class="comment">//=&gt; Uncaught TypeError:Assignment to constant variable 而且使用babel 遇到了const设置的常量再进行修改就无法进行编译了</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/11/29/ES6-Review/" data-id="cjp9vxvev0000tkv67zjda27u" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-jQuerySourceCode" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/10/18/jQuerySourceCode/" class="article-date">
@@ -182,7 +297,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/18/jQuerySourceCode/" data-id="cjomzmpin000420v66vgnhr9k" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/10/18/jQuerySourceCode/" data-id="cjp9vxvgz000ctkv635oauiv7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Idea/">Idea</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
@@ -274,7 +389,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/27/定时器/" data-id="cjomzmpjf000e20v6m9r42075" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/27/定时器/" data-id="cjp9vxvh6000jtkv6jfhk3ryy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setTimeout/">setTimeout</a></li></ul>
@@ -403,7 +518,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/08/webpack/" data-id="cjomzmpjs000j20v6js5jhu5c" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/08/webpack/" data-id="cjp9vxvh7000ktkv67xscfk53" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
@@ -442,7 +557,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/31/smileyby2/" data-id="cjomzmpii000320v60ta2hqbs" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/31/smileyby2/" data-id="cjp9vxvgc0006tkv6btj5sx8u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
@@ -481,7 +596,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/31/smileyby/" data-id="cjomzmphl000020v6tb51z0i4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/31/smileyby/" data-id="cjp9vxvgd0007tkv66ic04r9p" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/测试/">测试</a></li></ul>
@@ -528,7 +643,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/31/hello-world/" data-id="cjomzmpi3000120v6nvi4e60a" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/31/hello-world/" data-id="cjp9vxvga0005tkv622vhs8d1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -551,7 +666,7 @@ module.exports = {
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Idea/">Idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/setTimeout/">setTimeout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Idea/">Idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/setTimeout/">setTimeout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
     </div>
   </div>
 
@@ -561,7 +676,7 @@ module.exports = {
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Idea/" style="font-size: 10px;">Idea</a> <a href="/tags/Thinging/" style="font-size: 10px;">Thinging</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/setInterval/" style="font-size: 10px;">setInterval</a> <a href="/tags/setTimeout/" style="font-size: 10px;">setTimeout</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/草稿箱/" style="font-size: 10px;">草稿箱</a>
+      <a href="/tags/ECMAScript/" style="font-size: 10px;">ECMAScript</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Idea/" style="font-size: 10px;">Idea</a> <a href="/tags/Thinging/" style="font-size: 10px;">Thinging</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/setInterval/" style="font-size: 10px;">setInterval</a> <a href="/tags/setTimeout/" style="font-size: 10px;">setTimeout</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/草稿箱/" style="font-size: 10px;">草稿箱</a>
     </div>
   </div>
 
@@ -570,7 +685,7 @@ module.exports = {
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li></ul>
     </div>
   </div>
 
@@ -581,6 +696,10 @@ module.exports = {
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/11/29/ES6-Review/">ES6-Review</a>
+          </li>
         
           <li>
             <a href="/2018/10/18/jQuerySourceCode/">jQuerySourceCode</a>
@@ -596,10 +715,6 @@ module.exports = {
         
           <li>
             <a href="/2018/08/31/smileyby2/">smileyby2</a>
-          </li>
-        
-          <li>
-            <a href="/2018/08/31/smileyby/">smileyby</a>
           </li>
         
       </ul>
