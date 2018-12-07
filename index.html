@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://smileyby.github.io/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
@@ -54,7 +54,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://smileyby.github.io"></form>
       </div>
     </div>
   </div>
@@ -185,11 +185,19 @@
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [,,,A] = [<span class="number">12</span>,<span class="number">23</span>,<span class="number">34</span>];</span><br><span class="line"><span class="built_in">console</span>.log(A); <span class="comment">//=&gt; undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [,,,B = <span class="number">0</span>] = [<span class="number">12</span>,<span class="number">23</span>,<span class="number">34</span>];</span><br><span class="line"><span class="built_in">console</span>.log(B); <span class="comment">//=&gt; 0</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [A,...B] = [<span class="number">12</span>,<span class="number">23</span>,<span class="number">34</span>,<span class="number">45</span>];</span><br><span class="line"><span class="built_in">console</span>.log(A,B); <span class="comment">//=&gt; 12 [23,34,45]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [...C] = [<span class="number">12</span>,<span class="number">23</span>,<span class="number">34</span>];</span><br><span class="line"><span class="built_in">console</span>.log(C); <span class="comment">//=&gt; [12,23,34] 数组克隆</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [D,...E,F] = [<span class="number">12</span>,<span class="number">23</span>,<span class="number">34</span>,<span class="number">45</span>,<span class="number">56</span>,<span class="number">67</span>];</span><br><span class="line"><span class="built_in">console</span>.log(D,E,F);<span class="comment">//=&gt; Uncaught SyntaxError: Rest element must be last element 拓展运算符只能出现在解构赋值的末尾</span></span><br></pre></td></tr></table></figure>
+<p><code>对象的解构赋值</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;name, age&#125; = &#123;<span class="attr">name</span>: <span class="string">'a'</span>, <span class="attr">age</span>: <span class="number">12</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(name, age); <span class="comment">//=&gt; a 12</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> &#123;A,B&#125; = &#123;<span class="attr">name</span>: <span class="string">'a'</span>, <span class="attr">age</span>: <span class="number">12</span>&#125;</span><br><span class="line"><span class="built_in">console</span>.log(A,B); <span class="comment">//=&gt; undefined undefined</span></span><br><span class="line"><span class="comment">//=&gt; 在对象的解构赋值中需要注意的是：赋值的变量需要和对象中的属性名吻合，否则无法获取对应的属性值</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;C=<span class="number">0</span>&#125; = &#123;<span class="attr">name</span>: <span class="string">'a'</span>, <span class="attr">age</span>: <span class="number">12</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(C); <span class="comment">//=&gt; 0 和数组的结构赋值一样，我们可以把后面不需要赋值的结果省略掉，而且也可以给当前的变量设置默认值</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;name&#125; = &#123;<span class="attr">name</span>: <span class="string">'a'</span>, <span class="attr">age</span>: <span class="number">12</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(name); <span class="comment">//=&gt; a</span></span><br><span class="line"><span class="comment">//=&gt; let &#123;,age&#125; = &#123;name: 'a', age: 12&#125;; //=&gt; Uncaught SyntaxError: Unexpected token,和数组的解构赋值不一样的地方在于，对象前面不允许出现空来占位（因为对象获取需要通过具体的属性名，写成空的话，浏览器不知道怎么识别）</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;name, ...arg&#125; = &#123;<span class="attr">name</span>: <span class="string">'a'</span>, <span class="attr">age</span>: <span class="number">12</span>, <span class="attr">sex</span>: <span class="number">0</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(name, arg); <span class="comment">//=&gt; a &#123;age: 12, sex: 0&#125; 支持拓展运算符</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; 把对象进行浅克隆（只把第一级克隆了）</span></span><br><span class="line"><span class="keyword">let</span> obj = &#123;<span class="attr">name</span>: <span class="string">'a'</span>, <span class="attr">age</span>: <span class="number">12</span>, <span class="attr">sex</span>: <span class="number">0</span>,<span class="attr">score</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]&#125;;</span><br><span class="line"><span class="keyword">let</span> &#123;...arg&#125; = obj;</span><br><span class="line"><span class="built_in">console</span>.log(arg === obj); <span class="comment">//=&gt; false</span></span><br><span class="line"><span class="built_in">console</span>.log(arg.score === obj.score); <span class="comment">//=&gt; true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;<span class="attr">name</span>:A, <span class="attr">age</span>:B&#125; = &#123;<span class="attr">name</span>: <span class="string">'a'</span>, <span class="attr">age</span>: <span class="number">12</span>&#125;</span><br><span class="line"><span class="built_in">console</span>.log(A, B); <span class="comment">//=&gt; a 12 在对象的解构赋值中，我们可以把对象的属性名起一个别名</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> data = [</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="string">"name"</span>: <span class="string">"张三"</span>,</span><br><span class="line">		<span class="string">"age"</span>: <span class="number">20</span>,</span><br><span class="line">		<span class="string">"score"</span>: &#123;</span><br><span class="line">			<span class="string">"English"</span>: [<span class="number">100</span>, <span class="number">95</span>, <span class="number">90</span>],</span><br><span class="line">			<span class="string">"math"</span>: [<span class="number">100</span>, <span class="number">100</span>, <span class="number">80</span>],</span><br><span class="line">			<span class="string">"Chinese"</span>: [<span class="number">98</span>, <span class="number">99</span>, <span class="number">100</span>]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="string">"name"</span>: <span class="string">"李四"</span>,</span><br><span class="line">		<span class="string">"age"</span>: <span class="number">18</span>,</span><br><span class="line">		<span class="string">"score"</span>: &#123;</span><br><span class="line">			<span class="string">"English"</span>: [<span class="number">10</span>, <span class="number">5</span>, <span class="number">9</span>],</span><br><span class="line">			<span class="string">"math"</span>: [<span class="number">80</span>, <span class="number">50</span>, <span class="number">50</span>],</span><br><span class="line">			<span class="string">"Chinese"</span>: [<span class="number">68</span>, <span class="number">49</span>, <span class="number">80</span>]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="string">"name"</span>: <span class="string">"王五"</span>,</span><br><span class="line">		<span class="string">"age"</span>: <span class="number">23</span>,</span><br><span class="line">		<span class="string">"score"</span>: &#123;</span><br><span class="line">			<span class="string">"English"</span>: [<span class="number">77</span>, <span class="number">45</span>, <span class="number">67</span>],</span><br><span class="line">			<span class="string">"math"</span>: [<span class="number">67</span>, <span class="number">89</span>, <span class="number">90</span>],</span><br><span class="line">			<span class="string">"Chinese"</span>: [<span class="number">43</span>, <span class="number">65</span>, <span class="number">98</span>]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [&#123;<span class="attr">score</span>:&#123;<span class="attr">English</span>:[A],<span class="attr">math</span>:[,B],<span class="attr">Chinese</span>:[,,C]&#125;&#125;] = data;</span><br><span class="line"><span class="built_in">console</span>.log(A,B,C);</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/29/ES6-Review/" data-id="cjpcs4vpj0001t0v6egt9ujyz" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/11/29/ES6-Review/" data-id="cjpe7328w0000swv6j0ih3ur9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -321,7 +329,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/18/jQuerySourceCode/" data-id="cjpcs4vqy000ft0v6d68rzhn9" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/10/18/jQuerySourceCode/" data-id="cjpe732ag000hswv64z5b8doa" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Idea/">Idea</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
@@ -413,7 +421,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/27/定时器/" data-id="cjpcs4vr5000mt0v629bjjtp2" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/09/27/定时器/" data-id="cjpe732a7000cswv6s58wpsq8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setTimeout/">setTimeout</a></li></ul>
@@ -542,7 +550,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/08/webpack/" data-id="cjpcs4vqo000ct0v62b38phcu" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/09/08/webpack/" data-id="cjpe732ah000iswv6zmd2o7ma" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
@@ -581,7 +589,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/31/smileyby2/" data-id="cjpcs4vq00008t0v6py389ew3" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby2/" data-id="cjpe7329w0006swv6lpnq4ajt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
@@ -620,7 +628,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/31/smileyby/" data-id="cjpcs4vpf0000t0v6632dwza0" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby/" data-id="cjpe7329u0005swv6tfm8e3ol" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/测试/">测试</a></li></ul>
@@ -667,7 +675,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/31/hello-world/" data-id="cjpcs4vq30009t0v664v8i0yq" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/hello-world/" data-id="cjpe7329y0008swv6akaqx30l" class="article-share-link">Share</a>
       
       
     </footer>
