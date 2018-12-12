@@ -225,11 +225,19 @@
 <blockquote>
 <p>项目中并不是把所有的函数都改成箭头函数，根据自身需要来修改即可</p>
 </blockquote>
+<blockquote>
+<p>箭头函数的一点扩充</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fn = <span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">	name: <span class="string">'obj'</span>,</span><br><span class="line">	sum: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		fn(); <span class="comment">//=&gt; this -&gt; window 宿主环境：不是执行的环境而是定义的环境，fn虽然是在这执行，但是他是在window下定义的所以他的宿主环境韩式window</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">obj.sum();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>对于层级桥操的箭头函数</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> n + (++i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; 改成箭头函数</span></span><br><span class="line"><span class="keyword">let</span> fn1 = <span class="function">(<span class="params">i</span>) =&gt;</span> (n) =&gt; n + (++i);</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/11/29/ES6-Review/" data-id="cjpjw1svf0000y8v6domby14n" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/11/29/ES6-Review/" data-id="cjplcrdmh0003fsv6gwskhj77" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -361,7 +369,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/10/18/jQuerySourceCode/" data-id="cjpjw1sxe000dy8v6c5jbjngi" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/10/18/jQuerySourceCode/" data-id="cjplcrdm80000fsv6u1gw1165" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Idea/">Idea</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
@@ -453,7 +461,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/09/27/定时器/" data-id="cjpjw1sxc000cy8v6iyhrjvpw" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/09/27/定时器/" data-id="cjplcrdmn0008fsv6phg4j6y8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setTimeout/">setTimeout</a></li></ul>
@@ -582,7 +590,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/09/08/webpack/" data-id="cjpjw1sxq000oy8v638tbo3gr" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/09/08/webpack/" data-id="cjplcrdml0007fsv6p8p1n723" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
@@ -621,7 +629,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/smileyby2/" data-id="cjpjw1swf0007y8v65ycz9t8j" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby2/" data-id="cjplcrdmd0001fsv6bjbx76u2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
@@ -660,7 +668,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/smileyby/" data-id="cjpjw1swe0006y8v6612fy447" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby/" data-id="cjplcrdmk0005fsv6xbwx86b2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/测试/">测试</a></li></ul>
@@ -707,7 +715,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/hello-world/" data-id="cjpjw1swc0005y8v67dhxn05m" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/hello-world/" data-id="cjplcrdmi0004fsv6jfb5n72g" class="article-share-link">Share</a>
       
       
     </footer>
