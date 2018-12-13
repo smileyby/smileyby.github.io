@@ -233,11 +233,19 @@
 <p>对于层级桥操的箭头函数</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> n + (++i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; 改成箭头函数</span></span><br><span class="line"><span class="keyword">let</span> fn1 = <span class="function">(<span class="params">i</span>) =&gt;</span> (n) =&gt; n + (++i);</span><br></pre></td></tr></table></figure>
+<h3 id="ES6中创建类的基础语法"><a href="#ES6中创建类的基础语法" class="headerlink" title="ES6中创建类的基础语法"></a>ES6中创建类的基础语法</h3><blockquote>
+<p>ES5中创建类和实例，以及如何禁止用户把类当作普通函数执行： <code>new.target</code></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// console.log(new.target); //=&gt; ES6新增加的语法，如果通过NEW执行，返回的结果是当前创建的实例，如果是当作普通函数执行，返回的是undefined</span></span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="keyword">new</span>.target === <span class="string">'undefined'</span>)&#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">SyntaxError</span>(<span class="string">`当前Person不能作为一个普通函数执行，请使用new Person 来执行~~`</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//=&gt; new 执行的时候，this是当前类的实例,this.xxx = xxx是给当前实例增加的私有属性</span></span><br><span class="line">	<span class="keyword">this</span>.name = name;</span><br><span class="line">	<span class="keyword">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//=&gt; 原型上存放的是公有的属性和方法：给创建的实力使用</span></span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">	<span class="keyword">constructor</span>: Person,</span><br><span class="line">	say: function()&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">`my name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>, i am <span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span> years old~`</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//=&gt; 把person当作一个普通对象，给对象设置的私有属性</span></span><br><span class="line">Person.study = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'good good study, day day up~'</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> Person(<span class="string">'小二'</span>, <span class="string">'22'</span>);</span><br><span class="line"></span><br><span class="line">Person();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>ES6中创建类</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// console.log(Person); //=&gt; Uncaught ReferenceError Person is not defined 不存在变量提升 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">	<span class="keyword">constructor</span>(name = '张三', age = '9')&#123;</span><br><span class="line">		<span class="comment">//=&gt; 给实例设置的私有属性</span></span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">		<span class="keyword">this</span>.age = age;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//=&gt; 直接再大括号中编写的方法都直接设置在类的原型上，ES6默认把constructor的问题解决了，此时原型上的constructor指向就是Person</span></span><br><span class="line">	say()&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">`my name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>, i am <span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span> years old~`</span>)；</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	study()&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'good good study, day day up~'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> p1 = <span class="keyword">new</span> Person();</span><br><span class="line"><span class="comment">// Person(); //=&gt; Uncaught TypeError: Class constructor Person cannot be invoked without 'new' ES6中使用class创建的类，不允许把创建的类当作普通函数执行</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/11/29/ES6-Review/" data-id="cjplcrdmh0003fsv6gwskhj77" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/11/29/ES6-Review/" data-id="cjpmr67g50002i0v6gbjracxi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -369,7 +377,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/10/18/jQuerySourceCode/" data-id="cjplcrdm80000fsv6u1gw1165" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/10/18/jQuerySourceCode/" data-id="cjpmr67g20001i0v6ygekxuqx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Idea/">Idea</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
@@ -461,7 +469,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/09/27/定时器/" data-id="cjplcrdmn0008fsv6phg4j6y8" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/09/27/定时器/" data-id="cjpmr67go000mi0v6kz4pfzq3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setTimeout/">setTimeout</a></li></ul>
@@ -590,7 +598,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/09/08/webpack/" data-id="cjplcrdml0007fsv6p8p1n723" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/09/08/webpack/" data-id="cjpmr67g90005i0v61h1j501m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
@@ -629,7 +637,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/smileyby2/" data-id="cjplcrdmd0001fsv6bjbx76u2" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby2/" data-id="cjpmr67g80004i0v6rd4bplkq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
@@ -668,7 +676,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/smileyby/" data-id="cjplcrdmk0005fsv6xbwx86b2" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby/" data-id="cjpmr67ga0006i0v6u2rcoj9t" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/测试/">测试</a></li></ul>
@@ -715,7 +723,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/hello-world/" data-id="cjplcrdmi0004fsv6jfb5n72g" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/hello-world/" data-id="cjpmr67fy0000i0v6iq1nhju9" class="article-share-link">Share</a>
       
       
     </footer>
