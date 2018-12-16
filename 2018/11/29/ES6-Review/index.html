@@ -5,22 +5,22 @@
   
 
   
-  <title>ES6-Review | Hexo</title>
+  <title>ES6-Review | Smileyby|星空灬</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="JS语法规范ECMAScript(ES6)基础知识及核心原理ES6 发展史 这里推荐阅读阮一峰ECMAScript 6 入门  使用babel对ES6进行编译 1、 下载安装Babel环境：需要在电脑上安装node（node自带npm包管理器）  123npm install babel-cli -g 把模块安装在全局环境下（在任何的项目中，都可以使用命令来变异我们的代码）npm uninstal">
 <meta name="keywords" content="ES6,ECMAScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6-Review">
 <meta property="og:url" content="http://smileyby.github.io/2018/11/29/ES6-Review/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="Smileyby|星空灬">
 <meta property="og:description" content="JS语法规范ECMAScript(ES6)基础知识及核心原理ES6 发展史 这里推荐阅读阮一峰ECMAScript 6 入门  使用babel对ES6进行编译 1、 下载安装Babel环境：需要在电脑上安装node（node自带npm包管理器）  123npm install babel-cli -g 把模块安装在全局环境下（在任何的项目中，都可以使用命令来变异我们的代码）npm uninstal">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-13T15:21:45.854Z">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-16T04:53:21.370Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6-Review">
 <meta name="twitter:description" content="JS语法规范ECMAScript(ES6)基础知识及核心原理ES6 发展史 这里推荐阅读阮一峰ECMAScript 6 入门  使用babel对ES6进行编译 1、 下载安装Babel环境：需要在电脑上安装node（node自带npm包管理器）  123npm install babel-cli -g 把模块安装在全局环境下（在任何的项目中，都可以使用命令来变异我们的代码）npm uninstal">
   
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="Smileyby|星空灬" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -39,7 +39,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
+        <a href="/" id="logo">Smileyby|星空灬</a>
       </h1>
       
     </div>
@@ -244,11 +244,12 @@
 <p>ES6中创建类</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// console.log(Person); //=&gt; Uncaught ReferenceError Person is not defined 不存在变量提升 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">	<span class="keyword">constructor</span>(name = '张三', age = '9')&#123;</span><br><span class="line">		<span class="comment">//=&gt; 给实例设置的私有属性</span></span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">		<span class="keyword">this</span>.age = age;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//=&gt; 直接再大括号中编写的方法都直接设置在类的原型上，ES6默认把constructor的问题解决了，此时原型上的constructor指向就是Person</span></span><br><span class="line">	say()&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">`my name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>, i am <span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span> years old~`</span>)；</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	study()&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'good good study, day day up~'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> p1 = <span class="keyword">new</span> Person();</span><br><span class="line"><span class="comment">// Person(); //=&gt; Uncaught TypeError: Class constructor Person cannot be invoked without 'new' ES6中使用class创建的类，不允许把创建的类当作普通函数执行</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">	<span class="keyword">constructor</span>(...arg)&#123;</span><br><span class="line">		<span class="keyword">let</span> [x=<span class="number">0</span>,y=<span class="number">0</span>] = arg;</span><br><span class="line">		<span class="keyword">this</span>.x = x;</span><br><span class="line">		<span class="keyword">this</span>.y = y;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	sum()&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.x + <span class="keyword">this</span>.y;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; 创建Child类，并且让Child类继承了Person类：</span></span><br><span class="line">	<span class="number">1</span>、把Person的私有属性继承过来设置给；额子类的私有属性</span><br><span class="line">	<span class="number">2</span>、让字类实例的__proto__上能够找到Person父类的原型（这样子类的实例就可以调用父类的方法）</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// constructor()&#123;&#125; //=&gt; Uncaught REeferencerror： Must call super constructor in dervied class before accessing 'this' or returning from derived constructor</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//=&gt; 我们不写constructor，浏览器默认会创建它，而且默认就会把父类的属性继承过来（把传给子类的参数值也传给父类了）</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//constructor(...arg)&#123; //=&gt; arg:传递给子类的参数（数组）[剩余运算符]</span></span><br><span class="line">		<span class="comment">//super(...arg); //=&gt; [展开运算符] 把arg中每一项值展开，分别传递给父类方法 //super(10, 20, 30)	</span></span><br><span class="line">	<span class="comment">//&#125;</span></span><br><span class="line">	<span class="comment">//---------------</span></span><br><span class="line">	<span class="comment">//=&gt; 很多时候我们不仅要继承父类私有的，还需要给子类增加一些额外似有的，此时就必须写constructor，但是一定要在constructor中的第一行写上super，否则会报错</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">constructor</span>(...arg)&#123;</span><br><span class="line">		<span class="keyword">super</span>(...arg);</span><br><span class="line">		<span class="keyword">let</span> [,,z] = arg;</span><br><span class="line">		<span class="keyword">this</span>.z = z;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	fn()&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> c = <span class="keyword">new</span> Child(<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>);</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/11/29/ES6-Review/" data-id="cjpmr67g50002i0v6gbjracxi" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/11/29/ES6-Review/" data-id="cjpqfyr7c000mo4v6bl8ajzcm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -344,7 +345,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2018 John Doe<br>
+      &copy; 2018 yuby<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
