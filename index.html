@@ -62,6 +62,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-promise" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/31/promise/" class="article-date">
+  <time datetime="2018-12-31T14:32:26.000Z" itemprop="datePublished">2018-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/31/promise/">promise</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>promise是一个类，高版本的浏览器已经实现了promise</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; executor</span></span><br><span class="line"><span class="comment">//=&gt; executor 包含两个参数 分别是resolve（解决） reject（拒绝）</span></span><br><span class="line"><span class="comment">//=&gt; 代码一旦成功就不会走向失败</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>&#123; <span class="comment">//=&gt; 分别是两个函数</span></span><br><span class="line">	resolve(<span class="string">'ok'</span>); <span class="comment">//=&gt; 我们自己决定是成功还是失败</span></span><br><span class="line">	fs.readFile(<span class="string">'test.txt'</span>, <span class="string">'utf8'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">err, data</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(err) reject(err);</span><br><span class="line">		resolve(data);</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; p 代表promise实例</span></span><br><span class="line">p.then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123; <span class="comment">//=&gt; 成功的回调</span></span><br><span class="line">	<span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;,<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123; <span class="comment">//=&gt; 失败的回调</span></span><br><span class="line">	<span class="built_in">console</span>.log(err)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span>&#123;</span><br><span class="line">	setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">Math</span>.random() &gt; <span class="number">0.5</span>)&#123;</span><br><span class="line">			resolve(<span class="string">'yes'</span>);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;	</span><br><span class="line">			reject(<span class="string">'no'</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;, <span class="number">1000</span>)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">p.then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;,<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(err);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Promise 三个状态 pending fulfilled rejected</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; promise 简单实现</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Promise</span>(<span class="params">executor</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> self = <span class="keyword">this</span>;</span><br><span class="line">	self.status = <span class="string">'pending'</span>;</span><br><span class="line">	self.value = <span class="literal">undefined</span>;</span><br><span class="line">	self.reason = <span class="literal">undefined</span>;</span><br><span class="line">	self.onResolvedCallbacks = [];</span><br><span class="line">	self.onRejectedCallbacks = [];</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">resolve</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(self.status === <span class="string">'pending'</span>)&#123;</span><br><span class="line">			self.value = value;</span><br><span class="line">			self.status = <span class="string">'resolved'</span>;</span><br><span class="line">			self.onResolvedCallbacks.forEach(<span class="function"><span class="params">item</span>=&gt;</span>item(self.value));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">reject</span>(<span class="params">reason</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(self.status === <span class="string">'pending'</span>)&#123;</span><br><span class="line">			self.reason = reason;</span><br><span class="line">			self.status = <span class="string">'rejected'</span>;</span><br><span class="line">			self.onRejectedCallbacks.forEach(<span class="function"><span class="params">item</span>=&gt;</span>item(self.reason));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">try</span>&#123;</span><br><span class="line">		executor(resolve, reject)</span><br><span class="line">	&#125;<span class="keyword">catch</span>(e)&#123; <span class="comment">//=&gt; 有错误会走向失败</span></span><br><span class="line">		reject(e);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Promise</span>.prototype.then = <span class="function"><span class="keyword">function</span>(<span class="params">onFulfilled, onRejected</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> self = <span class="keyword">this</span>;</span><br><span class="line">	<span class="keyword">if</span>(self.status === <span class="string">'resolved'</span>)&#123;</span><br><span class="line">		onFulfilled(self.value)；</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(self.status === <span class="string">'rejected'</span>)&#123;</span><br><span class="line">		onRejected(self.reason);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(self.status === <span class="string">'pending'</span>)&#123;</span><br><span class="line">		self.onResolvedCallbacks.push(onFulfilled);</span><br><span class="line">		self.onRejectedCallbacks.push(onRejected);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">module</span>.exports = <span class="built_in">Promise</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; Promise 链式调用</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Promise</span>(<span class="params">executor</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> self = <span class="keyword">this</span>;</span><br><span class="line">	self.status = <span class="string">'pending'</span>;</span><br><span class="line">	self.value = <span class="literal">undefined</span>;</span><br><span class="line">	self.reason = <span class="literal">undefined</span>;</span><br><span class="line">	self.onResolvedCallbacks = [];</span><br><span class="line">	self.onRejectedCallbacks = [];</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">resolve</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(self.status === <span class="string">'pending'</span>)&#123;</span><br><span class="line">			self.value = value;</span><br><span class="line">			self.status = <span class="string">'resolved'</span>;</span><br><span class="line">			self.onResolvedCallbacks.forEach(<span class="function"><span class="params">item</span>=&gt;</span>item(self.value));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">reject</span>(<span class="params">reason</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(self.status === <span class="string">'pending'</span>)&#123;</span><br><span class="line">			self.reason = reason;</span><br><span class="line">			self.status = <span class="string">'rejected'</span>;</span><br><span class="line">			self.onRejectedCallbacks.forEach(<span class="function"><span class="params">item</span>=&gt;</span>item(self.reason));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">try</span>&#123;</span><br><span class="line">		executor(resolve, reject)</span><br><span class="line">	&#125;<span class="keyword">catch</span>(e)&#123; <span class="comment">//=&gt; 有错误会走向失败</span></span><br><span class="line">		reject(e);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Promise</span>.prototype.then = <span class="function"><span class="keyword">function</span>(<span class="params">onFulfilled, onRejected</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> self = <span class="keyword">this</span>;</span><br><span class="line">	<span class="keyword">let</span> promise2;</span><br><span class="line">	<span class="keyword">if</span>(self.status === <span class="string">'resolved'</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> promise2 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>&#123;</span><br><span class="line">			<span class="keyword">let</span> x = onFulfilled(self.value);</span><br><span class="line">			<span class="keyword">if</span>(x <span class="keyword">instanceof</span> <span class="built_in">Promise</span>)&#123;</span><br><span class="line">				x.then(resolve, reject)</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				resolve(x);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(self.status === <span class="string">'rejected'</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> promise2 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>&#123;</span><br><span class="line">			<span class="keyword">let</span> x = onRejected(self.reason);</span><br><span class="line">			<span class="keyword">if</span>(x <span class="keyword">instanceof</span> <span class="built_in">Promise</span>)&#123;</span><br><span class="line">				x.then(resolve, reject)</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				reject(x);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(self.status === <span class="string">'pending'</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> promise2 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>&#123;</span><br><span class="line">			self.onResolvedCallbacks.push(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">				<span class="keyword">let</span> x = onFulfilled(self.value);</span><br><span class="line">				<span class="keyword">if</span>(x <span class="keyword">instanceof</span> <span class="built_in">Promise</span>)&#123;</span><br><span class="line">					x.then(resolve, reject)</span><br><span class="line">				&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">					resolve(x);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;);</span><br><span class="line">			self.onRejectedCallbacks.push(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">				<span class="keyword">let</span> x = onRejected(self.reason);</span><br><span class="line">				<span class="keyword">if</span>(x <span class="keyword">instanceof</span> <span class="built_in">Promise</span>)&#123;</span><br><span class="line">					x.then(resolve, reject)</span><br><span class="line">				&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">					reject(x);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;)</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">module</span>.exports = <span class="built_in">Promise</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://smileyby.github.io/2018/12/31/promise/" data-id="cjqcfb4c90000h8v66k2bxd8p" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/promise/">promise</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-git-command" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/12/24/git-command/" class="article-date">
@@ -115,7 +163,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/12/24/git-command/" data-id="cjq144afm000050v6yife3dba" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/12/24/git-command/" data-id="cjqcfb4eh000lh8v6byk4xru7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/command/">command</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
@@ -311,7 +359,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/11/29/ES6-Review/" data-id="cjq144ajj000k50v6qa5bxcvq" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/11/29/ES6-Review/" data-id="cjqcfb4ef000kh8v64mlzq2o1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -443,7 +491,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/10/18/jQuerySourceCode/" data-id="cjq144aii000950v60xru7v3x" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/10/18/jQuerySourceCode/" data-id="cjqcfb4dg0005h8v6kdxi6h9z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Idea/">Idea</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
@@ -535,7 +583,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/09/27/定时器/" data-id="cjq144ajh000j50v6t9he8lww" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/09/27/定时器/" data-id="cjqcfb4ei000nh8v6ni76gnc2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setTimeout/">setTimeout</a></li></ul>
@@ -664,7 +712,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/09/08/webpack/" data-id="cjq144ajv000t50v6rlnpx9dt" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/09/08/webpack/" data-id="cjqcfb4e1000hh8v6whp2230p" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
@@ -703,7 +751,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/smileyby2/" data-id="cjq144aie000650v6nmu2dbmc" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby2/" data-id="cjqcfb4da0001h8v63qwns752" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
@@ -742,7 +790,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/smileyby/" data-id="cjq144aif000750v6uag1cum8" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby/" data-id="cjqcfb4df0004h8v66sou1qr2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/测试/">测试</a></li></ul>
@@ -789,7 +837,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/hello-world/" data-id="cjq144aib000550v6karr8lws" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/hello-world/" data-id="cjqcfb4dd0003h8v6i3n3on8r" class="article-share-link">Share</a>
       
       
     </footer>
@@ -812,7 +860,7 @@ module.exports = {
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Idea/">Idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/command/">command</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/setTimeout/">setTimeout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Idea/">Idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/command/">command</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/promise/">promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/setTimeout/">setTimeout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
     </div>
   </div>
 
@@ -822,7 +870,7 @@ module.exports = {
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ECMAScript/" style="font-size: 10px;">ECMAScript</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Idea/" style="font-size: 10px;">Idea</a> <a href="/tags/Thinging/" style="font-size: 10px;">Thinging</a> <a href="/tags/command/" style="font-size: 10px;">command</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/setInterval/" style="font-size: 10px;">setInterval</a> <a href="/tags/setTimeout/" style="font-size: 10px;">setTimeout</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/草稿箱/" style="font-size: 10px;">草稿箱</a>
+      <a href="/tags/ECMAScript/" style="font-size: 10px;">ECMAScript</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Idea/" style="font-size: 10px;">Idea</a> <a href="/tags/Thinging/" style="font-size: 10px;">Thinging</a> <a href="/tags/command/" style="font-size: 10px;">command</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/setInterval/" style="font-size: 10px;">setInterval</a> <a href="/tags/setTimeout/" style="font-size: 10px;">setTimeout</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/草稿箱/" style="font-size: 10px;">草稿箱</a>
     </div>
   </div>
 
@@ -844,6 +892,10 @@ module.exports = {
       <ul>
         
           <li>
+            <a href="/2018/12/31/promise/">promise</a>
+          </li>
+        
+          <li>
             <a href="/2018/12/24/git-command/">git-command</a>
           </li>
         
@@ -857,10 +909,6 @@ module.exports = {
         
           <li>
             <a href="/2018/09/27/定时器/">定时器</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/08/webpack/">webpack使用攻略</a>
           </li>
         
       </ul>
