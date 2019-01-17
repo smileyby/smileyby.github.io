@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>dom-event | Smileyby|星空灬</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="javascript中的事件基础以及核心原理以及项目实战1、事件基础：全新认识事件 1、什么是事件？事件是元素天生具备的行为方式 （和写不写js代码没关系），当我们去操作元素的时候会触发元素很多事件 2、事件绑定给当前元素的某一个事件绑定方法，目的是为了让当前元素某个事件被触发的时候，可以做一些事情 给一个事件绑定方法，目前有两种方式：1、DOM0级事件绑定oBox.onclick=functio">
+<meta name="keywords" content="dom0,dom1,dom-event,event-bubble,冒泡,捕获">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dom-event">
+<meta property="og:url" content="http://smileyby.github.io/2019/01/17/dom-event/index.html">
+<meta property="og:site_name" content="Smileyby|星空灬">
+<meta property="og:description" content="javascript中的事件基础以及核心原理以及项目实战1、事件基础：全新认识事件 1、什么是事件？事件是元素天生具备的行为方式 （和写不写js代码没关系），当我们去操作元素的时候会触发元素很多事件 2、事件绑定给当前元素的某一个事件绑定方法，目的是为了让当前元素某个事件被触发的时候，可以做一些事情 给一个事件绑定方法，目前有两种方式：1、DOM0级事件绑定oBox.onclick=functio">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-17T15:45:32.616Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="dom-event">
+<meta name="twitter:description" content="javascript中的事件基础以及核心原理以及项目实战1、事件基础：全新认识事件 1、什么是事件？事件是元素天生具备的行为方式 （和写不写js代码没关系），当我们去操作元素的时候会触发元素很多事件 2、事件绑定给当前元素的某一个事件绑定方法，目的是为了让当前元素某个事件被触发的时候，可以做一些事情 给一个事件绑定方法，目前有两种方式：1、DOM0级事件绑定oBox.onclick=functio">
+  
+    <link rel="alternate" href="/atom.xml" title="Smileyby|星空灬" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Smileyby|星空灬</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://smileyby.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-dom-event" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/17/dom-event/" class="article-date">
+  <time datetime="2019-01-17T15:45:32.000Z" itemprop="datePublished">2019-01-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      dom-event
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="javascript中的事件基础以及核心原理以及项目实战"><a href="#javascript中的事件基础以及核心原理以及项目实战" class="headerlink" title="javascript中的事件基础以及核心原理以及项目实战"></a>javascript中的事件基础以及核心原理以及项目实战</h2><h3 id="1、事件基础：全新认识事件"><a href="#1、事件基础：全新认识事件" class="headerlink" title="1、事件基础：全新认识事件"></a>1、事件基础：全新认识事件</h3><blockquote>
+<p>1、什么是事件？<br>事件是元素天生具备的行为方式 （和写不写js代码没关系），当我们去操作元素的时候会触发元素很多事件</p>
+<p>2、事件绑定<br>给当前元素的某一个事件绑定方法，目的是为了让当前元素某个事件被触发的时候，可以做一些事情</p>
+<p>给一个事件绑定方法，目前有两种方式：<br>1、DOM0级事件绑定<br><code>oBox.onclick=function(){}</code></p>
+<p>2、DOM2级事件绑定<br><code>oBox.addEventListener(&#39;click&#39;, function(){}, false)</code>标准浏览器<br><code>oBox.attachEvent(&#39;onclick&#39;, function()})</code> IE6-8</p>
+<p>3、常用的事件汇总</p>
+<p><code>【PC端】</code><br>表单元素常用事件行为<br>blur: 失去焦点<br>focus: 获取焦点<br>change: 内容改变<br>select: 被选中</p>
+<p>键盘常用事件<br>keydown: 键盘按下<br>keyup: 键盘抬起<br>keypress: 键盘按下后有keypress（中文输入法状态下，会触发keydown，但是由于内容没有改变，keypress会一直触发）</p>
+<p>鼠标常用事件<br>click: 点击（不是单机）<br>dblclick: 双击（300ms内凉席触发量词点击事件，这样为双击事件）<br>mouseover: 鼠标划过<br>mouseout: 鼠标划开<br>mouseenter: 鼠标进入<br>mouseleave: 鼠标离开<br>mousemove: 鼠标移动<br>mousedown: 鼠标左键按下<br>mouseup: 鼠标左键抬起<br>mousewheel: 鼠标滚轮滚动</p>
+<p>其他事件行为<br>load: 加载成功<br>error: 加载失败<br>scroll: 滚动条滚动时间<br>resize: 大小改变事件 window.onresize当浏览器的窗口大小发生改变触发这个事件</p>
+<p>…</p>
+</blockquote>
+<blockquote>
+<p><code>【移动端】</code><br>移动端键盘一般都是虚拟键盘，虽然部分手机存在keydown/keyup但是兼容不好，所以我们想用键盘事件的时候，使用input事件代替<code>inputBox.oninput = function(){}</code></p>
+<p>移动端没有鼠标，所以鼠标类的事件在移动端兼容性都特别差</p>
+<p>移动端的大部分操作是靠手指完成，移动端独有手指事件<br>单手指事件模型: touchstart、touchmove、touchend、touchcancel（由于意外事件导致触摸事件结束）</p>
+<p>多手指事件模型: gesturestart、gesturechange、gestureend…</p>
+<p>移动端还有很多操作是基于手机硬件完成的，例如手机传感器，手机陀螺仪，手机重力感应器等</p>
+<p>在移动端兼容click事件，PC端的click是点击，但是移动端把click事件当做单击： 移动端使用click事件处理点击操作存在300ms</p>
+</blockquote>
+<h3 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a>事件对象</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; 事件绑定， 给oBox的click事件，基于DOM0级事件绑定的方式，绑定了一个方法；以后当我们手动触发oBox的click的时候，会把绑定的方法执行；</span></span><br><span class="line">oBox.onclick = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; arguments[0] === e; 当方法执行的时候，浏览器默认传递方法的参数值（事件对象）</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>当元素的某一个事件被触发，不仅会把之前绑定的方法执行，而且还会给当前绑定的方法传递一个值（浏览器默认传递），我们把传递的这个值成为<strong>事件对象</strong></p>
+<p>1、因为这个值是个对象类型的值，里面存储了很多的属性和方法<br>2、这个对象中存储的值都是当前操作的一些基本信息，例如：鼠标的位置、触发的行为类型、触发的事件源等</p>
+<p>以上所说的都是针对标准浏览器，IE6-8下不是这样的机制</p>
+<p>IE6-8方法被触发执行的时候，浏览器并没有把事件对象当做值传递给函数（e在IE6-8下是undefined）；但是IE6-8也有事件对象、事件对象需要我们通过window.event单独获取</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; 兼容写法</span></span><br><span class="line">e = e || <span class="built_in">window</span>.event;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>事件对象是为了记录当前操作基本信息的，所以只和本次操作有关：本次操作，页面中不管通过什么方式获取的e或者window.event（也不关在哪获取），他们存储的基本信息是相同的</p>
+</blockquote>
+<p><code>鼠标事件对象 MouseEvent</code></p>
+<blockquote>
+<p>clientX / clientY：当前鼠标触发点距离当前窗口左上角的X/Y轴的坐标<br>pageX / pageY：当前鼠标触发点距离BODY左上角的X/Y轴坐标（页面第一屏左上角），但是IE6-8中没有这两个属性</p>
+<p>type：当前触发的事件类型</p>
+<p>target：事件源（当前鼠标操作的是哪一个元素，那么事件源就是谁），IE6-8下没有tarrget属性，它有的是<code>srcElement</code>这个属性代表事件源</p>
+<p>preventDefault：此方法是为了阻止事件的默认行为，IE6-8下没有这个方法，需要使用<code>e.returnValue = false</code>处理</p>
+<p>stopPropagation：此方法是为了阻止事件的冒泡传播，IE6-8不兼容使用<code>cancelBubble</code>处理</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; pageX/pageY 兼容处理</span></span><br><span class="line">oBox.onclick = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">typeof</span> e === <span class="string">'undefined'</span>)&#123; <span class="comment">//=&gt; IE6-8</span></span><br><span class="line">		e = <span class="built_in">window</span>.event;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//=&gt; pageX / pageY</span></span><br><span class="line">		e.pageX = e.clientX + (<span class="built_in">document</span>.documentElement.scrollLeft || <span class="built_in">document</span>.body.scrollLeft);</span><br><span class="line">		e.pageY = e.clientY + (<span class="built_in">document</span>.documentElement.scrollTop || <span class="built_in">document</span>.body.scrollTop);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//=&gt; target</span></span><br><span class="line">		e.target = e.srcElement;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//=&gt; preventDefault</span></span><br><span class="line">		e.preventDefault = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			e.returnValue = <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">		<span class="comment">//=&gt; stopPropagation</span></span><br><span class="line">		e.stopPropagation = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			e.cancelBubble = <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//=&gt; 下面再使用属性或者方法的时候，完全按照标准浏览器的语法来实现即可（IE6-8下不兼容的属性和方法我们已经重写为兼容的了）</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上面的兼容处理方式属于比较完整的，但是如果项目中我们指向用到一个不兼容的属性，哦们没有必要写这么多，简单处理一下兼容就可以了</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">oBox.onclick = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">	e = e || <span class="built_in">window</span>.event;</span><br><span class="line">	e.target = e.target || e.scrElement;</span><br><span class="line">	e.preventDefault?e.preventDefault:e.returnValue = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>键盘事件对象 KeyboardEvent</code></p>
+<blockquote>
+<p>code：当前键盘的按键，例如：按删除键，存储的是<code>Backspace</code>（IE6-8下没有这个属性），还有一个叫key的属性和code一样，存储的也是按键的名称</p>
+<p>keyCode：存储的是当前键盘对应的码值（大部分按键都有自己的码值）</p>
+<p>which：和keyCode一样对应的也是键盘码的值（不兼容IE6-8）</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">inputBox.onkeyup = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">	e = e || <span class="built_in">window</span>.event;</span><br><span class="line">	<span class="keyword">var</span> code = e.which || e.keyCode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>移动端手指事件对象 TouchEvent</code></p>
+<blockquote>
+<p>touches / changeTouches / targetTouches： 存储的是当前屏幕上每一个手指操作的位置信息（手指离开屏幕没有相关信息，这样touchend事件中我们无法通过touches获取手指信息）</p>
+<p>changedTouches：手指再屏幕上的时候，和touches获取的信息一样，但是它可以记录手指离开屏幕一瞬间所在的位置信息（最常用）</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">TouchEvent</span><br><span class="line">	type: &apos;touchstart&apos;,</span><br><span class="line">	target: 事件源</span><br><span class="line">	touches: </span><br><span class="line">		0: &#123;</span><br><span class="line">			clientX: xxx,</span><br><span class="line">			clientY: xxx,</span><br><span class="line">			pageX: xxx,</span><br><span class="line">			pageY: xxx,</span><br><span class="line">			...</span><br><span class="line">		&#125;</span><br><span class="line">		length: 1</span><br><span class="line">	changeTouches以及targetTouches存储的结构和touches相同</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们知道移动端的click是点击事件（不是pc端的点击效果），存在300ms的延迟，项目中我们需要解决这个延迟：<br>使用touchstart/touchmove/touchend来处理</p>
+</blockquote>
+<p><code>简单处理</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">oBox.ontouchend = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; 不管你是怎么操作的，我只需要知道，手指离开就算点击即可，存在一些问题：</span></span><br><span class="line">	<span class="comment">//=&gt; 手指按住屏幕不松开，事件超过750ms应该算作长按，不是点击，手机离开不应该按照点击处理</span></span><br><span class="line">	<span class="comment">//=&gt; 手指在屏幕上滑动，此时应该算作滑动不是点击，手指离开屏幕不应该算作点击处理</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>详细处理，解决移动端click300ms延迟</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> box = <span class="built_in">document</span>.querySelector(<span class="string">'#box'</span>);</span><br><span class="line">box.ontouchstart = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> point = e.changedTouches[<span class="number">0</span>];</span><br><span class="line">	<span class="comment">//=&gt; 记录当前手指的起始坐标位置(记录在当前元素的自定义属性上，在其他方法中如果我们想要获取直接通过自定义属性获取即可)</span></span><br><span class="line">	<span class="keyword">this</span>.strX = point.pageX;</span><br><span class="line">	<span class="keyword">this</span>.strY = point.pageY;</span><br><span class="line">	<span class="keyword">this</span>.isMove = <span class="literal">false</span>;</span><br><span class="line">	</span><br><span class="line">&#125;;</span><br><span class="line">box.ontouchmove = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> point = e.changedTouches[<span class="number">0</span>];</span><br><span class="line">	<span class="comment">//=&gt; 一般我们手指操作，都会或多或少的发生一些偏移（习惯性偏移），此时不应该算作偏移，只有互动的距离超出一定范围，我们按照滑动处理即可（一般都是把10px作为偏差值）</span></span><br><span class="line">	<span class="keyword">let</span> changeX = point.pageX - <span class="keyword">this</span>.strX,</span><br><span class="line">		changeY= point.pageY - <span class="keyword">this</span>.strY;</span><br><span class="line">	<span class="keyword">this</span>.changeX = changeX;</span><br><span class="line">	<span class="keyword">this</span>.changeY = changeY;</span><br><span class="line">	<span class="keyword">if</span>(<span class="built_in">Math</span>.abs(changeX) &gt; <span class="number">10</span> || <span class="built_in">Math</span>.abs(changeY) &gt; <span class="number">10</span>)&#123;</span><br><span class="line">		<span class="keyword">this</span>.isMove = <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">box.ontouchend = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> point = e.changedTouches[<span class="number">0</span>];</span><br><span class="line">	<span class="comment">//=&gt; 手指离开的时候，验证是否发生滑动</span></span><br><span class="line">	<span class="keyword">if</span>(!<span class="keyword">this</span>.isMove)&#123;</span><br><span class="line">		<span class="comment">//=&gt; 点击操作</span></span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'这是点击操作'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//=&gt; 滑动操作</span></span><br><span class="line">	<span class="keyword">let</span> dir = <span class="literal">null</span>;</span><br><span class="line">	<span class="keyword">if</span>(<span class="built_in">Math</span>.abs(<span class="keyword">this</span>.changeX) &gt; <span class="built_in">Math</span>.abs(<span class="keyword">this</span>.changeY))&#123;</span><br><span class="line">		<span class="comment">//=&gt; 左右滑动</span></span><br><span class="line">		dir = <span class="keyword">this</span>.changeX &lt; <span class="number">0</span> ? <span class="string">'Left'</span> : <span class="string">'Right'</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="comment">//=&gt; 上下滑动</span></span><br><span class="line">		dir = <span class="keyword">this</span>.changeY &lt; <span class="number">0</span> ? <span class="string">'Top'</span> : <span class="string">'Down'</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">`当前手指滑动的方向为：<span class="subst">$&#123;dir&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在移动端开发中，我们需要的一些操作（例如：点击，单机，双击，长按，滑动[四个方向]…）都是基于内置原生的touchstart/touchmove/touchend事件一点点模拟出来的效果，没有现成的事件<br>而多手指操作（例如：旋转、缩放…）都是基于gesture事件模型模拟出来的效果</p>
+<p>目前市场上有很多成熟的类库或插件，专门为大家把常用的操作进行了封装，我们直接调取使用即可</p>
+<p>1、fastclick.js 目的就是为了解决移动端click事件300ms延迟问题（如果我们的移动端使用了click我们只需要把这个js导入配置一下即可）<br>2、百度云touch手势事件库<br>3、hammer.js<br>4、zepto.js 提供了移动端事件操作的板块，也是目前市场上使用率最高的（小型JQ）</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'.box'</span>).tap(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; 点击	</span></span><br><span class="line">&#125;);</span><br><span class="line">$(<span class="string">'.box'</span>).singleTap(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; 单击	</span></span><br><span class="line">&#125;);</span><br><span class="line">$(<span class="string">'.box'</span>).doubleTap(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; 双击	</span></span><br><span class="line">&#125;);</span><br><span class="line">$(<span class="string">'.box'</span>).longTap(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; 长按	</span></span><br><span class="line">&#125;);</span><br><span class="line">$(<span class="string">'.box'</span>).swipe(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; 滑动 swipeLeft/swipeRight/swipeUp/swipeDown	</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//=&gt; .pinchIn(function()&#123;&#125;) 缩小</span></span><br><span class="line"><span class="comment">//=&gt; .pinchOut(function()&#123;&#125;) 放大</span></span><br></pre></td></tr></table></figure>
+<h3 id="A标签的默认行为以及阻止"><a href="#A标签的默认行为以及阻止" class="headerlink" title="A标签的默认行为以及阻止"></a>A标签的默认行为以及阻止</h3><blockquote>
+<p>A标签都有那些默认行为<br>1、超链接：点击A标签可以实现页面的跳转<br>2、锚点定位：通过hash（哈希）值定位到当前页面指定ID元素的位置</p>
+<p>真实项目中我们项用A标签做一个普通的按钮（优势：它的hover样式是兼容所有浏览器的）</p>
+</blockquote>
+<blockquote>
+<p>锚点定位（哈希定位）：定位到当前页面中和hash值（#xxx）相同的元素位置<br>1、首先在URL地址栏末尾追加一个hash值<br>2、如果地址栏当中有hash值，浏览器除了页面渲染外，在渲染完成后会默认定位到指定hash值元素位置</p>
+</blockquote>
+<p><code>阻止A标签的默认行为</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//=&gt; 在html中阻止默认行为（最常用）</span><br><span class="line">&lt;a href=&quot;javascript:;&quot;&gt;&lt;/a&gt;</span><br><span class="line">&lt;a href=&quot;javascript:void 0;&quot;&gt;&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; 结构当中有a标签 &lt;a href="www.baidu.com" id="link"&gt;&lt;/a&gt;</span></span><br><span class="line"><span class="comment">//=&gt; 1、当点击会触发click事件</span></span><br><span class="line"><span class="comment">//=&gt; 2、其次按照href中的地址进行页面跳转</span></span><br><span class="line">link.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">//=&gt; 在函数中返回一个false（只能是false）也可以阻止默认行为</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; 通过事件对象阻止默认行为</span></span><br><span class="line">link.onclick = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">	e = e || <span class="built_in">window</span>.event;</span><br><span class="line">	e.preventDefault?e.preventDefault():e.returnValue=<span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="事件的传播机制"><a href="#事件的传播机制" class="headerlink" title="事件的传播机制"></a>事件的传播机制</h3><blockquote>
+<p>事件传播有三个阶段<br>Event.prototype</p>
+<ul>
+<li>0 NONE: 默认值，不代表任何的意思</li>
+<li>1 CAPTURING_PHASE: 捕获阶段</li>
+<li>2 AT_TARGET: 目标阶段（当前事件源）</li>
+<li>3 BUBBLING_PHASE: 冒泡阶段</li>
+</ul>
+<p>点击某个元素，触发click事件<br>浏览器在执行元素上绑定的click事件之前<br>1、从整个页面的document开始向内查找，把元素的祖先元素遍历一遍（为冒泡阶段的传播途径做准备）<br>2、接下来找到目标元素（找到事件源）把事件源上绑定的方法执行（没有绑定方法就不执行）<br>3、不仅触发了当前事件源的点击行为，而且浏览器会按照第一阶段规划的传播路线，从内向外把祖先元素的click行为依次触发</p>
+</blockquote>
+<p><code>当前元素的某个事件行为被触发，它所有的祖先元素（一直到document）的相关事件行为也会被触发（顺序是从内向外），如果组件元素的这个行为绑定了方法，绑定的方法也会被触发，我们把事件的这种传播机制叫做**冒泡传播**</code>  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xxx.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;, <span class="literal">true</span>); <span class="comment">//=&gt; 当前绑定的方法会在捕获阶段触发</span></span><br><span class="line"></span><br><span class="line">xxx.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;, <span class="literal">false</span>); <span class="comment">//=&gt; 当前绑定的方法是在目标阶段或者冒泡阶段才会被触发执行（等价于dom0事件绑定）</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://smileyby.github.io/2019/01/17/dom-event/" data-id="cjr0sejwr0000sov625j8wvrn" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom-event/">dom-event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom0/">dom0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom1/">dom1</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event-bubble/">event-bubble</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/冒泡/">冒泡</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/捕获/">捕获</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/12/31/promise/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">promise</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Idea/">Idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/command/">command</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom-event/">dom-event</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom0/">dom0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom1/">dom1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event-bubble/">event-bubble</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/promise/">promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/setTimeout/">setTimeout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/冒泡/">冒泡</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/捕获/">捕获</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ECMAScript/" style="font-size: 10px;">ECMAScript</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Idea/" style="font-size: 10px;">Idea</a> <a href="/tags/Thinging/" style="font-size: 10px;">Thinging</a> <a href="/tags/command/" style="font-size: 10px;">command</a> <a href="/tags/dom-event/" style="font-size: 10px;">dom-event</a> <a href="/tags/dom0/" style="font-size: 10px;">dom0</a> <a href="/tags/dom1/" style="font-size: 10px;">dom1</a> <a href="/tags/event-bubble/" style="font-size: 10px;">event-bubble</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/setInterval/" style="font-size: 10px;">setInterval</a> <a href="/tags/setTimeout/" style="font-size: 10px;">setTimeout</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/冒泡/" style="font-size: 10px;">冒泡</a> <a href="/tags/捕获/" style="font-size: 10px;">捕获</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/草稿箱/" style="font-size: 10px;">草稿箱</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/01/17/dom-event/">dom-event</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/31/promise/">promise</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/24/git-command/">git-command</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/29/ES6-Review/">ES6-Review</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/18/jQuerySourceCode/">jQuerySourceCode</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 yuby<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
