@@ -176,11 +176,45 @@
 </blockquote>
 <p><code>当前元素的某个事件行为被触发，它所有的祖先元素（一直到document）的相关事件行为也会被触发（顺序是从内向外），如果组件元素的这个行为绑定了方法，绑定的方法也会被触发，我们把事件的这种传播机制叫做**冒泡传播**</code>  </p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xxx.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;, <span class="literal">true</span>); <span class="comment">//=&gt; 当前绑定的方法会在捕获阶段触发</span></span><br><span class="line"></span><br><span class="line">xxx.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;, <span class="literal">false</span>); <span class="comment">//=&gt; 当前绑定的方法是在目标阶段或者冒泡阶段才会被触发执行（等价于dom0事件绑定）</span></span><br></pre></td></tr></table></figure>
+<p><strong><code>mouseover和mouseenter的区别</code></strong></p>
+<blockquote>
+<p>mouseover：鼠标滑到元素上<br>mouseenter：鼠标进入元素里面</p>
+<p>【1】<br>mouseover存在事件的冒泡传播机制，而mouseenter浏览器把它的事件传播机制阻止了</p>
+<p>【2】<br>鼠标从父元素进入到子元素<br>mouseover：先触发父元素的mouseout（因为鼠标已经不再父元素上了，mouseover本意是鼠标在元素上菜算触发），在触发子元素的mouseover（由于冒泡传播机制，导致父元素的mouseover也被重新触发了）</p>
+<p>mouseenter：进入，从大盒子进入到小盒子，没有触发大盒子的mouseleave事件，但是也出发了小盒子的mouseenter，浏览器阻止了它的冒泡传播，所大盒子的mouseenter不会被触发</p>
+</blockquote>
+<h3 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h3><blockquote>
+<p>利用事件的冒泡传播机制完成（mouseenteru存在委托机制，因为它不存在冒泡传播）</p>
+<p>一个容器中的很多元素的同一个事件都要绑定方法，此时我们没有必要在获取所有元素，一个个的绑定方法，我们只需要给最外层元素的这个事件绑定一个方法，这样不管里面哪一个元素的这个事件行为被触发都会利用冒泡传播机制，把最外层容器绑定的那个方法执行，在方法执行的时候，我们可以根据事件源判断出操作的是那个元素，从而做不同的事件（使用事件委托这样完成的操作比一个个的单独事件绑定性能提高50%左右）</p>
+</blockquote>
+<h2 id="DOM2级别事件绑定原理以及兼容处理"><a href="#DOM2级别事件绑定原理以及兼容处理" class="headerlink" title="DOM2级别事件绑定原理以及兼容处理"></a>DOM2级别事件绑定原理以及兼容处理</h2><h3 id="初步了解JS中事件绑定的方式"><a href="#初步了解JS中事件绑定的方式" class="headerlink" title="初步了解JS中事件绑定的方式"></a>初步了解JS中事件绑定的方式</h3><blockquote>
+<p>DOM0事件绑定<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">oBox.onclick = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; this:oBox</span></span><br><span class="line">	e = e || <span class="built_in">window</span>.event;</span><br><span class="line">&#125;</span><br><span class="line">oBox.onmouseenter = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>DOM2事件绑定</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; 标准浏览器中</span></span><br><span class="line">oBox.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; this:oBox</span></span><br><span class="line">	</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br><span class="line"><span class="comment">//=&gt; false 让当前绑定的方法在冒泡阶段执行（一般都用false）</span></span><br><span class="line"><span class="comment">//=&gt; true 让当前绑定的方法在捕获阶段执行（一般不用）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; IE6-8</span></span><br><span class="line">oBox.attachEvent(<span class="string">'onclick'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; 此时绑定的方法都是在冒泡传播阶段执行</span></span><br><span class="line">	<span class="comment">//=&gt; e：事件对象，不同于DOM0事件绑定，使用attachEvent绑定方法，当事件触发方法执行的时候，浏览器也会把事件对象做实参传递给函数（传递的值和window.event是相同的），所以IE6-8下获取的事件对象对于：pageX/pageY/target...依然没有，还是存在兼容性（事件对象兼容处理在DOM2中依然存在）</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>有DOM0和DOM2事件绑定，那么DOM1事件绑定呢？<br>因为在DOM第一代升级迭代的时候，DOM元素的事件绑定方式沿用的是DOM0代绑定的方式，在此版本DOM中，事件绑定没有升级</p>
+</blockquote>
+<h3 id="DOM0事件绑定和DOM2事件绑定的区别"><a href="#DOM0事件绑定和DOM2事件绑定的区别" class="headerlink" title="DOM0事件绑定和DOM2事件绑定的区别"></a>DOM0事件绑定和DOM2事件绑定的区别</h3><blockquote>
+<p><strong><code>DOM0事件绑定的原理</code></strong><br>1、给当前元素对象的某一个私有属性(onxxx)赋值的过程（之前属性默认值是null，如果我们给赋值一个函数，相当于绑定了一个方法）</p>
+<p>2、当我们赋值成功（赋值一个函数），此时浏览器会把DOM元素和赋值的函数建立关联，以及建立DOM元素行为操作的监听，当某一个行为被用户触发，浏览器会把相关行为赋值的函数执行</p>
+<p>特点：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; 1、只有DOM元素拥有这个私有属性（onxxx事件私有属性），我们赋值的方法才叫事件绑定，否则属于给当前元素设置一个自定义属性而已</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.body.onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;; <span class="comment">//=&gt; 事件绑定</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 手动点击页面中的body触发方法执行</span></span><br><span class="line"><span class="comment">* document.body.onclick();</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.body.onsmile=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;; <span class="comment">//=&gt; 自定义属性</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 只能document.body.onsmile() 这样执行</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; 2、移除事件绑定的时候，我们只需要赋值为null即可</span></span><br><span class="line"><span class="built_in">document</span>.body.onclick=<span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; 3、在DOM0事件绑定中，只能给当前元素的某一个事件行为（某一个时间私有属性）绑定一个方法，绑定多个方法，最后一次绑定的会把之前绑定的都替换掉</span></span><br><span class="line"><span class="built_in">document</span>.body.onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.body.onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; 点击BODY只能输出2，因为第二次赋值的函数把第一个赋值的函数给替换了</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong><code>DOM2事件绑定的原理</code></strong><br>1、我们DOM2事件绑定使用的addEventListener/attachEvent都是在EventTarget这个内置类的原型上定义的，我们调取使用的时候，首先通过原型链找到这个方法，然后执行完成事件绑定的效果</p>
+<p>2、浏览器首先会给当前元素的某一个时间行为开辟一个事件池（时间队列）[其实是浏览器有一个统一的事件池，我们每个元素的某个行为绑定的方法都放在这个事件池中，只是通过相关的标识来区分的]</p>
+<p>3、当元素的某一个行为触发，浏览器会到事件池中，把当前存放在事件池中的所有方法，依次按照存放的先后顺序执行</p>
+<p>特点：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; 1、所有DOM0支持的事件行为，DOM2都可以使用，不仅如此，DOM2还支持一些DOM0没有的事件行为</span></span><br><span class="line">DOMContentLoaded...</span><br><span class="line"><span class="built_in">document</span>.body.DOMContentLoaded === <span class="literal">undefined</span>; <span class="comment">//=&gt; DOM0中没有这个属性</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'DOMContentLoaded'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; 标准浏览器中兼容这个事件；当浏览器中的dom结构加载完成，就会触发这个事件（也会把绑定的方法执行）</span></span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.attachEvent(<span class="string">'onDOMContentLoaded'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; IE6-8中的DOM2也不支持这个事件</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; 2、DOM2中可以个当前元素的某一个事件行为绑定多个不同的方法（因为绑定的所有方法都存放在事件池中）</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn3</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">3</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'click'</span>, fn1, <span class="literal">false</span>);</span><br><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'click'</span>, fn3, <span class="literal">false</span>);</span><br><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'click'</span>, fn2, <span class="literal">false</span>);</span><br><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'click'</span>, fn3, <span class="literal">false</span>); <span class="comment">//=&gt; 本次向事件池中存储的时候，发现fn3已经在事件池中存在了，不在存储了</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; 3、DOM2事件绑定的移除比较麻烦一些，需要和绑定的时候：事件类型、绑定方法、以及传播阶段，三个完全一致才可以移除掉</span></span><br><span class="line"><span class="built_in">document</span>.body.removeEventListener(<span class="string">'click'</span>, fn2, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.body.removeEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; DOM2事件绑定需要我们养成“未雨绸缪”的习惯，绑定方法的时候尽量不用你明函数，为后期可能会把方法在事件池中移除掉做准备</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/01/17/dom-event/" data-id="cjr0sejwr0000sov625j8wvrn" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2019/01/17/dom-event/" data-id="cjs38wwhl0000qgv6ybsppdw1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom-event/">dom-event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom0/">dom0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom1/">dom1</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event-bubble/">event-bubble</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/冒泡/">冒泡</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/捕获/">捕获</a></li></ul>
@@ -230,7 +264,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/12/31/promise/" data-id="cjr0sejxf000esov6rd2vjuvv" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/12/31/promise/" data-id="cjs38wwhz0003qgv6l0y9hhkm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/promise/">promise</a></li></ul>
@@ -295,7 +329,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/12/24/git-command/" data-id="cjr0sejyj0013sov60cezhb2g" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/12/24/git-command/" data-id="cjs38wwiv0012qgv6q0dnxs04" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/command/">command</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
@@ -491,7 +525,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/11/29/ES6-Review/" data-id="cjr0sejxn000msov6txvm9zqo" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/11/29/ES6-Review/" data-id="cjs38wwi50008qgv6vfhv0tkw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -623,7 +657,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/10/18/jQuerySourceCode/" data-id="cjr0sejxk000isov6qb9q6w7y" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/10/18/jQuerySourceCode/" data-id="cjs38wwi40007qgv68cx94umi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Idea/">Idea</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
@@ -715,7 +749,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/09/27/定时器/" data-id="cjr0sejyh0012sov6f5s6pqhl" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/09/27/定时器/" data-id="cjs38wwj30017qgv6rmnlczch" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setTimeout/">setTimeout</a></li></ul>
@@ -844,7 +878,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/09/08/webpack/" data-id="cjr0sejxl000jsov66nnnr73x" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/09/08/webpack/" data-id="cjs38wwil000zqgv63uoynede" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
@@ -883,7 +917,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/smileyby2/" data-id="cjr0sejxj000hsov6jedkota1" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby2/" data-id="cjs38wwi30005qgv6qnixuc5u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
@@ -922,7 +956,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/smileyby/" data-id="cjr0sejxg000fsov62cyaqtwi" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby/" data-id="cjs38wwi10004qgv635kseww5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/测试/">测试</a></li></ul>
@@ -969,7 +1003,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/hello-world/" data-id="cjr0sejwx0001sov68llt4vh5" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/hello-world/" data-id="cjs38wwht0001qgv6qffmvxkl" class="article-share-link">Share</a>
       
       
     </footer>
