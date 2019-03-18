@@ -126,11 +126,12 @@
 <p>JQ中提供了实现发布订阅设计模式的方法</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> $plan = $.Callbacks(); <span class="comment">//=&gt; 创建一个计划表</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">$plan.add(fn); <span class="comment">//=&gt; 向计划表中添加方法</span></span><br><span class="line">$plan.remove(fn); <span class="comment">//=&gt; 从计划表中移除方法</span></span><br><span class="line">$plan.fire(<span class="number">100</span>, <span class="number">200</span>); <span class="comment">//=&gt; 通知计划表中所有的方法按照顺序执行:100 200分别作为实参传递给每一个需要执行的方法</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">~<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; Each：遍历数组中每一项的内容</span></span><br><span class="line">	<span class="keyword">let</span> each = <span class="function"><span class="keyword">function</span> (<span class="params">ary, callback</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; ary.length; i += <span class="number">1</span>)  &#123;</span><br><span class="line">			<span class="keyword">let</span> result = callback &amp;&amp; callback(ary[i], i);</span><br><span class="line">			<span class="keyword">if</span> (result === <span class="literal">false</span>) &#123;</span><br><span class="line">				<span class="comment">//=&gt; 如果执行的回调函数中返回false，代表结束当前正在便利的操作（仿照JQ中的each语法实现）</span></span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="comment">//=&gt; 如果回调函数中返回的是DEL,代表当前这一项在回调函数中被删除了，为了防止数组塌陷问题</span></span><br><span class="line">			<span class="keyword">if</span> (result === <span class="string">'DEL'</span>) i--;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Plan</span> </span>&#123;</span><br><span class="line">		<span class="keyword">constructor</span>() &#123;</span><br><span class="line">			<span class="keyword">this</span>.planList = []; <span class="comment">//=&gt; 存放方法的容器</span></span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//=&gt; 挂在到plan原型上的方法</span></span><br><span class="line">		add(fn) &#123;</span><br><span class="line">			<span class="keyword">let</span> planList = <span class="keyword">this</span>.planList,</span><br><span class="line">				flag = <span class="literal">true</span>;</span><br><span class="line">			</span><br><span class="line">			<span class="comment">//=&gt; 去重处理</span></span><br><span class="line">			each(planList, <span class="function"><span class="keyword">function</span>(<span class="params">item, index</span>)</span>&#123;</span><br><span class="line">				<span class="keyword">if</span> (item === fn) &#123;</span><br><span class="line">					flag = <span class="literal">false</span>;</span><br><span class="line">					<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;)</span><br><span class="line">			flag ? planList.push(fn) : <span class="literal">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		remove(fn) &#123;</span><br><span class="line">			<span class="keyword">let</span> planList = <span class="keyword">this</span>.planList;</span><br><span class="line">			each(planList, <span class="function"><span class="keyword">function</span>(<span class="params">item, index</span>)</span>&#123;</span><br><span class="line">				<span class="keyword">if</span> (item === fn) &#123;</span><br><span class="line">					<span class="comment">//planList.splice(index, 1); //=&gt; 这样会引起数组塌陷</span></span><br><span class="line">					planLis[index] = <span class="literal">null</span>;</span><br><span class="line">					<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		fire(...arg) &#123;</span><br><span class="line">			<span class="keyword">let</span> planList = <span class="keyword">this</span>.planList;</span><br><span class="line">			each(planList, <span class="function"><span class="keyword">function</span>(<span class="params">item, index</span>)</span>&#123;</span><br><span class="line">				<span class="keyword">if</span> (item === <span class="literal">null</span>) &#123;</span><br><span class="line">					planList.splice(index, <span class="number">1</span>);</span><br><span class="line">					<span class="keyword">return</span> <span class="string">'DEL'</span>; </span><br><span class="line">				&#125;</span><br><span class="line">				item(...arg);</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">		<span class="comment">//=&gt; 挂在到Plan这个对象上的属性和方法</span></span><br><span class="line">		<span class="keyword">static</span> Callbacks() &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">new</span> Plan();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">window</span>.$ = <span class="built_in">window</span>.Plan = Plan;</span><br><span class="line">&#125;();</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> $plan = Plan.Callbacks();</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/03/08/design-pattern-md/" data-id="cjtbi056e0000lgv6h896n859" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2019/03/08/design-pattern-md/" data-id="cjteg3v6t0000fov6bxk6qtol" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design-pattern/">design-pattern</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
@@ -338,7 +339,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/01/17/dom-event/" data-id="cjtbi0581000klgv6ktjxpn0w" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2019/01/17/dom-event/" data-id="cjteg3v7n000bfov6wo2ue9pd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom-event/">dom-event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom0/">dom0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom1/">dom1</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event-bubble/">event-bubble</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/冒泡/">冒泡</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/捕获/">捕获</a></li></ul>
@@ -388,7 +389,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/12/31/promise/" data-id="cjtbi0583000llgv64uww8vou" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/12/31/promise/" data-id="cjteg3v8c0016fov6m0evtw66" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/promise/">promise</a></li></ul>
@@ -453,7 +454,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/12/24/git-command/" data-id="cjtbi0585000nlgv65i5fhns4" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/12/24/git-command/" data-id="cjteg3v7p000dfov61glmcplg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/command/">command</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
@@ -649,7 +650,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/11/29/ES6-Review/" data-id="cjtbi057v000glgv6qsnm10xk" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/11/29/ES6-Review/" data-id="cjteg3v7h0006fov68157y3gv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -781,7 +782,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/10/18/jQuerySourceCode/" data-id="cjtbi057e0006lgv6pivgjrde" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/10/18/jQuerySourceCode/" data-id="cjteg3v7i0007fov6v04h8vik" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Idea/">Idea</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
@@ -873,7 +874,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/09/27/定时器/" data-id="cjtbi058o001clgv6qj11hw3r" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/09/27/定时器/" data-id="cjteg3v8r001cfov6cqq1jx8u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setTimeout/">setTimeout</a></li></ul>
@@ -1002,7 +1003,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/09/08/webpack/" data-id="cjtbi057z000jlgv65lul7ln1" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/09/08/webpack/" data-id="cjteg3v8e0017fov6ib44zd43" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
@@ -1041,7 +1042,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/smileyby2/" data-id="cjtbi057x000hlgv60hj2k4la" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby2/" data-id="cjteg3v7m000afov6mo2kkx2l" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
@@ -1080,7 +1081,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/smileyby/" data-id="cjtbi057f0007lgv6e3z0ki55" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby/" data-id="cjteg3v7k0009fov67665fl65" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/测试/">测试</a></li></ul>
