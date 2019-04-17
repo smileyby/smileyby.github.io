@@ -146,11 +146,15 @@
 <p>H5针对表单元素升级的部分，在IE低版本（有的IE9和IE10都不兼容），而且没有办法处理兼容，所以我们一般移动端使用这些新特性，PC端还是延续传统的操作办法</p>
 <p>H5中的表单验证（内置规则不是特别好），所以真实项目中表单验证依然延续传统的正则验证完成</p>
 </blockquote>
-
+<p><strong><code>placeholder</code></strong></p>
+<blockquote>
+<p>整个IE浏览器对placeholder兼容性都不好<br>1、IE10+虽然兼容，但是文本框获取焦点后，提示就消失了<br>2、IE9及以下不兼容这个属性</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">~<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; 获取页面当中所有具备data-place自定义属性的input</span></span><br><span class="line">	<span class="keyword">let</span> inputList = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'input'</span>),</span><br><span class="line">		inputAry = [];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; inputList.length; i += <span class="number">1</span>) &#123;</span><br><span class="line">		<span class="keyword">let</span> item = inputList[i];</span><br><span class="line">		item.getAttribute(<span class="string">'data-place'</span>) !== <span class="literal">null</span> ? inputAry.push(item) : <span class="literal">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//=&gt; 非IE浏览器中，我们只需要把自定义属性值存放在placeholder属性中即可，浏览器可以自己根据这个属性做好提示工作</span></span><br><span class="line">	<span class="keyword">if</span> (<span class="regexp">/(MSIE|Trident)/i</span>.test(navigator.userAgent)) &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">var</span> k = <span class="number">0</span>; k &lt; inputAry.length; k += <span class="number">1</span>) &#123;</span><br><span class="line">			<span class="keyword">var</span> itemInp = inputAry[k];</span><br><span class="line">			inputAry[k].placeholder = itemInp.getAttribute(<span class="string">'data-place'</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//=&gt; IE浏览器（包含IE EDGE）不用内置的placeholder，采用我们自己设定的方式处理</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> z = <span class="number">0</span>; z &lt; inputAry.length; z += <span class="number">1</span>) &#123;</span><br><span class="line">		<span class="keyword">var</span> inputItem = inputAry[z],</span><br><span class="line">			inputText = inputItem.getAttribute(<span class="string">'data-place'</span>);</span><br><span class="line">		inputItem.placeholder = <span class="string">''</span>;</span><br><span class="line">	</span><br><span class="line">		<span class="comment">/*</span></span><br><span class="line"><span class="comment">		 * 1、心创建一个span，把其存放在input元素的末尾（作为input的兄弟元素）</span></span><br><span class="line"><span class="comment">		 * 2、给span设置一定的样式（相对于父元素定位，和input的基础样式类似）</span></span><br><span class="line"><span class="comment">		 * 3、input或者span都要绑定相关事件行为：完成和内置placeholer相同的效果</span></span><br><span class="line"><span class="comment">		 *</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">var</span> spanTip = <span class="built_in">document</span>.createElement(<span class="string">'span'</span>);</span><br><span class="line">		spanTip.innerHTML = inputText;</span><br><span class="line">		spanTip.className = <span class="string">'placeLike'</span>;</span><br><span class="line">		inputItem.parentNode.appendChild(spanTip);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//=&gt; 把每一个input和span的索引，并且把spanTip作为属性值存储在input的自定义属性上，方便后期获取使用</span></span><br><span class="line">		inputItem.index = spanTip.index = z;</span><br><span class="line">		inputItem.spanTip = spanTip;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//=&gt; span的点击行为：点击span让input获取对应光标</span></span><br><span class="line">		spanTip.onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">			inputAry[<span class="keyword">this</span>.index].focus();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//=&gt; 控制input的输入行为（建议使用DOM2事件绑定，防止后期再其他地方也需要通过keyup或者keydown行为处理其他的事情）</span></span><br><span class="line">		inputItem.onkeydown = inputItem.onkeyup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			<span class="keyword">var</span> value = <span class="keyword">this</span>.value,</span><br><span class="line">				spanTip = <span class="keyword">this</span>.spanTip;</span><br><span class="line">			spanTip.style.display = value.length &gt; <span class="number">0</span> ? <span class="string">'none'</span>:<span class="string">'block'</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/03/31/mobile/" data-id="cju1bvgqm00065sv6nyubg0wu" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2019/03/31/mobile/" data-id="cjulcm5vm000ia0v67vrwpdgs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css3/">css3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hybird/">hybird</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/less/">less</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">mobile</a></li></ul>
@@ -233,7 +237,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/03/08/design-pattern-md/" data-id="cju1bvgq300005sv6eb2l4jeo" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2019/03/08/design-pattern-md/" data-id="cjulcm5u70000a0v6htgfw6ga" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design-pattern/">design-pattern</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
@@ -441,7 +445,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/01/17/dom-event/" data-id="cju1bvgqt000c5sv6240ooezx" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2019/01/17/dom-event/" data-id="cjulcm5uy0001a0v6h69ms1mq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom-event/">dom-event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom0/">dom0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom1/">dom1</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event-bubble/">event-bubble</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/冒泡/">冒泡</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/捕获/">捕获</a></li></ul>
@@ -491,7 +495,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/12/31/promise/" data-id="cju1bvgro001f5sv62cejt04o" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/12/31/promise/" data-id="cjulcm5vx000ra0v6yhltwx3w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/promise/">promise</a></li></ul>
@@ -556,7 +560,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/12/24/git-command/" data-id="cju1bvgrl001e5sv6xcqz1857" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/12/24/git-command/" data-id="cjulcm5xh001pa0v6s58hrq3c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/command/">command</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
@@ -752,7 +756,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/11/29/ES6-Review/" data-id="cju1bvgqv000e5sv631fljwjk" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/11/29/ES6-Review/" data-id="cjulcm5vr000ma0v6680w352s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -884,7 +888,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/10/18/jQuerySourceCode/" data-id="cju1bvgqn00075sv6hv9ubpa6" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/10/18/jQuerySourceCode/" data-id="cjulcm5vu000oa0v629i4v3bk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Idea/">Idea</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
@@ -976,7 +980,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/09/27/定时器/" data-id="cju1bvgse001p5sv6k0h49gdq" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/09/27/定时器/" data-id="cjulcm5wy001ha0v6bw3ae5mu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setTimeout/">setTimeout</a></li></ul>
@@ -1105,7 +1109,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/09/08/webpack/" data-id="cju1bvgs6001m5sv6kdbjzugu" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/09/08/webpack/" data-id="cjulcm5xb001ma0v6mb4u160c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
@@ -1144,7 +1148,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/smileyby2/" data-id="cju1bvgqr000b5sv6wtgvk0e5" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby2/" data-id="cjulcm5vt000na0v68fe0vzy9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
