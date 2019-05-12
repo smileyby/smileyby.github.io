@@ -62,6 +62,174 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-webpack" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/08/webpack/" class="article-date">
+  <time datetime="2018-09-08T15:58:44.000Z" itemprop="datePublished">2018-09-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/08/webpack/">webpack使用攻略</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="安装相关包"><a href="#安装相关包" class="headerlink" title="安装相关包"></a>安装相关包</h2><blockquote>
+<p>tips:<br>网络不好，请使用淘宝镜像安装</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<h3 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h3><h4 id="webpack模块"><a href="#webpack模块" class="headerlink" title="webpack模块"></a>webpack模块</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack webpack-cli webpack-dev-server --save-dev</span><br></pre></td></tr></table></figure>
+<h4 id="JavaScript模块"><a href="#JavaScript模块" class="headerlink" title="JavaScript模块"></a>JavaScript模块</h4><blockquote>
+<p>tips:<br>这里由于版本兼容性问题，babel-loader我安装的版本是7.1.5</p>
+</blockquote>
+<ul>
+<li>babel-core 和 babel-loader 充当的就是翻译官的角色，用来解析代码中的js代码</li>
+<li>babel-preset-env 和 babel-preset-stage-0 是告诉翻译官，要把js解析成 es5 还是 es7  </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install babel-core babel-loader@7.1.5 babel-preset-env babel-preset-stage-0 --save-dev</span><br></pre></td></tr></table></figure>
+<h4 id="css模块"><a href="#css模块" class="headerlink" title="css模块"></a>css模块</h4><blockquote>
+<p>tips: 要解析什么类型的css文件就安装对应的loader即可</p>
+</blockquote>
+<ul>
+<li>css-loader 解析css代码</li>
+<li>style-loader 将css解析的代码以style标签引入到页面中</li>
+<li>less 和 less-loader 解析less </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install style-loader css-loader less less-loader --save-dev</span><br></pre></td></tr></table></figure>
+<h4 id="图片模块"><a href="#图片模块" class="headerlink" title="图片模块"></a>图片模块</h4><blockquote>
+<p>tips: url-loader 依赖于 file-loader<br>所以两个都需要安装</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install file-loader url-loader --save-dev</span><br></pre></td></tr></table></figure>
+<h4 id="html模块"><a href="#html模块" class="headerlink" title="html模块"></a>html模块</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">npm install html-webpack-plugin --save-dev</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">#### vue模块</span><br><span class="line"></span><br><span class="line">&gt; tips:</span><br><span class="line">&gt; 这里我是用vue写页面，所以安装vue相关依赖</span><br></pre></td></tr></table></figure>
+<p>npm install vue vue-cli vue-loader vue-template-compiler<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">### 配置文件</span><br><span class="line"></span><br><span class="line">#### webpack.config.js</span><br></pre></td></tr></table></figure></p>
+<pre><code>let path = require(&apos;path&apos;);
+let HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;);
+let VueLoaderPlugin = require(&apos;vue-loader/lib/plugin&apos;);
+module.exports = {
+  mode: &apos;development&apos;,
+  entry: &apos;./src/main.js&apos;,
+  output: {
+      filename: &apos;bundle.js&apos;,
+      path: path.resolve(&apos;./dist&apos;)
+  },
+  module: {
+      rules: [
+          {test: /\.js$/, use: &apos;babel-loader&apos;, exclude: /node_module/},
+          {test: /\.css$/, use: [&apos;style-loader&apos;, &apos;css-loader&apos;]},
+          {test: /\.less$/, use: [&apos;style-loader&apos;, &apos;css-loader&apos;, &apos;less-loader&apos;]},
+          {test: /\.(jpg|png|gif|jpeg)/, use: &apos;url-loader?limit=8192&apos;},
+          {test:/\.vue$/, use: &apos;vue-loader&apos;}
+      ]
+  },
+  plugins: [
+      new HtmlWebpackPlugin({
+          template: &apos;./src/index.html&apos;
+      }),
+      new VueLoaderPlugin()
+  ]
+};
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### npm init 生成的package.json文件</span><br></pre></td></tr></table></figure>
+<pre><code>{
+  &quot;name&quot;: &quot;webpack-vue&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;build&quot;: &quot;webpack&quot;,
+    &quot;dev&quot;: &quot;webpack-dev-server&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;devDependencies&quot;: {
+    &quot;babel-core&quot;: &quot;^6.26.3&quot;,
+    &quot;babel-loader&quot;: &quot;^7.1.5&quot;,
+    &quot;babel-preset-env&quot;: &quot;^1.7.0&quot;,
+    &quot;babel-preset-stage-0&quot;: &quot;^6.24.1&quot;,
+    &quot;css-loader&quot;: &quot;^1.0.0&quot;,
+    &quot;file-loader&quot;: &quot;^2.0.0&quot;,
+    &quot;html-webpack-plugin&quot;: &quot;^3.2.0&quot;,
+    &quot;less&quot;: &quot;^3.8.1&quot;,
+    &quot;less-loader&quot;: &quot;^4.1.0&quot;,
+    &quot;style-loader&quot;: &quot;^0.23.0&quot;,
+    &quot;url-loader&quot;: &quot;^1.1.1&quot;,
+    &quot;vue-loader&quot;: &quot;^15.4.1&quot;,
+    &quot;vue-template-compiler&quot;: &quot;^2.5.17&quot;,
+    &quot;webpack&quot;: &quot;^4.17.2&quot;,
+    &quot;webpack-cli&quot;: &quot;^3.1.0&quot;,
+    &quot;webpack-dev-server&quot;: &quot;^3.1.7&quot;
+  }
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### js配置 .babelrc文件</span><br></pre></td></tr></table></figure>
+<pre><code>{
+  &quot;presets&quot;: [&quot;env&quot;, &quot;stage-0&quot;]
+}
+</code></pre><p><code>`</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://smileyby.github.io/2018/09/08/webpack/" data-id="cjvkr1keu001318v613y98r72" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-smileyby2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/31/smileyby2/" class="article-date">
+  <time datetime="2018-08-31T04:09:53.000Z" itemprop="datePublished">2018-08-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/31/smileyby2/">smileyby2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这里存放的是未完成或暂时不发布的文章</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby2/" data-id="cjvkr1key001518v6k5ppm34p" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-smileyby" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/08/31/smileyby/" class="article-date">
@@ -89,7 +257,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/smileyby/" data-id="cjulcqgrn000gg4v65s1ke59a" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby/" data-id="cjvkr1ker001218v6ue9a7dlt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/测试/">测试</a></li></ul>
@@ -136,7 +304,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/hello-world/" data-id="cjulcqgrc0005g4v6t8nd7lh5" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/hello-world/" data-id="cjvkr1ke4000c18v6gog5ehgp" class="article-share-link">Share</a>
       
       
     </footer>
@@ -171,7 +339,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Idea/">Idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/command/">command</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css3/">css3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/design-pattern/">design-pattern</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom-event/">dom-event</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom0/">dom0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom1/">dom1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event-bubble/">event-bubble</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hybird/">hybird</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/less/">less</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/promise/">promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/setTimeout/">setTimeout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/冒泡/">冒泡</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/捕获/">捕获</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Idea/">Idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/command/">command</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css3/">css3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/design-pattern/">design-pattern</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom-event/">dom-event</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom0/">dom0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom1/">dom1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event-bubble/">event-bubble</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h5/">h5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hybird/">hybird</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/less/">less</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/promise/">promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/setTimeout/">setTimeout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/冒泡/">冒泡</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/捕获/">捕获</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/新增/">新增</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
     </div>
   </div>
 
@@ -181,7 +349,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ECMAScript/" style="font-size: 10px;">ECMAScript</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Idea/" style="font-size: 10px;">Idea</a> <a href="/tags/Thinging/" style="font-size: 10px;">Thinging</a> <a href="/tags/command/" style="font-size: 10px;">command</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design-pattern</a> <a href="/tags/dom-event/" style="font-size: 10px;">dom-event</a> <a href="/tags/dom0/" style="font-size: 10px;">dom0</a> <a href="/tags/dom1/" style="font-size: 10px;">dom1</a> <a href="/tags/event-bubble/" style="font-size: 10px;">event-bubble</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/hybird/" style="font-size: 10px;">hybird</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/setInterval/" style="font-size: 10px;">setInterval</a> <a href="/tags/setTimeout/" style="font-size: 10px;">setTimeout</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/冒泡/" style="font-size: 10px;">冒泡</a> <a href="/tags/捕获/" style="font-size: 10px;">捕获</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/草稿箱/" style="font-size: 10px;">草稿箱</a>
+      <a href="/tags/ECMAScript/" style="font-size: 10px;">ECMAScript</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Idea/" style="font-size: 10px;">Idea</a> <a href="/tags/Thinging/" style="font-size: 10px;">Thinging</a> <a href="/tags/command/" style="font-size: 10px;">command</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design-pattern</a> <a href="/tags/dom-event/" style="font-size: 10px;">dom-event</a> <a href="/tags/dom0/" style="font-size: 10px;">dom0</a> <a href="/tags/dom1/" style="font-size: 10px;">dom1</a> <a href="/tags/event-bubble/" style="font-size: 10px;">event-bubble</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/hybird/" style="font-size: 10px;">hybird</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/setInterval/" style="font-size: 10px;">setInterval</a> <a href="/tags/setTimeout/" style="font-size: 10px;">setTimeout</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/冒泡/" style="font-size: 10px;">冒泡</a> <a href="/tags/捕获/" style="font-size: 10px;">捕获</a> <a href="/tags/新增/" style="font-size: 10px;">新增</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/草稿箱/" style="font-size: 10px;">草稿箱</a>
     </div>
   </div>
 
@@ -190,7 +358,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li></ul>
     </div>
   </div>
 
@@ -203,6 +371,14 @@
       <ul>
         
           <li>
+            <a href="/2019/05/12/h5/">H5中其他新增的内容</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/12/less/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2019/03/31/mobile/">移动端混合开发</a>
           </li>
         
@@ -212,14 +388,6 @@
         
           <li>
             <a href="/2019/01/17/dom-event/">dom-event</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/31/promise/">promise</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/24/git-command/">git-command</a>
           </li>
         
       </ul>
