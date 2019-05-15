@@ -62,6 +62,230 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-jQuerySourceCode" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/18/jQuerySourceCode/" class="article-date">
+  <time datetime="2018-10-18T15:50:22.000Z" itemprop="datePublished">2018-10-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/18/jQuerySourceCode/">jQuerySourceCode</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>虽然jQuery在近几年已经不再那么火热，伴随着新兴框架VUE/React等框架的崛起，jQuery的作用正在被弱化，传统的jQuery已经被新兴的框架化工程化所代替。但jQuery中的一些优秀的思想、特质，还是非常值得我们学习的。本文主要讲述这些优秀的思想。</p>
+<h2 id="jQ的版本和下载"><a href="#jQ的版本和下载" class="headerlink" title="jQ的版本和下载"></a>jQ的版本和下载</h2><blockquote>
+<p>jQuery的版本</p>
+<p>1.x：兼容IE6~8浏览器，是目前PC端开发常用的类库</p>
+<p>2.x/3.x：不支持IE6~8的兼容，目前市场上应用的特别少（移动端开发一般用zepto.js）</p>
+<p>jquery-1.9.3.min.js<br>jquery-1.11.3.min.js<br>jquery.min.js</p>
+<p><strong>下载</strong></p>
+<p>官网下载：<a href="http://jquery.com/" target="_blank" rel="noopener">http://jquery.com/</a></p>
+<p>Github：<a href="https://github.com/jquery/jquery" target="_blank" rel="noopener">https://github.com/jquery/jquery</a></p>
+<p>基于NODE的npm下载jQuery</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//=&gt;查jquery版本信息存放在jquery.version.json文件中</span><br><span class="line">npm view jquery &gt; jquery.version.json</span><br><span class="line"></span><br><span class="line">//=&gt; 下载指定版本的jquery</span><br><span class="line">npm install jquery@1.11.3 </span><br><span class="line"></span><br><span class="line">//=&gt; 下载最新版本</span><br><span class="line">npm install jquery</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>如何学习jQuery</strong></p>
+<p>研究JQ的源码：研究的过程是学习JQ的精华，促进自己的原生JS能力以及插件或者类库的封装能力</p>
+<p>看JQ的API手册： <a href="http://jquery.cuishifeng.cn/" target="_blank" rel="noopener">http://jquery.cuishifeng.cn/</a></p>
+<p>锋利的JQ第二版：对于JQ的基础知识和实战应用讲解得非常好<a href="http://oqpmmru7y.bkt.clouddn.com/%E9%94%8B%E5%88%A9%E7%9A%84JQ%E6%BA%90%E7%A0%81%E7%AC%AC%E4%BA%8C%E7%89%88.zip" target="_blank" rel="noopener">点击下载.zip</a></p>
+</blockquote>
+<h3 id="JQ的核心原理解读（分析源代码）"><a href="#JQ的核心原理解读（分析源代码）" class="headerlink" title="JQ的核心原理解读（分析源代码）"></a>JQ的核心原理解读（分析源代码）</h3><blockquote>
+<p>jQuery 是一个常用方法类库，提供了很多真是项目中需要使用的属性和方法（这些方法jQ已经帮我们完善了浏览器兼容处理以及一些细节的优化）</p>
+<p>jQuery本身就是一个类（jQ是基于构造函数模式构建的）</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> jQuery = <span class="function"><span class="keyword">function</span>(<span class="params">selector, context</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> jQuery.fn.init( selector, context );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">jQuery.fn = jQuery.prototype = &#123;</span><br><span class="line">	jquery:version,</span><br><span class="line">	<span class="keyword">constructor</span>: jQuery</span><br><span class="line">	...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">init = jQuery.fn.init = function( selector, context ) &#123;</span><br><span class="line">	<span class="keyword">if</span> ( <span class="keyword">typeof</span> selector === <span class="string">"string"</span> ) &#123;</span><br><span class="line">		...</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( selector.nodeType ) &#123;</span><br><span class="line">		...</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( jQuery.isFunction( selector ) ) &#123;</span><br><span class="line">		...</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> jQuery.makeArray( selector, <span class="keyword">this</span> );  <span class="comment">//=&gt; 返回一个类数组</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">init.prototype=jQuery.fn;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.jQuery=<span class="built_in">window</span>.$=jQuery;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>当我们在js中执行</p>
+<p>\$()</p>
+<p>jQuery()</p>
+<p>都是在创建一个jQ类的实例（$===jQuery）,这些实例都是一个类数组（我们把这个类数组称之为JQ对象），JQ的实例可以使用JQ原型上提供的共有属性和方法</p>
+<p>项目中我们把\$()称之为JQ选择器，因为执行这个方法可以传递一个selector参数进去，通过selector我们可以获取到需要操作的DOM元素集合（JQ类数组集合），传递的第二个参数context它是当前获取元素的上下文（不传递默认是document，如果传递一个JS元素对象即可）</p>
+</blockquote>
+<blockquote>
+<p>但是把它叫做JQ选择器有点笼统，因为传递的selector支持三种格式</p>
+<p>传递的是个字符串，就是我们所谓的选择器，能够通过选择器获取元素</p>
+<p>传递的是一个元素对象，它的意思是把JS原生对象转换为JQ对象</p>
+<p>传递的是个函数，它代表等DOM结构加载完成在执行对应的JS代码（类似于window.onload）</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ === jQuery; <span class="comment">// true</span></span><br><span class="line">$() === jQuery(); <span class="comment">// false 不同实例</span></span><br><span class="line">$() <span class="keyword">instanceof</span> jQuery; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">var</span> $example = $(); <span class="comment">//=&gt; 我们用JQ选择器获取的值，一般都是用以$开头的变量名来存储（以后看见变量名是以$开头，我们就知道是JQ获取的实例【JQ对象】）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * $example</span></span><br><span class="line"><span class="comment"> * <span class="doctag">xxx:</span>xxx 私有属性</span></span><br><span class="line"><span class="comment"> * 0：某一个元素</span></span><br><span class="line"><span class="comment"> * ...</span></span><br><span class="line"><span class="comment"> * length：类数组长度</span></span><br><span class="line"><span class="comment"> * context：document</span></span><br><span class="line"><span class="comment"> * selector：传递的选择器内容</span></span><br><span class="line"><span class="comment"> * prevObject：当前执行上下文的JQ对象</span></span><br><span class="line"><span class="comment"> * __proto__: jQuery.prototype</span></span><br><span class="line"><span class="comment"> *     [<span class="doctag">xxx:</span>xxx 共有的属性和方法]</span></span><br><span class="line"><span class="comment"> *     add</span></span><br><span class="line"><span class="comment"> *     addClass</span></span><br><span class="line"><span class="comment"> *     ...</span></span><br><span class="line"><span class="comment"> *     __proto__:Object.prototype</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>第一个参数[selector]传递的是一个字符串，就是通过选择器获取到的元素集合（获取的结果都是类类数组集合；获取多个元素也就是索引多点，获取一个元素就只有索引0，一个都没获取到就是一个空的类数组集合【而不是null】）</p>
+<p>一般css或者css3中支持的选择器，jq都支持</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; 基本选择器</span></span><br><span class="line">$(<span class="string">'.aa'</span>)</span><br><span class="line">$(<span class="string">'#aa'</span>)</span><br><span class="line">$(<span class="string">'div'</span>)</span><br><span class="line">$(<span class="string">'*'</span>)</span><br><span class="line">$(<span class="string">'.aa,#bb'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; 后代选择器</span></span><br><span class="line">$(<span class="string">'.box a'</span>)</span><br><span class="line">$(<span class="string">'.box&gt;a'</span>)</span><br><span class="line">$(<span class="string">'.box~a'</span>)</span><br><span class="line">$(<span class="string">'.box+a'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; 伪类选择器</span></span><br><span class="line">$(<span class="string">'.box:contains(xxx)'</span>) <span class="comment">//=&gt; 包含xxx内容的</span></span><br><span class="line">$(<span class="string">'a:first'</span>)</span><br><span class="line">$(<span class="string">'a:last'</span>)</span><br><span class="line">$(<span class="string">'a:eq(1)'</span>) <span class="comment">//=&gt; 索引为1的</span></span><br><span class="line">$(<span class="string">'a:gt(1)'</span>) <span class="comment">//=&gt; 索引大于1</span></span><br><span class="line">$(<span class="string">'a:lt(10)'</span>) <span class="comment">//=&gt; 索引小于10</span></span><br><span class="line">$(<span class="string">'a:not()'</span>) <span class="comment">//=&gt; 不包含</span></span><br><span class="line">$(<span class="string">'a:not(:gt(5))'</span>)</span><br></pre></td></tr></table></figure>
+<p><code>jQ对象和原生js对象转换</code></p>
+<blockquote>
+<p>JQ对象：通过$()获取的JQ实例（类数组）<br>原生JS对象：通过ES中提供的属性或者方法获取的JS元素对象（nodeType === 1）</p>
+<p>把原生JS对象转换为JQ对象</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oBox = <span class="built_in">document</span>.getElementById(<span class="string">'box'</span>); <span class="comment">//=&gt; 原生JS对象</span></span><br><span class="line"></span><br><span class="line">oBox.addClass(); <span class="comment">//=&gt; 报错：oBox不是JQ对象，不能使用JQ原型上的方法</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> $box = $(oBox); <span class="comment">//=&gt; 把原生JS对象转化为JQ对象</span></span><br><span class="line">$box.addClass(<span class="string">'bg'</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>把JQ对象转换为原生JS对象</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> $body = $(<span class="string">'body'</span>);</span><br><span class="line">$body[<span class="number">0</span>]; </span><br><span class="line">$body.get(<span class="number">0</span>); <span class="comment">//=&gt; 获取到的是原生JS对象</span></span><br><span class="line">$body.eq(<span class="number">0</span>); <span class="comment">//=&gt; 获取结果还是一个JQ对象</span></span><br></pre></td></tr></table></figure>
+<p><code>selector是一个方法</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; 当页面中的dom结构加载完成就会执行回调函数中的js代码</span></span><br><span class="line">	<span class="comment">//=&gt; 类似玉window.onload : 等到页面中的DOM元素以及资源文件都加载完成才会执行对应的js代码</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; 这种写法和上面的写法一模一样</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>和window.onload不太一样<br>1、$(function(){}) 可以在同一个页面使用多次，多次都生效（所以在使用jQuery完成代码的时候，我们一般都会把代码放在回调函数中；首先不仅是等到结构加载完在执行，而且还形成了一个闭包）<br>原理：利用了DOM二级事件绑定（可执行多次），监听的是DOMContentLoaded时间（DOM结构加载完成就会触发）</p>
+<p>2、window.onload 本身就是资源都加载完成才会执行，使用的是DOM零级事件，在同一个页面中只能使用一次</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; 只能留最后一个，最后一次赋值替换了原有的赋值</span></span><br></pre></td></tr></table></figure>
+<h3 id="JQ既是一个类也是一个对象"><a href="#JQ既是一个类也是一个对象" class="headerlink" title="JQ既是一个类也是一个对象"></a>JQ既是一个类也是一个对象</h3><blockquote>
+<p>jQuery.prototype上设置了很多的属性和方法，这些是供JQ实例（DOM集合或DOM元素）使用的属性和方法</p>
+<p>addClass<br>css<br>removeClass<br>attr<br>…</p>
+<p>jQuery也是一个普通的对象，在对象上也有一些自己的属性和方法（和实例没有任何关系），这些都是工具类的方法</p>
+<p>ajax<br>isFunction<br>unique<br>…</p>
+</blockquote>
+<p><code>jQuery.prototype</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'#box'</span>).index(); <span class="comment">//=&gt; 获取当前元素的索引（是在自己兄弟元素中的索引，它有几个哥哥，索引就是几）</span></span><br><span class="line"></span><br><span class="line">$(<span class="string">'body'</span>).data(key,value); <span class="comment">//=&gt; data方法可以获取到在html结构上设置的data-xxx的自定义属性</span></span><br><span class="line"></span><br><span class="line">$(<span class="string">'#box'</span>).attr(); <span class="comment">//=&gt; 设置/批量修改/获取当前元素的内置/自定义属性 removeAttr</span></span><br><span class="line"></span><br><span class="line">$(<span class="string">'#box'</span>).prop(); <span class="comment">//=&gt; 和attr一样也是操作元素属性的，但是prop一般都是操作表单元素的内置或者自定义属性 removeProp</span></span><br><span class="line"></span><br><span class="line">addClass: 增加样式类</span><br><span class="line">removeClass: 移除样式类</span><br><span class="line">toggleClass: 切换样式类</span><br><span class="line">hasClass: 验证是否存在某个样式类名</span><br><span class="line"></span><br><span class="line">$(<span class="string">'#box'</span>).html([val]); <span class="comment">//=&gt; 不传val就是获取内容，传递val就是设置内容，等价于原生的innerHTML</span></span><br><span class="line">$(<span class="string">'input'</span>).val([val]); <span class="comment">//=&gt; 表单元素value值的操作（设置/获取）</span></span><br><span class="line"></span><br><span class="line">css: 设置或者批量设置元素的样式（获取的结果没有去单位）</span><br><span class="line"></span><br><span class="line">offset(); <span class="comment">//=&gt; 获取距离body的偏移</span></span><br><span class="line">position() <span class="comment">//=&gt; 获取距离父级参照物的偏移</span></span><br><span class="line">scrollTop/scrollLeft([val]); <span class="comment">//=&gt; 获取/设置当前元素卷去的高度/宽度</span></span><br><span class="line">height/width([val]);</span><br><span class="line">innerWidth/innerHeight: 等价于clientWidth/clientHieght</span><br><span class="line">outerWidth/outerHeight: 等价于offsetWidth/offsetHieght</span><br><span class="line"></span><br><span class="line">$(<span class="string">'#box'</span>).on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>...); //=&gt; <span class="title">jQuery</span>中的事件绑定</span></span><br><span class="line"><span class="function">...</span></span><br></pre></td></tr></table></figure>
+<p><code>写在对象上的方法</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> j = $,noConflict(); <span class="comment">//=&gt; 如果当前项目中引入了两个类库，都是使用$操作的，为了防止$使用权的冲突，jQ做了一个处理，转让使用权;此处返回的j就是代表原始$的变量，以后可以使用j()执行</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> j = $,noConflict(<span class="literal">true</span>); <span class="comment">//=&gt; 把jQuery和$使用权都转让给j（深度转让） </span></span><br><span class="line"></span><br><span class="line">$.ajax(); 帮助我们放松ajax请求的</span><br></pre></td></tr></table></figure>
+<p><code>筛选方法</code></p>
+<blockquote>
+<p>filter: 同级过滤</p>
+<p>children: 子集过滤</p>
+<p>find: 后代过滤</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> $links = $(<span class="string">'a'</span>);</span><br><span class="line">$links.filter(<span class="string">'.bg'</span>); <span class="comment">//=&gt; 首先获取所有的a，在所有的a中把具备样式类bg的获取到</span></span><br><span class="line"></span><br><span class="line">$(<span class="string">'#box'</span>).children(<span class="string">'a'</span>); <span class="comment">//=&gt; 首先获取id为box的所有子元素，在所有子元素中筛选出标签为a的元素集合</span></span><br><span class="line"></span><br><span class="line">$(<span class="string">'#box'</span>).find(<span class="string">'.bg'</span>); <span class="comment">//=&gt; 首先或取代#box后代中所有的元素，在所有的元素中筛选出样式类名具备bg的元素集合 &lt;=&gt; $('#box .bg')</span></span><br><span class="line"></span><br><span class="line">prev: 获取上一个哥哥</span><br><span class="line">prevAll: 所有的哥哥</span><br><span class="line">next: 下一个弟弟</span><br><span class="line">nextAll: 所有的弟弟</span><br><span class="line">siblings: 所有的兄弟</span><br><span class="line">parent: 父元素</span><br><span class="line">parents: 所有的祖先元素（一直到html为止）</span><br></pre></td></tr></table></figure>
+<p><code>each</code></p>
+<blockquote>
+<p>JQ中的each有两种<br>1、 写在原型上的each: 遍历JQ对象中的每一项<br>2、 写在对象上的each: 工具方法，可以用来遍历数组、类书组、对象等<br>3、 内置的each其实也是调用原型上的each处理的，只不过JQ在处理的时候会内部自己调用</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'a'</span>).addClass(<span class="string">'select'</span>); <span class="comment">//=&gt; 我们获取的a可能有很多个，执行一次addClass，相当于给每个获取的a都增加一个叫做select的样式类（JQ中大部分方法在执行的时候，都会把获取的JQ集合中的每一项调用each进行遍历，把需要操作的任务对每一个遍历一边的元素进行操作）</span></span><br><span class="line"></span><br><span class="line">$(<span class="string">'a'</span>).css(<span class="string">'width'</span>); <span class="comment">//=&gt; 获取的时候只返回第一个元素的样式（设置走内置的each批量处理，获取之处理第一个）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; 原型上的each</span></span><br><span class="line">$(<span class="string">'a'</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params">index, item</span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; 床底参数的顺序和数组内置的forEach顺序相反，ary.forEach(function(item, index)&#123;...&#125;);</span></span><br><span class="line">	<span class="comment">//=&gt; 获取的a有多少个，回调函数被触发执行多少次；index当前遍历这一项的索引 item是当前遍历这一项的内容</span></span><br><span class="line">	<span class="comment">//=&gt; this -&gt; item（原生JS对象）方法中的this是昂钱遍历的这一项</span></span><br><span class="line">	<span class="comment">//=&gt; $(this) 也是当前遍历这一项，当时属于JQ对象</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; JQ对象上提供的工具方法: each</span></span><br><span class="line">$.each([数组/类数组],<span class="function"><span class="keyword">function</span>(<span class="params">index, item</span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; this:item</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$.each([对象],<span class="function"><span class="keyword">function</span>(<span class="params">key, value</span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; this:value</span></span><br><span class="line">	<span class="comment">//=&gt; jQ也是采用for in 循环来遍历对象的，这样的话就存在吧共有属性和方法遍历到的问题</span></span><br><span class="line">	<span class="keyword">if</span>([对象].hasOwnProperty(key))&#123;</span><br><span class="line">		<span class="comment">//=&gt; 私有</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><code>animate</code></p>
+<blockquote>
+<p>JQ中提供了元素运动的动画库</p>
+<p>stop: 结束当前元素正在运行的动画，继续执行下一个新的动画（一般我们实现动画，stop方法基本必然执行）</p>
+<p>finish: 和stop类似，finish需要让元素立即运动到上一个动画的目标位置，从目标位置执行下一个动画，而stop是从上一个动画停止的位置执行下一个动画</p>
+<p>animate([target],[duration],[effect],[callBack]):<br>[target] 对象<br>[duration] 时间<br>[effect] linear/ease/ease-in/ease-out/ease-in-out<br>[callBack] 回调函数，动画结束做的事情</p>
+</blockquote>
+<blockquote>
+<p>快捷动画</p>
+<p>show(1000/fast/slow)<br>hide<br>toggle</p>
+<p>fadeIn<br>fadeOut<br>fadeToggle</p>
+<p>slideUp<br>slideDown<br>slideToggle</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://smileyby.github.io/2018/10/18/jQuerySourceCode/" data-id="cjvpa31i7000d3kv6ykgqi23z" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Idea/">Idea</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-定时器" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/27/定时器/" class="article-date">
+  <time datetime="2018-09-27T14:25:44.000Z" itemprop="datePublished">2018-09-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/27/定时器/">定时器</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="定时器基础"><a href="#定时器基础" class="headerlink" title="定时器基础"></a>定时器基础</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var timer1 = setTimeout(function()&#123;</span><br><span class="line"></span><br><span class="line">&#125;, 1000);</span><br><span class="line">console.log(timer1); //=&gt; 1</span><br><span class="line"></span><br><span class="line">var timer2 = setInterval(function()&#123;</span><br><span class="line"></span><br><span class="line">&#125;, 1000);</span><br><span class="line">console.log(timer2); //=&gt; 2</span><br></pre></td></tr></table></figure>
+<ul>
+<li>定时器的返回值： 当我们设置定时器（不管是setTimeout还是setInterval），都会有一个返回值，返回值是一个数字，代表当前实在浏览器中设置的第几个定时器（返回的是定时器序号）</li>
+<li>setTimeout和setInterval虽然是处理不同需求的定时器，但是都是浏览器的定时器，所以设置的时候，返回的序号是依次排列的</li>
+<li>setInterval设置完成定时器会有一个返回值，不管执行多少次，这个代表序号的返回值不变（设置定时器就有返回值，执行多少次是定时器的处理）</li>
+</ul>
+<blockquote>
+<p>清除定时器</p>
+<ul>
+<li>clearTimeout([定时器排队序号])</li>
+<li>clearInterval([定时器排队序号])</li>
+<li>定时器需要手动清除</li>
+</ul>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> t1 = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; 当方法执行完成后，定时器没用了，我们清除定时器即可</span></span><br><span class="line">	<span class="comment">//=&gt; clearTimeout(t1);</span></span><br><span class="line">	clearInterval(t1); <span class="comment">//=&gt; 使用它也可以清除掉</span></span><br><span class="line">	t1 = <span class="literal">null</span>; <span class="comment">//=&gt; 我们手动把之前存储序号的变量赋值为null</span></span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="实现动画效果"><a href="#实现动画效果" class="headerlink" title="实现动画效果"></a>实现动画效果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function imgFade(curImg)&#123;</span><br><span class="line">	var n = 0;</span><br><span class="line">	var timer = setInterval(function()&#123;</span><br><span class="line">		if(n &gt; 1)&#123;</span><br><span class="line">			clearInterval(timer);</span><br><span class="line">			timer = null;</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		n += 0.05;</span><br><span class="line">		utils.css(curImg, &apos;opacity&apos;, n);</span><br><span class="line">	&#125;, 17); //=&gt; 17ms是执行定时器动画相对比较理想的时间间隔</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="JS中的同步和异步编程"><a href="#JS中的同步和异步编程" class="headerlink" title="JS中的同步和异步编程"></a>JS中的同步和异步编程</h2><blockquote>
+<p>JS是单线程的（一次只能执行一个任务，当前任务没有完成，下面任务不进行处理）</p>
+<p>同步编程（sync:synchronize）：任务是按照顺序一件件的完成的，当前任务没有完成，下面的任务部进行处理</p>
+<p>异步编程（async）当前任务再等待执行的时候，我们不去执行，继续完成下面的任务，当下面的任务完成后，而是也到达等待的时间了，采取完成当前的任务</p>
+<blockquote>
+<p>定时器都是异步编程的</p>
+<p>所有的时间绑定都是异步编程的 </p>
+<p>AJAX中有异步编程</p>
+<p>有些人把回调函数当作异步编程（牵强）</p>
+</blockquote>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; 同步编程以及如何验证当前任务小号的时间或者性能</span></span><br><span class="line"><span class="keyword">var</span> startTime = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">1000000</span>; i += <span class="number">1</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(i === <span class="number">999999</span>)&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'no'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> Data() - startTime);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'ok'</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; 项目中要避免死循环，因为循环是同步编程，当前循环无法结束，后续的任务操作都执行不了</span></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>===<span class="number">1</span>)&#123;&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> n = <span class="number">0</span>;</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	n++;</span><br><span class="line">	<span class="built_in">console</span>.log(n);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br><span class="line"><span class="built_in">console</span>.log(n);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>同步异步编程的核心原理</p>
+<ul>
+<li>JS中有两个任务队列（存放任务列表的空间就是任务队列）</li>
+<li>1、主任务队列：同步执行任务（从上到下一次执行）<br>2、等待任务队列：异步执行任务(主任务队列中的任务全部完成，把等待任务队列中的任务拿到主任务队列中执行（哪一个先到，先找哪一个，同时到，按照创建顺序来），当前这个任务完成后，再到等待中去找其他任务)</li>
+</ul>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">&#125;, <span class="number">50</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">&#125;, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">3</span>);</span><br><span class="line">&#125;, <span class="number">30</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">100000000</span>; i += <span class="number">1</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(i === <span class="number">99999999</span>)&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="number">4</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="JS中固定步长和固定时间的匀速运动动画"><a href="#JS中固定步长和固定时间的匀速运动动画" class="headerlink" title="JS中固定步长和固定时间的匀速运动动画"></a>JS中固定步长和固定时间的匀速运动动画</h2><blockquote>
+<p>1、步长固定（每走一步多少固定），但是多长时间运动完成不固定</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var oBox = document.getElementById(&apos;box&apos;),</span><br><span class="line">	target =  document.documentElement.clientWidth - oBox.offsetWidth;</span><br><span class="line">	//=&gt; 动画：每隔一段时间都在自己原有的left基础上累加步长10排序，一直到达目标值结束</span><br><span class="line">	var timer = setInterval(function()&#123;</span><br><span class="line">		var curL = oBox.offsetLeft;</span><br><span class="line">		curL += 10;</span><br><span class="line">		oBox.style.left = curL + &apos;px&apos;;</span><br><span class="line">		if(curL &gt;= target)&#123;</span><br><span class="line">			oBox.style.left = target + &apos;px&apos;;</span><br><span class="line">			clearInterval(timer);</span><br><span class="line">			timer = null;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;, 17);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>2、固定时间的匀速动画</p>
+<ul>
+<li>target： 目标值</li>
+<li>start： 起始值</li>
+<li>change：总距离 target-start</li>
+<li>duration： 总时间</li>
+<li>time：已经运动的时间</li>
+</ul>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">linear</span>(<span class="params">time, begin, change, duration</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> time/duration*change + begin</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> oBox = <span class="built_in">document</span>.getElementById(<span class="string">'box'</span>),</span><br><span class="line">	time = <span class="number">0</span>,</span><br><span class="line">	duration  = <span class="number">1000</span>,</span><br><span class="line">	begin = <span class="built_in">parseInt</span>(getComputedStyle(oBox).left),</span><br><span class="line">	target = <span class="built_in">document</span>.documentElement.clientWidth - oBox.offsetWidth,</span><br><span class="line">	change = target - begin;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">var</span> timer = setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		time += <span class="number">17</span>;</span><br><span class="line">		<span class="keyword">var</span> curL = linear(time, begin, change, duration);</span><br><span class="line">		<span class="keyword">if</span>(time &gt;= duration)&#123;</span><br><span class="line">			clearInterval(timer);</span><br><span class="line">			timer = <span class="literal">null</span>;</span><br><span class="line">			curL = target;</span><br><span class="line">		&#125;</span><br><span class="line">		oBox.style.left = curL + <span class="string">'px'</span>;</span><br><span class="line">	&#125;, <span class="number">17</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="多方向固定时间匀速运动"><a href="#多方向固定时间匀速运动" class="headerlink" title="多方向固定时间匀速运动"></a>多方向固定时间匀速运动</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">		* &#123;</span></span><br><span class="line"><span class="undefined">			margin: 0;</span></span><br><span class="line"><span class="undefined">			padding: 0;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">		html, body &#123;</span></span><br><span class="line"><span class="undefined">			width: 100%;</span></span><br><span class="line"><span class="undefined">			height: 100%;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">		<span class="selector-class">.box</span> &#123;</span></span><br><span class="line"><span class="undefined">			width: 100px;</span></span><br><span class="line"><span class="undefined">			height: 100px;</span></span><br><span class="line"><span class="undefined">			position: absolute;</span></span><br><span class="line"><span class="undefined">			left: 0;</span></span><br><span class="line"><span class="undefined">			top: 0;</span></span><br><span class="line"><span class="css">			<span class="selector-tag">background</span>: <span class="selector-id">#ff6700</span>;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> box = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'box'</span>)[<span class="number">0</span>];</span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> time = <span class="number">0</span>,</span></span><br><span class="line"><span class="undefined">			duration = 1000;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> begin = &#123;</span></span><br><span class="line"><span class="undefined">			left: box.offsetLeft,</span></span><br><span class="line"><span class="undefined">			top: box.offsetTop,</span></span><br><span class="line"><span class="undefined">			opacity: 1</span></span><br><span class="line"><span class="undefined">		&#125;;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> target = &#123;</span></span><br><span class="line"><span class="javascript">			left: <span class="built_in">document</span>.body.clientWidth - box.offsetWidth,</span></span><br><span class="line"><span class="javascript">			top: <span class="built_in">document</span>.body.clientHeight - box.offsetHeight,</span></span><br><span class="line"><span class="undefined">			opacity: 0.2 </span></span><br><span class="line"><span class="undefined">		&#125;;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> change = &#123;&#125;;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> target)&#123;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">if</span>(target.hasOwnProperty(key))&#123;</span></span><br><span class="line"><span class="undefined">				change[key] = target[key] - begin[key];</span></span><br><span class="line"><span class="undefined">			&#125;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">		<span class="function"><span class="keyword">function</span> <span class="title">linear</span>(<span class="params">t, b, c, d</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">return</span> t / d * c + b;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">		box.timer = setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">if</span>(time &gt;= duration<span class="number">-17</span>)&#123;</span></span><br><span class="line"><span class="javascript">				box.style.left = target.left + <span class="string">'px'</span>;</span></span><br><span class="line"><span class="javascript">				box.style.top = target.top + <span class="string">'px'</span>;</span></span><br><span class="line"><span class="undefined">				clearInterval(box.timer);</span></span><br><span class="line"><span class="javascript">				<span class="keyword">return</span>;</span></span><br><span class="line"><span class="undefined">			&#125;</span></span><br><span class="line"><span class="undefined">			time += 17;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">var</span> curPos = &#123;&#125;;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> change)&#123;</span></span><br><span class="line"><span class="undefined">				curPos[key] = linear(time, begin[key], change[key], duration);</span></span><br><span class="line"><span class="undefined">			&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">			<span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> curPos)&#123;</span></span><br><span class="line"><span class="javascript">				<span class="keyword">if</span>(key !== <span class="string">'opacity'</span>)&#123;</span></span><br><span class="line"><span class="javascript">					box.style[key] = curPos[key] + <span class="string">'px'</span>;</span></span><br><span class="line"><span class="javascript">				&#125;<span class="keyword">else</span>&#123;</span></span><br><span class="line"><span class="undefined">					box.style[key] = curPos[key];</span></span><br><span class="line"><span class="undefined">				&#125;</span></span><br><span class="line"><span class="undefined">				</span></span><br><span class="line"><span class="undefined">			&#125;</span></span><br><span class="line"><span class="undefined">		&#125;, 17)</span></span><br><span class="line"><span class="undefined">	</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://smileyby.github.io/2018/09/27/定时器/" data-id="cjvpa31ja001z3kv6mimnbi19" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setTimeout/">setTimeout</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-webpack" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/09/08/webpack/" class="article-date">
@@ -179,7 +403,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/09/08/webpack/" data-id="cjvkr1keu001318v613y98r72" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/09/08/webpack/" data-id="cjvpa31iz001r3kv6rbwi8prn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
@@ -218,7 +442,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/smileyby2/" data-id="cjvkr1key001518v6k5ppm34p" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby2/" data-id="cjvpa31if000m3kv6r6ymhyzq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
@@ -257,7 +481,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/smileyby/" data-id="cjvkr1ker001218v6ue9a7dlt" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby/" data-id="cjvpa31ic000h3kv6962xdosc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/测试/">测试</a></li></ul>
@@ -304,7 +528,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/hello-world/" data-id="cjvkr1ke4000c18v6gog5ehgp" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/hello-world/" data-id="cjvpa31hy00043kv6hefnkzai" class="article-share-link">Share</a>
       
       
     </footer>
@@ -371,6 +595,14 @@ module.exports = {
       <ul>
         
           <li>
+            <a href="/2019/05/15/全栈工程师/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/15/mobil/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2019/05/12/h5/">H5中其他新增的内容</a>
           </li>
         
@@ -380,14 +612,6 @@ module.exports = {
         
           <li>
             <a href="/2019/03/31/mobile/">移动端混合开发</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/08/design-pattern/">design-pattern.md</a>
-          </li>
-        
-          <li>
-            <a href="/2019/01/17/dom-event/">dom-event</a>
           </li>
         
       </ul>
