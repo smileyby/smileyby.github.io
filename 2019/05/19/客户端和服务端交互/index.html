@@ -5,15 +5,19 @@
   
 
   
-  <title>Archives | Smileyby|星空灬</title>
+  <title>Smileyby|星空灬</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="在客户端输入一个网址并访问，到我们看到页面，其中都经历了什么？  简单回答：  【Request 请求阶段】   首先根据客户端输入的域名，到DNS服务器进行反解析（通过域名找到对应服务器的外网IP） 通过找到的外网IP，找到对应的服务器 通过在地址栏中输入的端口号（没输入是因为不同协议有自己默认的端口号），找到服务器上发布的对应项目   【Response 响应阶段】   服务器获取到请求资源文">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Smileyby|星空灬">
-<meta property="og:url" content="http://smileyby.github.io/archives/page/2/index.html">
+<meta property="og:url" content="http://smileyby.github.io/2019/05/19/客户端和服务端交互/index.html">
 <meta property="og:site_name" content="Smileyby|星空灬">
+<meta property="og:description" content="在客户端输入一个网址并访问，到我们看到页面，其中都经历了什么？  简单回答：  【Request 请求阶段】   首先根据客户端输入的域名，到DNS服务器进行反解析（通过域名找到对应服务器的外网IP） 通过找到的外网IP，找到对应的服务器 通过在地址栏中输入的端口号（没输入是因为不同协议有自己默认的端口号），找到服务器上发布的对应项目   【Response 响应阶段】   服务器获取到请求资源文">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-19T01:56:23.362Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Smileyby|星空灬">
+<meta name="twitter:description" content="在客户端输入一个网址并访问，到我们看到页面，其中都经历了什么？  简单回答：  【Request 请求阶段】   首先根据客户端输入的域名，到DNS服务器进行反解析（通过域名找到对应服务器的外网IP） 通过找到的外网IP，找到对应的服务器 通过在地址栏中输入的端口号（没输入是因为不同协议有自己默认的端口号），找到服务器上发布的对应项目   【Response 响应阶段】   服务器获取到请求资源文">
   
     <link rel="alternate" href="/atom.xml" title="Smileyby|星空灬" type="application/atom+xml">
   
@@ -60,197 +64,159 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/12/31/promise/" class="archive-article-date">
-  <time datetime="2018-12-31T14:32:26.000Z" itemprop="datePublished">Dec 31</time>
+        <section id="main"><article id="post-客户端和服务端交互" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/19/客户端和服务端交互/" class="article-date">
+  <time datetime="2019-05-19T02:06:16.956Z" itemprop="datePublished">2019-05-19</time>
 </a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/31/promise/">promise</a>
-    </h1>
-  
-
-    </header>
+    
   </div>
-</article>
-  
+  <div class="article-inner">
     
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/12/24/git-command/" class="archive-article-date">
-  <time datetime="2018-12-23T16:33:40.000Z" itemprop="datePublished">Dec 24</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/24/git-command/">git-command</a>
-    </h1>
-  
+        <h3 id="在客户端输入一个网址并访问，到我们看到页面，其中都经历了什么？"><a href="#在客户端输入一个网址并访问，到我们看到页面，其中都经历了什么？" class="headerlink" title="在客户端输入一个网址并访问，到我们看到页面，其中都经历了什么？"></a>在客户端输入一个网址并访问，到我们看到页面，其中都经历了什么？</h3><hr>
+<ul>
+<li><p>简单回答：</p>
+<ul>
+<li>【Request 请求阶段】</li>
+</ul>
+<ol>
+<li>首先根据客户端输入的域名，到DNS服务器进行反解析（通过域名找到对应服务器的外网IP）</li>
+<li>通过找到的外网IP，找到对应的服务器</li>
+<li>通过在地址栏中输入的端口号（没输入是因为不同协议有自己默认的端口号），找到服务器上发布的对应项目</li>
+</ol>
+<ul>
+<li>【Response 响应阶段】</li>
+</ul>
+<ol>
+<li>服务器获取到请求资源文件的地址<code>例如：xxx/xxx/index.html</code>，把资源文件中的<strong><code>源代码</code></strong> 找到</li>
+<li>服务器端会把找到的源代码返回给客户端（通过http等传输协议返回）</li>
+</ol>
+<ul>
+<li>【浏览器自主渲染阶段】</li>
+</ul>
+<ol>
+<li>客户端接收到源代码后，会交给浏览器的内核（渲染引擎）进行渲染，最后由浏览器绘制出对应页面 </li>
+</ol>
+<p>知识点：</p>
+<ul>
+<li>浏览器内核：<code>IE(Trident)</code> | <code>Firefox(Gecko)</code> | <code>Safari/Chrome(Webkit)</code></li>
+<li>360浏览器、猎豹浏览器都是采用IE+Chrome双内核，搜狗、遨游、QQ浏览器也是双内核：Trident（兼容模式）+Webkit（高速模式）； UC浏览器电脑版采用Blink内核和Trident内核，百度浏览器、世界之窗内核都是单核（IE内核）</li>
+<li>常见协议以及默认端口号<ul>
+<li>ftp：21 文件传输协议</li>
+<li>ssh：22  </li>
+<li>pop3:110 因特网电子邮件第一个离线协议标准</li>
+<li>smtp：25 简单邮件传输协议</li>
+<li>http：80 超文本传输协议（客户端和服务端传输的内容除了文本外，还可以传输图片音视频等文件流（二进制编码、base64码、以及传输xml格式的数据等））</li>
+<li>https：443 http下加入ssl</li>
+<li>svn：3690</li>
+<li>tomcat：8080</li>
+<li>oracle：1521</li>
+<li>mysql：3306</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="URL-URI-URN"><a href="#URL-URI-URN" class="headerlink" title="URL URI URN"></a>URL URI URN</h3><blockquote>
+<p>uri：统一资源标识符</p>
+<p>url：统一资源路径地址</p>
+<p>urn：统一资源名称</p>
+<p>uri = url + urn</p>
+</blockquote>
+<p>一个完成的URL包含很多部分</p>
+<blockquote>
+<p><code>https://baike.baidu.com/item/%E4%B8%8D%E5%88%B0/134029?fr=aladdin#3</code></p>
+<ol>
+<li><p><strong>传输协议</strong>：（例如：https）用来完成客户端和服务器端的数据（内容）传输的，类似于快递小哥负责把客户和商家的物品来回传递</p>
+<ol>
+<li>客户端不仅可以向服务器发送请求，还可以把一些内容传递给服务器</li>
+<li>服务器端也可以把内容返回给客户端</li>
+<li>服务端和客户端传输的内容总成为<strong>HTTP报文</strong>，这些报文信息都是基于传输协议完成的传输，客户端传递给服务器叫做请求（Request），服务器返回给客户端叫做响应（Response），request+response两个阶段统称为：<strong>HTTP事务</strong> （事务：一件完整的事情）</li>
+<li>当客户端向服务端发送请求，此时客户端和服务端会建立一个传输通道，传输协议就是基于这个通道把信息进行传输的</li>
+<li>当服务端接收到请求信息，把内容返回给客户端后，传输通道会自动销毁关闭</li>
+</ol>
+</li>
+<li><p><strong>HTTP报文</strong>：</p>
+<ol>
+<li>起始行<ol>
+<li>请求起始行</li>
+<li>响应起始行</li>
+</ol>
+</li>
+<li>首部<ol>
+<li>请求头：内置请求头、自定义请求头</li>
+<li>响应头：内置响应头、自定义响应头</li>
+<li>通用头：请求和响应都有的</li>
+</ol>
+</li>
+<li>主体<ol>
+<li>请求主题</li>
+<li>响应主题</li>
+</ol>
+</li>
+</ol>
+<p>请求XXX，都是客户端设置的信息，服务端获取这些信息</p>
+<p>响应XXX，都是服务端设置的信息，客户端接收这些信息</p>
+<p>总结：</p>
+<ol>
+<li>客户端传递给服务端数据<ol>
+<li>URL问号传参</li>
+<li>设置请求头</li>
+<li>设置请求主题</li>
+</ol>
+</li>
+<li>服务端返回给客户端内容<ol>
+<li>设置响应头</li>
+<li>设置响应主题</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<h3 id="前端常用的优化技巧汇总"><a href="#前端常用的优化技巧汇总" class="headerlink" title="前端常用的优化技巧汇总"></a>前端常用的优化技巧汇总</h3><ol>
+<li><p>采用CSS雪碧图（CSS sprit/CSS图片精灵），把一些小图合并在一张大图上，使用背景图定位，定位到具体的某一张小图上（减少HTTP请求，页面中每发送一次HTTP请求，都需要完成请求+响应这个完成的HTTP事务，会消耗一些时间，也可能导致HTTP连接通道堵塞，为了提高页面加载速度和运行的性能，我们应该减少HTTP请求的次数/大小）</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.pubBg</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">'./img/sprit.png'</span>) no-repeat;</span><br><span class="line">    <span class="attribute">background-size</span>: x y; <span class="comment">/* 和原图保持一致 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">backgrouns-position</span>: x y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>项目中，将CSS和JS文件进行合并压缩</p>
+</li>
+</ol>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/11/29/ES6-Review/" class="archive-article-date">
-  <time datetime="2018-11-29T14:55:24.000Z" itemprop="datePublished">Nov 29</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/29/ES6-Review/">ES6-Review</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/10/18/jQuerySourceCode/" class="archive-article-date">
-  <time datetime="2018-10-18T15:50:22.000Z" itemprop="datePublished">Oct 18</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://smileyby.github.io/2019/05/19/客户端和服务端交互/" data-id="cjvub5rq6000nc0v6gb6b1d1v" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/18/jQuerySourceCode/">jQuerySourceCode</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/09/27/定时器/" class="archive-article-date">
-  <time datetime="2018-09-27T14:25:44.000Z" itemprop="datePublished">Sep 27</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/09/27/定时器/">定时器</a>
-    </h1>
-  
-
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/05/19/前端优化技巧/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/05/15/全栈工程师/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/09/08/webpack/" class="archive-article-date">
-  <time datetime="2018-09-08T15:58:44.000Z" itemprop="datePublished">Sep 8</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/09/08/webpack/">webpack使用攻略</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/08/31/smileyby2/" class="archive-article-date">
-  <time datetime="2018-08-31T04:09:53.000Z" itemprop="datePublished">Aug 31</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/31/smileyby2/">smileyby2</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/08/31/smileyby/" class="archive-article-date">
-  <time datetime="2018-08-31T04:05:05.000Z" itemprop="datePublished">Aug 31</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/31/smileyby/">smileyby</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/08/31/hello-world/" class="archive-article-date">
-  <time datetime="2018-08-31T03:46:06.954Z" itemprop="datePublished">Aug 31</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/31/hello-world/">Hello World</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
-  <nav id="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-  </nav>
 
 </section>
         
