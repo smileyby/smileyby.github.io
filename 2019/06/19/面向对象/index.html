@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Smileyby|星空灬</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="关于JS中面向对象的理解oop（Object Oriented Programming） 它是一种编程思想，我们的编程或者学习其实是按照类、实例来完成的   学习类的继承/封装/多态  封装  把实现一个功能的代码封装到一个函数（类），以后再想实现这个功能，只需要执行函数方法即可，不需要再重复的编写代码 低耦合，高内聚：减少页面中冗余代码，提高代码的重复使用率  多态  一个类（函数）的多种形态">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Smileyby|星空灬">
+<meta property="og:url" content="http://smileyby.github.io/2019/06/19/面向对象/index.html">
+<meta property="og:site_name" content="Smileyby|星空灬">
+<meta property="og:description" content="关于JS中面向对象的理解oop（Object Oriented Programming） 它是一种编程思想，我们的编程或者学习其实是按照类、实例来完成的   学习类的继承/封装/多态  封装  把实现一个功能的代码封装到一个函数（类），以后再想实现这个功能，只需要执行函数方法即可，不需要再重复的编写代码 低耦合，高内聚：减少页面中冗余代码，提高代码的重复使用率  多态  一个类（函数）的多种形态">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-19T14:56:35.316Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Smileyby|星空灬">
+<meta name="twitter:description" content="关于JS中面向对象的理解oop（Object Oriented Programming） 它是一种编程思想，我们的编程或者学习其实是按照类、实例来完成的   学习类的继承/封装/多态  封装  把实现一个功能的代码封装到一个函数（类），以后再想实现这个功能，只需要执行函数方法即可，不需要再重复的编写代码 低耦合，高内聚：减少页面中冗余代码，提高代码的重复使用率  多态  一个类（函数）的多种形态">
+  
+    <link rel="alternate" href="/atom.xml" title="Smileyby|星空灬" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Smileyby|星空灬</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://smileyby.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-面向对象" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/19/面向对象/" class="article-date">
+  <time datetime="2019-06-19T14:57:27.837Z" itemprop="datePublished">2019-06-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="关于JS中面向对象的理解"><a href="#关于JS中面向对象的理解" class="headerlink" title="关于JS中面向对象的理解"></a>关于JS中面向对象的理解</h3><h4 id="oop（Object-Oriented-Programming）"><a href="#oop（Object-Oriented-Programming）" class="headerlink" title="oop（Object Oriented Programming）"></a>oop（Object Oriented Programming）</h4><blockquote>
+<p>它是一种编程思想，我们的编程或者学习其实是按照<code>类</code>、<code>实例</code>来完成的</p>
+</blockquote>
+<blockquote>
+<p>学习类的<code>继承/封装/多态</code></p>
+</blockquote>
+<p><strong><code>封装</code></strong></p>
+<ul>
+<li>把实现一个功能的代码封装到一个函数（类），以后再想实现这个功能，只需要执行函数方法即可，不需要再重复的编写代码</li>
+<li>低耦合，高内聚：减少页面中冗余代码，提高代码的重复使用率</li>
+</ul>
+<p><strong><code>多态</code></strong></p>
+<ul>
+<li>一个类（函数）的多种形态<ul>
+<li>重载<ul>
+<li>后台编程语言中，对于重载的改变：方法名相同参数不同，叫做方法的重载</li>
+<li>JS中的重载，同一个方法，通过传递不同的实参我们完成不同的功能，我们把这个也可以理解为重载</li>
+</ul>
+</li>
+<li>重写<ul>
+<li>不管是后台语言还是JS都有重写，子类重写父类的方法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h2><blockquote>
+<p>什么是继承？</p>
+</blockquote>
+<blockquote>
+<p>让子类的原型指向父类的实例</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Children.prototype = new Parent();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>[细节]</p>
+<ol>
+<li>我们首先让子类的原型指向父类的实例，然后再向子类原型上扩展方法。，目的是为了防止提前增加方法，等原型重新趾向后，之前再子类圆形上扩展的方法都没用了（子类原型已经指向新的空间地址）</li>
+<li>让子类原型才重新指向父类实例，子类原型上原有的<code>constructor</code>就没了，为了保证构造函数的完整性，我们最好给子类的原型冲洗手动设置<code>constructor</code> <code>Children.prototype.constructor = Children</code></li>
+</ol>
+</blockquote>
+<blockquote>
+<p>[原理]</p>
+<p>原型继承，并不是把父类的属性和方法copy一份给子类，而是让子类的原型和父类原型之间搭建一个链接的桥梁，以后子类（或者子类的实例），可以通过原型链的查找机制，找到父类原型上的方法，从而调取这些方法使用即可</p>
+</blockquote>
+<p><code>Children.prototype.__proto__.setX = function...</code>  子类通过原型链找到父类的原型，再父类原型上增加新的属性和方法（重写：子类重写父类原型上的方法）</p>
+<blockquote>
+<p>[特征]</p>
+<ol>
+<li>子类不仅可以继承父类原型上的共有属性和方法，而且父类提供给实例的那些私有属性和方法，也被子类继承了（存放在子类的原型上，作为子类共有的属性和方法）</li>
+</ol>
+</blockquote>
+<p><strong><code>call继承</code></strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.x = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.getX = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Children</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    Parent.call(<span class="keyword">this</span>); <span class="comment">//=&gt; Parent执行，方法中的this依然是子类的实例（再父类构造体中写一些this.xxx=xxx 都相当于给子类的实例增加一些私有的属性和方法）</span></span><br><span class="line">    <span class="keyword">this</span>.y = <span class="number">200</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> child = <span class="keyword">new</span> Children();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>[原理]</p>
+<p>原理是把父类构造体当中私有的属性和方法，复制一份给子类的实例（继承完成后子类和父类是没关系的）</p>
+<p>[细节]</p>
+<p>我们一般把call继承放在子类构造体的第一行，也就是创建子类实例的时候，进来的第一件事情就是先继承，然后再给实例赋值自己私有的（好处：可以把继承过来的记过替换掉）</p>
+</blockquote>
+<p><strong><code>寄生组合继承</code></strong></p>
+<blockquote>
+<p>Object.create([obj])：创建一个空对象，把[obj]作为心创建对象的原型</p>
+<p>子类公有的继承父类公有的（原型继承）</p>
+<p>子类私有的继承父类私有的（call继承）</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; Obejct.create</span></span><br><span class="line"><span class="keyword">var</span> Obj = &#123;<span class="attr">name</span>: <span class="string">'aa'</span>&#125;</span><br><span class="line"><span class="comment">//=&gt; 创建一个空对象，把obj作为当前空对象的原型</span></span><br><span class="line"><span class="keyword">var</span> newObj = Obejct.create(obj);</span><br><span class="line">newObj.__proto__ = obj;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.x = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.getX = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = Obejct.create(Parent.prototype);</span><br><span class="line"><span class="comment">//=&gt; console.log(obj instanceof Parent); //=&gt; true</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Children</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    Parent.call(<span class="keyword">this</span>); <span class="comment">//=&gt; 继承父类私有</span></span><br><span class="line">    <span class="keyword">this</span>.y = <span class="number">200</span>;</span><br><span class="line">&#125;</span><br><span class="line">Children.prototype = <span class="built_in">Object</span>.create(Parent.prototype); <span class="comment">//=&gt; 继承父类公有</span></span><br><span class="line">Children.prototype.constructor = Children;</span><br><span class="line">Children.prototype.getY = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.myCreate = <span class="function"><span class="keyword">function</span> <span class="title">myCreate</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> Fn = <span class="keyword">new</span> <span class="built_in">Function</span>();</span><br><span class="line">    Fn.prototype = obj;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Fn();</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> aa = &#123;<span class="attr">name</span>: <span class="string">'aa'</span>&#125;;</span><br><span class="line"><span class="built_in">Object</span>.myCreate(aa);</span><br></pre></td></tr></table></figure>
+<p><strong><code>ES6中的类</code></strong></p>
+<blockquote>
+<p>创建类</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fn</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="comment">//=&gt; constructor:Fn</span></span><br><span class="line">        <span class="comment">//=&gt; 这里边的 this.xxx = xxx;是给当前实例设置的私有属性</span></span><br><span class="line">        <span class="comment">//=&gt; 给实例设置的私有属性</span></span><br><span class="line">        <span class="keyword">this</span>.xxx = xxx;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//=&gt; 这里设置的方法都放在Fn.prototype上（给实例提供的公有的属性方法）</span></span><br><span class="line">    <span class="comment">//=&gt; getX setX 都是给fn的prototype设置方法</span></span><br><span class="line">    getX()&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    setX()&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//=&gt; 把Fn当做一个普通对象，增加的属性和方法</span></span><br><span class="line">    <span class="keyword">static</span> xxx()&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> f = <span class="keyword">new</span> Fn();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>继承</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">this</span>.x = <span class="number">100</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    getX()&#123;</span><br><span class="line">       	<span class="built_in">console</span>.log(<span class="keyword">this</span>.x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">super</span>(); <span class="comment">//=&gt; call继承</span></span><br><span class="line">        <span class="keyword">this</span>.y = <span class="number">200</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    getY()&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.y);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> B();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>for in 循环问题</p>
+<p>不仅可以遍历当前对象（或者实例）所有的私有属性和方法，还可以把原型上自己创建的公共属性和方法进行遍历</p>
+<p>for循环只会遍历私有地属性和方法，自己在原型上扩展的方法不会被遍历出来</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.myXX = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">name</span>: <span class="string">'aa'</span>&#125;;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> obj)&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://smileyby.github.io/2019/06/19/面向对象/" data-id="cjx3d53n500168sv6xokq1v6g" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/06/19/数据类型检测/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/06/08/倒计时抢购/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Idea/">Idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/command/">command</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css3/">css3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/design-pattern/">design-pattern</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom-event/">dom-event</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom0/">dom0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom1/">dom1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event-bubble/">event-bubble</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h5/">h5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hybird/">hybird</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/less/">less</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/promise/">promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/setTimeout/">setTimeout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/冒泡/">冒泡</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/捕获/">捕获</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/新增/">新增</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ECMAScript/" style="font-size: 10px;">ECMAScript</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Idea/" style="font-size: 10px;">Idea</a> <a href="/tags/Thinging/" style="font-size: 10px;">Thinging</a> <a href="/tags/command/" style="font-size: 10px;">command</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design-pattern</a> <a href="/tags/dom-event/" style="font-size: 10px;">dom-event</a> <a href="/tags/dom0/" style="font-size: 10px;">dom0</a> <a href="/tags/dom1/" style="font-size: 10px;">dom1</a> <a href="/tags/event-bubble/" style="font-size: 10px;">event-bubble</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/hybird/" style="font-size: 10px;">hybird</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/setInterval/" style="font-size: 10px;">setInterval</a> <a href="/tags/setTimeout/" style="font-size: 10px;">setTimeout</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/冒泡/" style="font-size: 10px;">冒泡</a> <a href="/tags/捕获/" style="font-size: 10px;">捕获</a> <a href="/tags/新增/" style="font-size: 10px;">新增</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/草稿箱/" style="font-size: 10px;">草稿箱</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/19/jsonp原理/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/19/数据类型检测/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/19/面向对象/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/08/倒计时抢购/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/08/js中常用的编码解码方法/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 yuby<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

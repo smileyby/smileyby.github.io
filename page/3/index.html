@@ -5,19 +5,15 @@
   
 
   
-  <title>Hello World | Smileyby|星空灬</title>
+  <title>Smileyby|星空灬</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://smileyby.github.io/2018/08/31/hello-world/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Smileyby|星空灬">
+<meta property="og:url" content="http://smileyby.github.io/page/3/index.html">
 <meta property="og:site_name" content="Smileyby|星空灬">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-31T03:46:06.955Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="Smileyby|星空灬">
   
     <link rel="alternate" href="/atom.xml" title="Smileyby|星空灬" type="application/atom+xml">
   
@@ -64,7 +60,216 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main">
+  
+    <article id="post-webpack" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/08/webpack/" class="article-date">
+  <time datetime="2018-09-08T15:58:44.000Z" itemprop="datePublished">2018-09-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/08/webpack/">webpack使用攻略</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="安装相关包"><a href="#安装相关包" class="headerlink" title="安装相关包"></a>安装相关包</h2><blockquote>
+<p>tips:<br>网络不好，请使用淘宝镜像安装</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<h3 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h3><h4 id="webpack模块"><a href="#webpack模块" class="headerlink" title="webpack模块"></a>webpack模块</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack webpack-cli webpack-dev-server --save-dev</span><br></pre></td></tr></table></figure>
+<h4 id="JavaScript模块"><a href="#JavaScript模块" class="headerlink" title="JavaScript模块"></a>JavaScript模块</h4><blockquote>
+<p>tips:<br>这里由于版本兼容性问题，babel-loader我安装的版本是7.1.5</p>
+</blockquote>
+<ul>
+<li>babel-core 和 babel-loader 充当的就是翻译官的角色，用来解析代码中的js代码</li>
+<li>babel-preset-env 和 babel-preset-stage-0 是告诉翻译官，要把js解析成 es5 还是 es7  </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install babel-core babel-loader@7.1.5 babel-preset-env babel-preset-stage-0 --save-dev</span><br></pre></td></tr></table></figure>
+<h4 id="css模块"><a href="#css模块" class="headerlink" title="css模块"></a>css模块</h4><blockquote>
+<p>tips: 要解析什么类型的css文件就安装对应的loader即可</p>
+</blockquote>
+<ul>
+<li>css-loader 解析css代码</li>
+<li>style-loader 将css解析的代码以style标签引入到页面中</li>
+<li>less 和 less-loader 解析less </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install style-loader css-loader less less-loader --save-dev</span><br></pre></td></tr></table></figure>
+<h4 id="图片模块"><a href="#图片模块" class="headerlink" title="图片模块"></a>图片模块</h4><blockquote>
+<p>tips: url-loader 依赖于 file-loader<br>所以两个都需要安装</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install file-loader url-loader --save-dev</span><br></pre></td></tr></table></figure>
+<h4 id="html模块"><a href="#html模块" class="headerlink" title="html模块"></a>html模块</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">npm install html-webpack-plugin --save-dev</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">#### vue模块</span><br><span class="line"></span><br><span class="line">&gt; tips:</span><br><span class="line">&gt; 这里我是用vue写页面，所以安装vue相关依赖</span><br></pre></td></tr></table></figure>
+<p>npm install vue vue-cli vue-loader vue-template-compiler<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">### 配置文件</span><br><span class="line"></span><br><span class="line">#### webpack.config.js</span><br></pre></td></tr></table></figure></p>
+<pre><code>let path = require(&apos;path&apos;);
+let HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;);
+let VueLoaderPlugin = require(&apos;vue-loader/lib/plugin&apos;);
+module.exports = {
+  mode: &apos;development&apos;,
+  entry: &apos;./src/main.js&apos;,
+  output: {
+      filename: &apos;bundle.js&apos;,
+      path: path.resolve(&apos;./dist&apos;)
+  },
+  module: {
+      rules: [
+          {test: /\.js$/, use: &apos;babel-loader&apos;, exclude: /node_module/},
+          {test: /\.css$/, use: [&apos;style-loader&apos;, &apos;css-loader&apos;]},
+          {test: /\.less$/, use: [&apos;style-loader&apos;, &apos;css-loader&apos;, &apos;less-loader&apos;]},
+          {test: /\.(jpg|png|gif|jpeg)/, use: &apos;url-loader?limit=8192&apos;},
+          {test:/\.vue$/, use: &apos;vue-loader&apos;}
+      ]
+  },
+  plugins: [
+      new HtmlWebpackPlugin({
+          template: &apos;./src/index.html&apos;
+      }),
+      new VueLoaderPlugin()
+  ]
+};
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### npm init 生成的package.json文件</span><br></pre></td></tr></table></figure>
+<pre><code>{
+  &quot;name&quot;: &quot;webpack-vue&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;build&quot;: &quot;webpack&quot;,
+    &quot;dev&quot;: &quot;webpack-dev-server&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;devDependencies&quot;: {
+    &quot;babel-core&quot;: &quot;^6.26.3&quot;,
+    &quot;babel-loader&quot;: &quot;^7.1.5&quot;,
+    &quot;babel-preset-env&quot;: &quot;^1.7.0&quot;,
+    &quot;babel-preset-stage-0&quot;: &quot;^6.24.1&quot;,
+    &quot;css-loader&quot;: &quot;^1.0.0&quot;,
+    &quot;file-loader&quot;: &quot;^2.0.0&quot;,
+    &quot;html-webpack-plugin&quot;: &quot;^3.2.0&quot;,
+    &quot;less&quot;: &quot;^3.8.1&quot;,
+    &quot;less-loader&quot;: &quot;^4.1.0&quot;,
+    &quot;style-loader&quot;: &quot;^0.23.0&quot;,
+    &quot;url-loader&quot;: &quot;^1.1.1&quot;,
+    &quot;vue-loader&quot;: &quot;^15.4.1&quot;,
+    &quot;vue-template-compiler&quot;: &quot;^2.5.17&quot;,
+    &quot;webpack&quot;: &quot;^4.17.2&quot;,
+    &quot;webpack-cli&quot;: &quot;^3.1.0&quot;,
+    &quot;webpack-dev-server&quot;: &quot;^3.1.7&quot;
+  }
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### js配置 .babelrc文件</span><br></pre></td></tr></table></figure>
+<pre><code>{
+  &quot;presets&quot;: [&quot;env&quot;, &quot;stage-0&quot;]
+}
+</code></pre><p><code>`</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://smileyby.github.io/2018/09/08/webpack/" data-id="cjx3d53mx000w8sv6rb97hq2q" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-smileyby2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/31/smileyby2/" class="article-date">
+  <time datetime="2018-08-31T04:09:53.000Z" itemprop="datePublished">2018-08-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/31/smileyby2/">smileyby2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这里存放的是未完成或暂时不发布的文章</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby2/" data-id="cjx3d53n100128sv6qgttb2vb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-smileyby" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/31/smileyby/" class="article-date">
+  <time datetime="2018-08-31T04:05:05.000Z" itemprop="datePublished">2018-08-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/31/smileyby/">smileyby</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="这是一个测试文档"><a href="#这是一个测试文档" class="headerlink" title="这是一个测试文档"></a>这是一个测试文档</h2><p>主要用来记录hexo写blog的过程</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby/" data-id="cjx3d53mu000t8sv69ydp4h0t" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/测试/">测试</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/08/31/hello-world/" class="article-date">
   <time datetime="2018-08-31T03:46:06.954Z" itemprop="datePublished">2018-08-31</time>
@@ -77,8 +282,8 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      Hello World
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/31/hello-world/">Hello World</a>
     </h1>
   
 
@@ -105,23 +310,16 @@
     </footer>
   </div>
   
-    
-<nav id="article-nav">
-  
-    <a href="/2018/08/31/smileyby/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          smileyby
-        
-      </div>
-    </a>
-  
-  
-</nav>
+</article>
+
 
   
-</article>
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
 
 </section>
         

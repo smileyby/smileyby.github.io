@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Smileyby|星空灬</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="数据类型检测typeof 用来检测数据类型的运算符 语法：typeof [value] 返回值：首先是一个字符串，字符串中包含了我们需要检测的数据类型 使用typeof有自己的局限性，不能细分出当前的值是数组还是正则  1234567891011121314151617181920typeof 12; // &apos;number&apos;typeof NaN; // &apos;number&apos;typeof &apos;&apos;; //">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Smileyby|星空灬">
+<meta property="og:url" content="http://smileyby.github.io/2019/06/19/数据类型检测/index.html">
+<meta property="og:site_name" content="Smileyby|星空灬">
+<meta property="og:description" content="数据类型检测typeof 用来检测数据类型的运算符 语法：typeof [value] 返回值：首先是一个字符串，字符串中包含了我们需要检测的数据类型 使用typeof有自己的局限性，不能细分出当前的值是数组还是正则  1234567891011121314151617181920typeof 12; // &apos;number&apos;typeof NaN; // &apos;number&apos;typeof &apos;&apos;; //">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-19T14:55:35.596Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Smileyby|星空灬">
+<meta name="twitter:description" content="数据类型检测typeof 用来检测数据类型的运算符 语法：typeof [value] 返回值：首先是一个字符串，字符串中包含了我们需要检测的数据类型 使用typeof有自己的局限性，不能细分出当前的值是数组还是正则  1234567891011121314151617181920typeof 12; // &apos;number&apos;typeof NaN; // &apos;number&apos;typeof &apos;&apos;; //">
+  
+    <link rel="alternate" href="/atom.xml" title="Smileyby|星空灬" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Smileyby|星空灬</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://smileyby.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-数据类型检测" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/19/数据类型检测/" class="article-date">
+  <time datetime="2019-06-19T14:57:27.840Z" itemprop="datePublished">2019-06-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="数据类型检测"><a href="#数据类型检测" class="headerlink" title="数据类型检测"></a>数据类型检测</h2><h3 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h3><blockquote>
+<p>用来检测数据类型的运算符</p>
+<p>语法：typeof [value]</p>
+<p>返回值：首先是一个字符串，字符串中包含了我们需要检测的数据类型</p>
+<p>使用typeof有自己的局限性，不能细分出当前的值是数组还是正则</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> <span class="number">12</span>; <span class="comment">// 'number'</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">NaN</span>; <span class="comment">// 'number'</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="string">''</span>; <span class="comment">// 'string'</span></span><br><span class="line"><span class="keyword">var</span> flag = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">typeof</span> flag; <span class="comment">// 'boolean'</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">undefined</span>; <span class="comment">// 'undefined'</span></span><br><span class="line"></span><br><span class="line"><span class="literal">null</span> == <span class="literal">undefined</span>; <span class="comment">// true</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">n, m</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> n === <span class="string">'undefined'</span>) &#123;</span><br><span class="line">        <span class="comment">//=&gt; 比双等号更严谨</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">null</span>; <span class="comment">// 'object' 虽然是基本数据类型值，但是他属于空对象指针，检测的结果是对象</span></span><br><span class="line"><span class="keyword">typeof</span> &#123;&#125;; <span class="comment">// 'object'</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;; <span class="comment">// 'function'</span></span><br><span class="line"><span class="keyword">typeof</span> []; <span class="comment">// 'object'</span></span><br><span class="line"><span class="keyword">typeof</span> /^$/; <span class="comment">// 'object'</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="number">1</span>&gt;<span class="number">1</span>?<span class="number">0</span>:<span class="number">2</span>; <span class="comment">// 2</span></span><br><span class="line"><span class="keyword">typeof</span> (<span class="number">1</span>&gt;<span class="number">1</span>?<span class="number">0</span>:<span class="number">2</span>); <span class="comment">// 'number'</span></span><br></pre></td></tr></table></figure>
+<h3 id="instanceof-amp-constructor"><a href="#instanceof-amp-constructor" class="headerlink" title="instanceof &amp; constructor"></a>instanceof &amp; constructor</h3><blockquote>
+<p>instanceof：检测当前对象是否属于某一个类的实例</p>
+<p>使用instanceof检测某个值是否是属于某一个数据类型的内置类，从而检测出它是否是这个类型值，使用instanceof可以实现typeof实现不了的对对向类型值得区分检测</p>
+<p>【弊端】</p>
+<ol>
+<li>基本类型值无法基于它检测</li>
+<li>instanceof检测的原理是基于原型链检测的，只要当前类在实例的原型链上，最后返回的结果都是true</li>
+</ol>
+<p>constructor：构造函数</p>
+<ol>
+<li>获取当前要检测数据值得constructor，判断当前数据是不是某一个数据类型内置类来检测</li>
+<li>检测数据类型非常不可靠，因为这个属性经常容易被修改</li>
+</ol>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[] <span class="keyword">instanceof</span> <span class="built_in">Array</span>; <span class="comment">// true</span></span><br><span class="line">[] <span class="keyword">instanceof</span> <span class="built_in">RegExp</span>; <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> num = <span class="number">12</span>;</span><br><span class="line">num.toFixed(<span class="number">2</span>); <span class="comment">// '12.00' 12是Number类的一个实例，可以调取Number.prototype上的方法，但是他是基本类型值</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> num2 = <span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">12</span>);</span><br><span class="line">num2.toFixed(); <span class="comment">// '12.00'</span></span><br><span class="line"><span class="keyword">typeof</span> num2; <span class="comment">// 'object'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; 不管哪一种方式创建的基本类型值，都是自己所属类的实例（只不过类型不一样而已）</span></span><br><span class="line">num <span class="keyword">instanceof</span> <span class="built_in">Number</span>; <span class="comment">// false</span></span><br><span class="line">num2 <span class="keyword">instanceof</span> <span class="built_in">Number</span>; <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ary = [];</span><br><span class="line">ary <span class="keyword">instanceof</span> <span class="built_in">Array</span>; <span class="comment">// true</span></span><br><span class="line">ary <span class="keyword">instanceof</span> <span class="built_in">Object</span>; <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">Fn.prototype = <span class="keyword">new</span> <span class="built_in">Array</span>(); <span class="comment">// 原型继承（Fn是Array的子类）</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="keyword">new</span> Fn();</span><br><span class="line">f <span class="keyword">instanceof</span> <span class="built_in">Array</span>; <span class="comment">// true f其实不应该是数组，虽然在他的原型上可以找到数组，但是它不具备数组的基础结构，这也是instanceof的弊端</span></span><br><span class="line"></span><br><span class="line">ary.constructor === <span class="built_in">Array</span>; <span class="comment">// true 说明ary是数组</span></span><br><span class="line">ary.constructor === <span class="built_in">RegExp</span>; <span class="comment">// false</span></span><br><span class="line">ary.constructor === <span class="built_in">Object</span>; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h3 id="Object-prototype-toString-call"><a href="#Object-prototype-toString-call" class="headerlink" title="Object.prototype.toString.call"></a>Object.prototype.toString.call</h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://smileyby.github.io/2019/06/19/数据类型检测/" data-id="cjx3d53n600178sv63f8ss5k9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/06/19/jsonp原理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/06/19/面向对象/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Idea/">Idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/command/">command</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css3/">css3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/design-pattern/">design-pattern</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom-event/">dom-event</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom0/">dom0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dom1/">dom1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event-bubble/">event-bubble</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h5/">h5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hybird/">hybird</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/less/">less</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/promise/">promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/setTimeout/">setTimeout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/冒泡/">冒泡</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/捕获/">捕获</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/新增/">新增</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ECMAScript/" style="font-size: 10px;">ECMAScript</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Idea/" style="font-size: 10px;">Idea</a> <a href="/tags/Thinging/" style="font-size: 10px;">Thinging</a> <a href="/tags/command/" style="font-size: 10px;">command</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design-pattern</a> <a href="/tags/dom-event/" style="font-size: 10px;">dom-event</a> <a href="/tags/dom0/" style="font-size: 10px;">dom0</a> <a href="/tags/dom1/" style="font-size: 10px;">dom1</a> <a href="/tags/event-bubble/" style="font-size: 10px;">event-bubble</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/html5/" style="font-size: 10px;">html5</a> <a href="/tags/hybird/" style="font-size: 10px;">hybird</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/setInterval/" style="font-size: 10px;">setInterval</a> <a href="/tags/setTimeout/" style="font-size: 10px;">setTimeout</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/冒泡/" style="font-size: 10px;">冒泡</a> <a href="/tags/捕获/" style="font-size: 10px;">捕获</a> <a href="/tags/新增/" style="font-size: 10px;">新增</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/草稿箱/" style="font-size: 10px;">草稿箱</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/19/jsonp原理/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/19/数据类型检测/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/19/面向对象/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/08/倒计时抢购/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/08/js中常用的编码解码方法/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 yuby<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

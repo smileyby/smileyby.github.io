@@ -5,15 +5,19 @@
   
 
   
-  <title>Tag: hybird | Smileyby|星空灬</title>
+  <title>Smileyby|星空灬</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="JSONP 原理 JSONP和AJAX相同，都是客户端向服务端发送请求：给服务器传递数据或者从服务器获取数据的方式  AJAX（async javascript and xml）属于同源策略 JSONP属于非同源策略（跨域请求）-&amp;gt;实现跨域请求额方式有很多，只不过JSONP是最常用的 判断是否同源：  域名/IP 协议 端口号  以上三个都一样就是同源，其中有一个不一样就是非同源，我们一般用">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Smileyby|星空灬">
-<meta property="og:url" content="http://smileyby.github.io/tags/hybird/index.html">
+<meta property="og:url" content="http://smileyby.github.io/2019/06/19/jsonp原理/index.html">
 <meta property="og:site_name" content="Smileyby|星空灬">
+<meta property="og:description" content="JSONP 原理 JSONP和AJAX相同，都是客户端向服务端发送请求：给服务器传递数据或者从服务器获取数据的方式  AJAX（async javascript and xml）属于同源策略 JSONP属于非同源策略（跨域请求）-&amp;gt;实现跨域请求额方式有很多，只不过JSONP是最常用的 判断是否同源：  域名/IP 协议 端口号  以上三个都一样就是同源，其中有一个不一样就是非同源，我们一般用">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-09T10:29:14.303Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Smileyby|星空灬">
+<meta name="twitter:description" content="JSONP 原理 JSONP和AJAX相同，都是客户端向服务端发送请求：给服务器传递数据或者从服务器获取数据的方式  AJAX（async javascript and xml）属于同源策略 JSONP属于非同源策略（跨域请求）-&amp;gt;实现跨域请求额方式有很多，只不过JSONP是最常用的 判断是否同源：  域名/IP 协议 端口号  以上三个都一样就是同源，其中有一个不一样就是非同源，我们一般用">
   
     <link rel="alternate" href="/atom.xml" title="Smileyby|星空灬" type="application/atom+xml">
   
@@ -60,40 +64,63 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/03/31/mobile/" class="archive-article-date">
-  <time datetime="2019-03-31T02:31:12.000Z" itemprop="datePublished">Mar 31</time>
+        <section id="main"><article id="post-jsonp原理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/19/jsonp原理/" class="article-date">
+  <time datetime="2019-06-19T14:57:27.842Z" itemprop="datePublished">2019-06-19</time>
 </a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/31/mobile/">移动端混合开发</a>
-    </h1>
-  
-
-    </header>
+    
   </div>
-</article>
-  
-  
-    </div></section>
-  
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="JSONP-原理"><a href="#JSONP-原理" class="headerlink" title="JSONP 原理"></a>JSONP 原理</h3><blockquote>
+<p>JSONP和AJAX相同，都是客户端向服务端发送请求：给服务器传递数据或者从服务器获取数据的方式</p>
+</blockquote>
+<p>AJAX（async javascript and xml）属于同源策略</p>
+<p>JSONP属于非同源策略（跨域请求）-&gt;实现跨域请求额方式有很多，只不过JSONP是最常用的</p>
+<p>判断是否同源：</p>
+<ol>
+<li>域名/IP</li>
+<li>协议</li>
+<li>端口号</li>
+</ol>
+<p>以上三个都一样就是同源，其中有一个不一样就是非同源，我们一般用JSONP来获取数据</p>
+<blockquote>
+<p>在script的世界中，没有同源跨域这一说，只要你给我src属性中的地址是一个合法的地址，script都可以把对应的内容请求回来（JSONP请求一定要对方服务器做支持才可以）</p>
+</blockquote>
+<ol>
+<li>我们首先把需要请求数据的那个跨域API接口的地址赋值给src</li>
+<li>把当前页面中的某一个函数名当作参数值传递给跨域服务器（URL问号传参：<code>?callback=fn</code>）</li>
+<li>服务器收到请求后，需要进行特殊处理，把你传递进来的函数名和它需要给你的数据拼接成一个字符串，例如 <code>fn([{&quot;name&quot;:&quot;xxx&quot;}])</code> </li>
+<li>最后，服务器把准备好的数据通过http协议返回给客户端，客户端只需要执行fn即可</li>
+</ol>
+<h4 id="JQ中的JSONP"><a href="#JQ中的JSONP" class="headerlink" title="JQ中的JSONP"></a>JQ中的JSONP</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">    url: <span class="string">''</span>,</span><br><span class="line">    dataType: <span class="string">'jsonp'</span>,</span><br><span class="line">    jsonpCallback: <span class="string">'fn'</span>, <span class="comment">//=&gt; 自定义传递给服务器的函数名，而不是用JQ自动生成的</span></span><br><span class="line">    jsonp: <span class="string">'cb'</span>, <span class="comment">//=&gt; 把传递函数名的那个形参改为cb</span></span><br><span class="line">    success: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://smileyby.github.io/2019/06/19/jsonp原理/" data-id="cjx3d53mh000c8sv6v10975s9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/06/19/数据类型检测/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 </section>
         

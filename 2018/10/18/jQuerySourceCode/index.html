@@ -123,7 +123,7 @@
 <p>传递的是一个元素对象，它的意思是把JS原生对象转换为JQ对象</p>
 <p>传递的是个函数，它代表等DOM结构加载完成在执行对应的JS代码（类似于window.onload）</p>
 </blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ === jQuery; <span class="comment">// true</span></span><br><span class="line">$() === jQuery(); <span class="comment">// false 不同实例</span></span><br><span class="line">$() <span class="keyword">instanceof</span> jQuery; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">var</span> $example = $(); <span class="comment">//=&gt; 我们用JQ选择器获取的值，一般都是用以$开头的变量名来存储（以后看见变量名是以$开头，我们就知道是JQ获取的实例【JQ对象】）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * $example</span></span><br><span class="line"><span class="comment"> * xxx:xxx 私有属性</span></span><br><span class="line"><span class="comment"> * 0：某一个元素</span></span><br><span class="line"><span class="comment"> * ...</span></span><br><span class="line"><span class="comment"> * length：类数组长度</span></span><br><span class="line"><span class="comment"> * context：document</span></span><br><span class="line"><span class="comment"> * selector：传递的选择器内容</span></span><br><span class="line"><span class="comment"> * prevObject：当前执行上下文的JQ对象</span></span><br><span class="line"><span class="comment"> * __proto__: jQuery.prototype</span></span><br><span class="line"><span class="comment"> *     [xxx:xxx 共有的属性和方法]</span></span><br><span class="line"><span class="comment"> *     add</span></span><br><span class="line"><span class="comment"> *     addClass</span></span><br><span class="line"><span class="comment"> *     ...</span></span><br><span class="line"><span class="comment"> *     __proto__:Object.prototype</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ === jQuery; <span class="comment">// true</span></span><br><span class="line">$() === jQuery(); <span class="comment">// false 不同实例</span></span><br><span class="line">$() <span class="keyword">instanceof</span> jQuery; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">var</span> $example = $(); <span class="comment">//=&gt; 我们用JQ选择器获取的值，一般都是用以$开头的变量名来存储（以后看见变量名是以$开头，我们就知道是JQ获取的实例【JQ对象】）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * $example</span></span><br><span class="line"><span class="comment"> * <span class="doctag">xxx:</span>xxx 私有属性</span></span><br><span class="line"><span class="comment"> * 0：某一个元素</span></span><br><span class="line"><span class="comment"> * ...</span></span><br><span class="line"><span class="comment"> * length：类数组长度</span></span><br><span class="line"><span class="comment"> * context：document</span></span><br><span class="line"><span class="comment"> * selector：传递的选择器内容</span></span><br><span class="line"><span class="comment"> * prevObject：当前执行上下文的JQ对象</span></span><br><span class="line"><span class="comment"> * __proto__: jQuery.prototype</span></span><br><span class="line"><span class="comment"> *     [<span class="doctag">xxx:</span>xxx 共有的属性和方法]</span></span><br><span class="line"><span class="comment"> *     add</span></span><br><span class="line"><span class="comment"> *     addClass</span></span><br><span class="line"><span class="comment"> *     ...</span></span><br><span class="line"><span class="comment"> *     __proto__:Object.prototype</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>第一个参数[selector]传递的是一个字符串，就是通过选择器获取到的元素集合（获取的结果都是类类数组集合；获取多个元素也就是索引多点，获取一个元素就只有索引0，一个都没获取到就是一个空的类数组集合【而不是null】）</p>
 <p>一般css或者css3中支持的选择器，jq都支持</p>
@@ -185,7 +185,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/10/18/jQuerySourceCode/" data-id="cjwndcpsq0009vkv6vwnbz0de" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/10/18/jQuerySourceCode/" data-id="cjx3d53mp000l8sv6e7gqkshd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Idea/">Idea</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
@@ -266,23 +266,23 @@
       <ul>
         
           <li>
+            <a href="/2019/06/19/jsonp原理/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/19/数据类型检测/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/19/面向对象/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2019/06/08/倒计时抢购/">(no title)</a>
           </li>
         
           <li>
             <a href="/2019/06/08/js中常用的编码解码方法/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/06/08/ajax类库封装/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/19/前端优化技巧/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/19/客户端和服务端交互/">(no title)</a>
           </li>
         
       </ul>
