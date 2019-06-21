@@ -62,6 +62,52 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-回调函数" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/21/回调函数/" class="article-date">
+  <time datetime="2019-06-21T15:59:03.371Z" itemprop="datePublished">2019-06-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JAVASCRIPT中的回调函数"><a href="#JAVASCRIPT中的回调函数" class="headerlink" title="JAVASCRIPT中的回调函数"></a>JAVASCRIPT中的回调函数</h2><h3 id="什么是回调函数？"><a href="#什么是回调函数？" class="headerlink" title="什么是回调函数？"></a>什么是回调函数？</h3><blockquote>
+<p>把一个函数当作实参传递给函数的形参变量（获取传递给函数，通过arguments获取），再另外一个函数中把传递的函数执行这种机制就叫回调函数机制</p>
+<p>凡是在某一个函数的某一个阶段需要完成某一件事（而这件事是不确定的），都可以利用回调函数机制，把需要处理的事情当作值传递进来</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">num, callback</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// callback 传递进来的回调函数</span></span><br><span class="line">    <span class="keyword">typeof</span> callback === <span class="string">'function'</span> ? callback() : <span class="literal">null</span>;</span><br><span class="line">    <span class="comment">// callback &amp;&amp; callback(); 这种方式默认没有上面的严谨</span></span><br><span class="line">&#125;</span><br><span class="line">fn(<span class="number">10</span>);</span><br><span class="line">fn(<span class="number">20</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 此处的匿名函数就是给callback传递的值</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>既然我们已经把函数作为值传递给FN了，此时在FN中我们可以操作传递的函数</p>
+<ol>
+<li>我们可以在FN中把回调函数执行0-N次</li>
+<li>我们还可以给回调函数传递参数值</li>
+<li>我们还可以把回调函数中的this进行修改</li>
+<li>我们还可以接收回调函数执行返回的值</li>
+<li>…..</li>
+</ol>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; 需求：执行fn可以实现任意数求和，把求出的和传递给回调函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> argNumAry = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>),</span><br><span class="line">        total = <span class="built_in">eval</span>(argNumAry.join(<span class="string">'+'</span>));</span><br><span class="line">    <span class="keyword">typeof</span> callback === <span class="string">'function'</span> ? callback.call(fn, total) : <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line">fn(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(result, <span class="keyword">this</span>); <span class="comment">// 100 fn</span></span><br><span class="line">&#125;, <span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>,<span class="number">40</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>很多的方法都是依托于回调函数来完成的</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ary = [<span class="number">12</span>, <span class="number">23</span>, <span class="number">34</span>];</span><br><span class="line">ary.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//=&gt; a：当前项</span></span><br><span class="line">    <span class="comment">//=&gt; b：后一项</span></span><br><span class="line">    <span class="keyword">return</span> a-b; <span class="comment">//=&gt; 返回一个大于零的值，则a和b位置交换</span></span><br><span class="line">&#125;)；</span><br><span class="line">ary.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, input</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//=&gt; item：当前便利的这一项</span></span><br><span class="line">    <span class="comment">//=&gt; index：当前便利这一项的索引</span></span><br><span class="line">    <span class="comment">//=&gt; input：原始便利的数组</span></span><br><span class="line">    <span class="comment">//=&gt; forEach每当循环便到数组中的每一项都会把当前传递的回调函数执行一次（不仅执行，还把便利的这一项的值传递给回调函数）</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//=&gt; map遍历数组中的每一项，原有数组不变，返回结果是修改后的新数组（map相对于forEach来说，增加了对原有想的修改）</span></span><br><span class="line">ary.map(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, input</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//=&gt; item：当前便利的这一项</span></span><br><span class="line">    <span class="comment">//=&gt; index：当前便利这一项的索引</span></span><br><span class="line">    <span class="comment">//=&gt; input：原始便利的数组</span></span><br><span class="line">    <span class="keyword">return</span> item*<span class="number">10</span>; <span class="comment">//=&gt; 回调函数中返回的是啥，详单与把当前便利的这一项改为啥（回调函数中不屑return，默认返回的是undefined）</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://smileyby.github.io/2019/06/21/回调函数/" data-id="cjx6a5h390010ewv67loqvgi6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-jsonp原理" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/06/19/jsonp原理/" class="article-date">
@@ -100,7 +146,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/06/19/jsonp原理/" data-id="cjx3d53mh000c8sv6v10975s9" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2019/06/19/jsonp原理/" data-id="cjx6a5h2w000sewv6xgswez80" class="article-share-link">Share</a>
       
       
     </footer>
@@ -144,11 +190,23 @@
 </ol>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[] <span class="keyword">instanceof</span> <span class="built_in">Array</span>; <span class="comment">// true</span></span><br><span class="line">[] <span class="keyword">instanceof</span> <span class="built_in">RegExp</span>; <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> num = <span class="number">12</span>;</span><br><span class="line">num.toFixed(<span class="number">2</span>); <span class="comment">// '12.00' 12是Number类的一个实例，可以调取Number.prototype上的方法，但是他是基本类型值</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> num2 = <span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">12</span>);</span><br><span class="line">num2.toFixed(); <span class="comment">// '12.00'</span></span><br><span class="line"><span class="keyword">typeof</span> num2; <span class="comment">// 'object'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; 不管哪一种方式创建的基本类型值，都是自己所属类的实例（只不过类型不一样而已）</span></span><br><span class="line">num <span class="keyword">instanceof</span> <span class="built_in">Number</span>; <span class="comment">// false</span></span><br><span class="line">num2 <span class="keyword">instanceof</span> <span class="built_in">Number</span>; <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ary = [];</span><br><span class="line">ary <span class="keyword">instanceof</span> <span class="built_in">Array</span>; <span class="comment">// true</span></span><br><span class="line">ary <span class="keyword">instanceof</span> <span class="built_in">Object</span>; <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">Fn.prototype = <span class="keyword">new</span> <span class="built_in">Array</span>(); <span class="comment">// 原型继承（Fn是Array的子类）</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="keyword">new</span> Fn();</span><br><span class="line">f <span class="keyword">instanceof</span> <span class="built_in">Array</span>; <span class="comment">// true f其实不应该是数组，虽然在他的原型上可以找到数组，但是它不具备数组的基础结构，这也是instanceof的弊端</span></span><br><span class="line"></span><br><span class="line">ary.constructor === <span class="built_in">Array</span>; <span class="comment">// true 说明ary是数组</span></span><br><span class="line">ary.constructor === <span class="built_in">RegExp</span>; <span class="comment">// false</span></span><br><span class="line">ary.constructor === <span class="built_in">Object</span>; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<h3 id="Object-prototype-toString-call"><a href="#Object-prototype-toString-call" class="headerlink" title="Object.prototype.toString.call"></a>Object.prototype.toString.call</h3>
+<h3 id="Object-prototype-toString-call-value"><a href="#Object-prototype-toString-call-value" class="headerlink" title="Object.prototype.toString.call([value])"></a>Object.prototype.toString.call([value])</h3><blockquote>
+<p>获取Object.prototype上的toString()方法，让发发中的this变为需要检测的数据类型值，并且执行这个方法</p>
+</blockquote>
+<blockquote>
+<p>在Number/String/Boolean/Array/Function/Regexp…这些类的原型上都有一个toString方法，这个方法就是把本身的值转换为字符串</p>
+<p>在Object这个类的原型上也有一个方法<code>toString</code>，但是这个方法并不是把值转换为字符串，而是<code>返回当前值所属类的详细信息，固定结构：[object 所属的类]</code></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">12</span>).toString(); <span class="comment">// '12'</span></span><br><span class="line">(<span class="literal">true</span>).toString(); <span class="comment">// 'true'</span></span><br><span class="line">[<span class="number">12</span>,<span class="number">23</span>].toString(); <span class="comment">// '12.23'</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">name</span>: <span class="string">'aa'</span>&#125;;</span><br><span class="line">obj.toString(); <span class="comment">// "[object Object]" 调取的正是Obejct.prototype.toString</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="number">12</span>); <span class="comment">// "[object Number]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">true</span>); <span class="comment">// "[object Boolean]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="string">''</span>); <span class="comment">// "[object String]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">null</span>); <span class="comment">// "[object Null]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">undefined</span>); <span class="comment">// "[object undefined]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call([]); <span class="comment">// '[object Array]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(&#123;&#125;); <span class="comment">// "[object Object]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="regexp">/^$/</span>); <span class="comment">// "[object RegExp]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;); <span class="comment">// "[object Function]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="built_in">Math</span>); <span class="comment">// "[object Math]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="built_in">document</span>.body); <span class="comment">// "[object HTMLBodyElement]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="built_in">document</span>); <span class="comment">// "[object HTMLDocument]"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//=&gt; obj.toString(); 执行</span></span><br><span class="line"><span class="comment">//=&gt; 执行的是Object.prototype.toString</span></span><br><span class="line"><span class="comment">//=&gt; 方法中的this指向的是obj</span></span><br><span class="line"><span class="comment">//=&gt; object.prototype.toString执行的时候返回的是当前方法中this所属类的信息</span></span><br><span class="line"><span class="comment">//=&gt; 也就是，我们想知道谁的所属类信息，我们就把这个toString方法执行，并且让this变为我们检测的这个数据值，那么方法返回的结果就是当前检测这个值得所属累信息</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用<code>toString</code>检测数据类型，不管你是什么类型值，我们都可以正常检测出需要的结果</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">~<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> obj = &#123;</span><br><span class="line">        isNumber: <span class="string">'Number'</span>,</span><br><span class="line">        isString: <span class="string">'String'</span>,</span><br><span class="line">        isBoolean: <span class="string">'Boolean'</span>,</span><br><span class="line">        isNull: <span class="string">'Null'</span>,</span><br><span class="line">        isUndefined: <span class="string">'Undefined'</span>,</span><br><span class="line">        isPlanObject: <span class="string">'Obejct'</span>,</span><br><span class="line">        isArray: <span class="string">'Array'</span>,</span><br><span class="line">        isRegExp: <span class="string">'RegExp'</span>,</span><br><span class="line">        isFunction: <span class="string">'Function'</span></span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">var</span> check = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">        <span class="keyword">if</span> (obj.hasOwnProperty(key)) &#123;</span><br><span class="line">            <span class="keyword">var</span> value = obj[key];</span><br><span class="line">            check[key] = (<span class="function"><span class="keyword">function</span>(<span class="params">classValue</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">val</span>)</span>&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'\\[object '</span>+ classValue +<span class="string">'\\]'</span>).test(<span class="built_in">Object</span>.prototype.toString.call(val));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)(obj[key]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">window</span>.check = check;</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/06/19/数据类型检测/" data-id="cjx3d53n600178sv63f8ss5k9" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2019/06/19/数据类型检测/" data-id="cjx6a5h3n0018ewv6mzdvk6td" class="article-share-link">Share</a>
       
       
     </footer>
@@ -257,7 +315,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/06/19/面向对象/" data-id="cjx3d53n500168sv6xokq1v6g" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2019/06/19/面向对象/" data-id="cjx6a5h3w001cewv6j5iotdmo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -284,7 +342,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/06/08/倒计时抢购/" data-id="cjx3d53mw000u8sv6cafi05z9" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2019/06/08/倒计时抢购/" data-id="cjx6a5h3i0015ewv6smtqjs1f" class="article-share-link">Share</a>
       
       
     </footer>
@@ -343,7 +401,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/06/08/js中常用的编码解码方法/" data-id="cjx3d53mk000g8sv6qe40r2wu" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2019/06/08/js中常用的编码解码方法/" data-id="cjx6a5h2q000rewv63322z90x" class="article-share-link">Share</a>
       
       
     </footer>
@@ -387,7 +445,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/06/08/ajax类库封装/" data-id="cjx3d53me00098sv6xoy4q8y1" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2019/06/08/ajax类库封装/" data-id="cjx6a5h0z0000ewv6jsgghrym" class="article-share-link">Share</a>
       
       
     </footer>
@@ -520,7 +578,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/05/19/前端优化技巧/" data-id="cjx3d53mz000z8sv6vaf0nguk" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2019/05/19/前端优化技巧/" data-id="cjx6a5h3t0019ewv68t8ughpy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -648,7 +706,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/05/19/客户端和服务端交互/" data-id="cjx3d53n300148sv6vliu7edb" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2019/05/19/客户端和服务端交互/" data-id="cjx6a5h4e0029ewv6k5znptoy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -701,7 +759,7 @@
 <li>html得层级不要太深，太深的层级，爬虫可能不会抓取和收录</li>
 <li>把需要推广的关键词尽可能的在页面中曝光（最好写在h2-6标签中）</li>
 </ol>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.logo</span> &#123;</span></span><br><span class="line"><span class="undefined">        font-size: 0;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">"logo"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"xxx.png"</span> <span class="attr">alt</span>=<span class="string">"站点名称"</span>&gt;</span></span><br><span class="line">    站点名称</span><br><span class="line"><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    .logo &#123;</span></span><br><span class="line"><span class="undefined">        font-size: 0;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">"logo"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"xxx.png"</span> <span class="attr">alt</span>=<span class="string">"站点名称"</span>&gt;</span></span><br><span class="line">    站点名称</span><br><span class="line"><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <ol start="6">
 <li>尽量不用使用前后段分离，页面中的数据绑定交给后台处理，由服务器来渲染页面，交给前端处理由客户端渲染页面，搜索引擎的爬虫是爬取不到的（在网站源码中，无法看见通过客户端渲染数据的代码）</li>
 </ol>
@@ -714,142 +772,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/05/15/SEO-SEM/" data-id="cjx3d53m300018sv60ocp3py2" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-mobil" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/15/mobil/" class="article-date">
-  <time datetime="2019-05-15T13:43:40.935Z" itemprop="datePublished">2019-05-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="移动端响应式开发"><a href="#移动端响应式开发" class="headerlink" title="移动端响应式开发"></a>移动端响应式开发</h2><ol>
-<li><p>什么是响应式布局开发？</p>
-<p>把我们开发完成的产品，能够让其适配不同的设备屏幕：PC、PAD、PHONE</p>
-</li>
-<li><p>现在H5已经成为移动端开发（响应式布局）的标准代名词</p>
-</li>
-<li><p>移动端发展史</p>
-<p>智能生活（互联网+）离不开各种APP（应用），这些应用离不开一代又一代的IT工程师</p>
-<p>很久以前，APP开发和H5没什么太大的关系，都是由专业的APP开发团队开发的</p>
-<p>安卓系统：JAVA（JAVA-NATIVE）</p>
-<p>IOS系统：C（object-c/swift）</p>
-<p>我们把使用上述语言开发的APP称之为native-app（原生APP）</p>
-<ol>
-<li>本地开发，打包成安装包，上传至应用商店（APP Store是有审核期的【七天】），用户从应用商店下载安装相关的APP；把当前APP的源文件（源代码安装在手机上，类似于在电脑上安装软件）</li>
-<li>native-app可以操作手机内部的软件或硬件（例如：通讯录、摄像头、相册、重力感应器等），因为它是直接运行在手机操作系统中的程序</li>
-<li>最一些操作和交互，性能是比较不错的</li>
-<li>手机操作系统不一样，使用的技术也不一样，所以需要两个不同的开发团队，开发不同版本的app（问题：有的版本升级快，有的版本升级慢）</li>
-</ol>
-</li>
-<li><p>目前我们开发一款APP需要H5的介入：在native-app中嵌入H5页面（web-app）这种模式称之为Hybrid混合app开发</p>
-<ul>
-<li>由H5开发的web-app的特点<ul>
-<li>其实就是HTML页面，需要基于浏览器运行（PC或者移动端浏览器在或者V8内核的工具也可以）</li>
-<li>H5能否操作手机内部的软件或者硬件，取决于浏览器是否支持，如果浏览器支持，H5页面可以调取使用，反之不可以。例如：H5中想要调取摄像头，UC浏览器支持的话，是先把调取摄像头的功能实现了，然后放在window全局对象中，供H5中的JS调取使用</li>
-<li>相比于native来说，性能不好</li>
-<li>所有的请求访问都必须基于联网状态（除了有些nativea-app把H5特殊处理了），虽然H5中支持manifest离线缓存，但是这个技术不是很好</li>
-<li>更新比较及时：H5只需要把服务器上的文件更新，用户每次访问看到的都是最新版本，这个比nativea-app好</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Hybrid-app：</p>
-<ul>
-<li>web-view：一款基于V8引擎渲染HTML页面的工具（类似于浏览器）</li>
-<li>H5页面就是嵌入到web-view中，由其渲染</li>
-<li>真实项目中<ul>
-<li>将H5响应式页面开发完成后部署到服务器上（有一个http/https的访问地址）</li>
-<li>此时用户可以手动输入网址访问</li>
-<li>我们也可以生成二维码，让用户扫描访问</li>
-</ul>
-</li>
-<li>整个产品的外层框架交给native-app团队开发，他们把壳搭起来，把需要调取手机内部软件或者硬件的功能实现，把一些缓存页面的机制实现…,提供好对应调取的方法</li>
-<li>前端把开发生成好的H5地址告诉给native-app，他们会在自己的web-view中通过提供的地址渲染出对应的页面</li>
-<li>一个产品：主题内容或者经常更新的内容，都是H5来开发，native-app只开发外壳和调取手机内部的功能</li>
-<li>H5中如果需要使用手机内部功能，只需要调取自己宿主环境web-view中提供的方法即可</li>
-</ul>
-</li>
-<li><p>微信是最为经典的Hybrid混合开发模式，它支持我们在H5页面在微信这个native-app中运行，而且还可以调取微信提供的一些方法实现相关的操作（例如：微信的二次分享）</p>
-</li>
-</ol>
-<h3 id="常见的项目类型"><a href="#常见的项目类型" class="headerlink" title="常见的项目类型"></a>常见的项目类型</h3><ol>
-<li>PC端和移动端公用一套项目（用一个网址），我们也要保持良好的展示性，例如，猎豹浏览器、华为官网等简单的展示网站</li>
-<li>PC端和移动端用的是不同的项目，例如：京东、淘宝<ul>
-<li>PC端布局固定</li>
-<li>移动端需要考虑响应式开发<ul>
-<li>放在浏览器中运行</li>
-<li>放在第三方平台运行</li>
-<li>放在自己公司的native-app中运行</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<p>手机常用尺寸：</p>
-<blockquote>
-<p>【苹果】：</p>
-<ul>
-<li>iphone5s及以前:320px</li>
-<li>iphone4：320*480</li>
-<li>iphone5：320*568</li>
-<li>iphone6：375*667</li>
-<li>iphone6/7/8/plus：414*736</li>
-</ul>
-<p>【安卓】</p>
-<ul>
-<li>320、360、480、540、640</li>
-</ul>
-</blockquote>
-<p>做H5页面开发之前，需要先从设计师获取ui设计图（PSD格式或者sketch设计稿）</p>
-<p>设备像素密度比</p>
-<h2 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h2><p>只要当前页面需要在移动端访问，一定要加下面这段meta标签，不加的话，我们html页面的宽度都是980px（如果在320px的手机上打开HTML页面，为了保证把页面看全，需要把html缩小大概3倍左右，所有内容都变下了），为了不让页面缩放，我们需要保证手机的宽度和HTML的宽度一直</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0"</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol>
-<li><p>REM响应式布局</p>
-<ul>
-<li>和px一样，他是一个css样式单位</li>
-<li>px是一个固定单位，rem是一个相对单位（相对页面的跟元素（HTML）字体大小来设定的单位）</li>
-<li>设置为100px，是为了方便后期换算成rem</li>
-</ul>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>真实项目中如何利用rem的这个特性来实现相应是布局？</p>
-<ol>
-<li>严格按照设计稿中的尺寸进行样式编写（不管是宽高，还是margin，还是字体等），例如：设计稿是750x1336的，设计稿中有一个 300x150的图片，我们的布局的时候依然按照300x150布局…</li>
-</ol>
-</li>
-</ul>
-<ol start="2">
-<li><p>我们在编写样式的时候，不要使用px单位，所有的单位都统一换算为rem（此时我们需要让html的<code>font-size:100px</code>）</p>
-<ol start="3">
-<li>上述完成后再750px的手机上是没有任何问题的，但是在375px的手机上肯定存在问题了，此时我们需要让页面中的所有样式都整体缩小才能达到响应式适配的目的（<code>此时只需要把HTML的字体大小修改，那么值钱所有以rem为单位的样式会自动重新计算</code>）</li>
-</ol>
-<p><strong>rem等比缩放响应式布局</strong>：如果单独做移动端项目（项目只在移动端访问，pc端有单独的项目），我们选择响应式适配的最佳方案就是rem布局（当然细节处理可能会用到flex或者@media）</p>
-</li>
-</ol>
-</li>
-<li><p>媒体查询响应式布局</p>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/05/15/mobil/" data-id="cjx3d53mm000j8sv64c2wi32j" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2019/05/15/SEO-SEM/" data-id="cjx6a5h1e0005ewv6y7vsgpts" class="article-share-link">Share</a>
       
       
     </footer>
@@ -916,6 +839,10 @@
       <ul>
         
           <li>
+            <a href="/2019/06/21/回调函数/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2019/06/19/jsonp原理/">(no title)</a>
           </li>
         
@@ -929,10 +856,6 @@
         
           <li>
             <a href="/2019/06/08/倒计时抢购/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/06/08/js中常用的编码解码方法/">(no title)</a>
           </li>
         
       </ul>

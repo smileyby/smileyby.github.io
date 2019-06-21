@@ -62,6 +62,141 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-mobil" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/15/mobil/" class="article-date">
+  <time datetime="2019-05-15T13:43:40.935Z" itemprop="datePublished">2019-05-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="移动端响应式开发"><a href="#移动端响应式开发" class="headerlink" title="移动端响应式开发"></a>移动端响应式开发</h2><ol>
+<li><p>什么是响应式布局开发？</p>
+<p>把我们开发完成的产品，能够让其适配不同的设备屏幕：PC、PAD、PHONE</p>
+</li>
+<li><p>现在H5已经成为移动端开发（响应式布局）的标准代名词</p>
+</li>
+<li><p>移动端发展史</p>
+<p>智能生活（互联网+）离不开各种APP（应用），这些应用离不开一代又一代的IT工程师</p>
+<p>很久以前，APP开发和H5没什么太大的关系，都是由专业的APP开发团队开发的</p>
+<p>安卓系统：JAVA（JAVA-NATIVE）</p>
+<p>IOS系统：C（object-c/swift）</p>
+<p>我们把使用上述语言开发的APP称之为native-app（原生APP）</p>
+<ol>
+<li>本地开发，打包成安装包，上传至应用商店（APP Store是有审核期的【七天】），用户从应用商店下载安装相关的APP；把当前APP的源文件（源代码安装在手机上，类似于在电脑上安装软件）</li>
+<li>native-app可以操作手机内部的软件或硬件（例如：通讯录、摄像头、相册、重力感应器等），因为它是直接运行在手机操作系统中的程序</li>
+<li>最一些操作和交互，性能是比较不错的</li>
+<li>手机操作系统不一样，使用的技术也不一样，所以需要两个不同的开发团队，开发不同版本的app（问题：有的版本升级快，有的版本升级慢）</li>
+</ol>
+</li>
+<li><p>目前我们开发一款APP需要H5的介入：在native-app中嵌入H5页面（web-app）这种模式称之为Hybrid混合app开发</p>
+<ul>
+<li>由H5开发的web-app的特点<ul>
+<li>其实就是HTML页面，需要基于浏览器运行（PC或者移动端浏览器在或者V8内核的工具也可以）</li>
+<li>H5能否操作手机内部的软件或者硬件，取决于浏览器是否支持，如果浏览器支持，H5页面可以调取使用，反之不可以。例如：H5中想要调取摄像头，UC浏览器支持的话，是先把调取摄像头的功能实现了，然后放在window全局对象中，供H5中的JS调取使用</li>
+<li>相比于native来说，性能不好</li>
+<li>所有的请求访问都必须基于联网状态（除了有些nativea-app把H5特殊处理了），虽然H5中支持manifest离线缓存，但是这个技术不是很好</li>
+<li>更新比较及时：H5只需要把服务器上的文件更新，用户每次访问看到的都是最新版本，这个比nativea-app好</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Hybrid-app：</p>
+<ul>
+<li>web-view：一款基于V8引擎渲染HTML页面的工具（类似于浏览器）</li>
+<li>H5页面就是嵌入到web-view中，由其渲染</li>
+<li>真实项目中<ul>
+<li>将H5响应式页面开发完成后部署到服务器上（有一个http/https的访问地址）</li>
+<li>此时用户可以手动输入网址访问</li>
+<li>我们也可以生成二维码，让用户扫描访问</li>
+</ul>
+</li>
+<li>整个产品的外层框架交给native-app团队开发，他们把壳搭起来，把需要调取手机内部软件或者硬件的功能实现，把一些缓存页面的机制实现…,提供好对应调取的方法</li>
+<li>前端把开发生成好的H5地址告诉给native-app，他们会在自己的web-view中通过提供的地址渲染出对应的页面</li>
+<li>一个产品：主题内容或者经常更新的内容，都是H5来开发，native-app只开发外壳和调取手机内部的功能</li>
+<li>H5中如果需要使用手机内部功能，只需要调取自己宿主环境web-view中提供的方法即可</li>
+</ul>
+</li>
+<li><p>微信是最为经典的Hybrid混合开发模式，它支持我们在H5页面在微信这个native-app中运行，而且还可以调取微信提供的一些方法实现相关的操作（例如：微信的二次分享）</p>
+</li>
+</ol>
+<h3 id="常见的项目类型"><a href="#常见的项目类型" class="headerlink" title="常见的项目类型"></a>常见的项目类型</h3><ol>
+<li>PC端和移动端公用一套项目（用一个网址），我们也要保持良好的展示性，例如，猎豹浏览器、华为官网等简单的展示网站</li>
+<li>PC端和移动端用的是不同的项目，例如：京东、淘宝<ul>
+<li>PC端布局固定</li>
+<li>移动端需要考虑响应式开发<ul>
+<li>放在浏览器中运行</li>
+<li>放在第三方平台运行</li>
+<li>放在自己公司的native-app中运行</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>手机常用尺寸：</p>
+<blockquote>
+<p>【苹果】：</p>
+<ul>
+<li>iphone5s及以前:320px</li>
+<li>iphone4：320*480</li>
+<li>iphone5：320*568</li>
+<li>iphone6：375*667</li>
+<li>iphone6/7/8/plus：414*736</li>
+</ul>
+<p>【安卓】</p>
+<ul>
+<li>320、360、480、540、640</li>
+</ul>
+</blockquote>
+<p>做H5页面开发之前，需要先从设计师获取ui设计图（PSD格式或者sketch设计稿）</p>
+<p>设备像素密度比</p>
+<h2 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h2><p>只要当前页面需要在移动端访问，一定要加下面这段meta标签，不加的话，我们html页面的宽度都是980px（如果在320px的手机上打开HTML页面，为了保证把页面看全，需要把html缩小大概3倍左右，所有内容都变下了），为了不让页面缩放，我们需要保证手机的宽度和HTML的宽度一直</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>REM响应式布局</p>
+<ul>
+<li>和px一样，他是一个css样式单位</li>
+<li>px是一个固定单位，rem是一个相对单位（相对页面的跟元素（HTML）字体大小来设定的单位）</li>
+<li>设置为100px，是为了方便后期换算成rem</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>真实项目中如何利用rem的这个特性来实现相应是布局？</p>
+<ol>
+<li>严格按照设计稿中的尺寸进行样式编写（不管是宽高，还是margin，还是字体等），例如：设计稿是750x1336的，设计稿中有一个 300x150的图片，我们的布局的时候依然按照300x150布局…</li>
+</ol>
+</li>
+</ul>
+<ol start="2">
+<li><p>我们在编写样式的时候，不要使用px单位，所有的单位都统一换算为rem（此时我们需要让html的<code>font-size:100px</code>）</p>
+<ol start="3">
+<li>上述完成后再750px的手机上是没有任何问题的，但是在375px的手机上肯定存在问题了，此时我们需要让页面中的所有样式都整体缩小才能达到响应式适配的目的（<code>此时只需要把HTML的字体大小修改，那么值钱所有以rem为单位的样式会自动重新计算</code>）</li>
+</ol>
+<p><strong>rem等比缩放响应式布局</strong>：如果单独做移动端项目（项目只在移动端访问，pc端有单独的项目），我们选择响应式适配的最佳方案就是rem布局（当然细节处理可能会用到flex或者@media）</p>
+</li>
+</ol>
+</li>
+<li><p>媒体查询响应式布局</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://smileyby.github.io/2019/05/15/mobil/" data-id="cjx6a5h4h002aewv6m4g13wns" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-h5" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/12/h5/" class="article-date">
@@ -131,7 +266,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/05/12/h5/" data-id="cjx3d53mg000b8sv66a4bib3e" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2019/05/12/h5/" data-id="cjx6a5h170002ewv6ffjq6f1k" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/h5/">h5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/新增/">新增</a></li></ul>
@@ -209,7 +344,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/05/12/less/" data-id="cjx3d53mt000r8sv6rq7toong" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2019/05/12/less/" data-id="cjx6a5h2g000oewv63waauojx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -311,7 +446,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/03/31/mobile/" data-id="cjx3d53mo000k8sv6h43qnlkf" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2019/03/31/mobile/" data-id="cjx6a5h3e0012ewv6hn1bne5v" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css3/">css3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hybird/">hybird</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/less/">less</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">mobile</a></li></ul>
@@ -394,7 +529,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/03/08/design-pattern/" data-id="cjx3d53ma00058sv6rha5wkpr" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2019/03/08/design-pattern/" data-id="cjx6a5h140001ewv6vagiz283" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design-pattern/">design-pattern</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
@@ -602,7 +737,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2019/01/17/dom-event/" data-id="cjx3d53mc00088sv64kaglz32" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2019/01/17/dom-event/" data-id="cjx6a5h2l000qewv6tfqw23j0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom-event/">dom-event</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom0/">dom0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom1/">dom1</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event-bubble/">event-bubble</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/冒泡/">冒泡</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/捕获/">捕获</a></li></ul>
@@ -652,7 +787,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/12/31/promise/" data-id="cjx3d53ms000p8sv697ma420s" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/12/31/promise/" data-id="cjx6a5h35000xewv6lb1qbmwq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/promise/">promise</a></li></ul>
@@ -717,7 +852,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/12/24/git-command/" data-id="cjx3d53m900048sv6swh4yjxk" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/12/24/git-command/" data-id="cjx6a5h1g0006ewv6new0v9em" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/command/">command</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
@@ -913,7 +1048,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/11/29/ES6-Review/" data-id="cjx3d53m700038sv6eahfb73z" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/11/29/ES6-Review/" data-id="cjx6a5h1h0008ewv6ob88d3b9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
@@ -983,7 +1118,7 @@
 <p>传递的是一个元素对象，它的意思是把JS原生对象转换为JQ对象</p>
 <p>传递的是个函数，它代表等DOM结构加载完成在执行对应的JS代码（类似于window.onload）</p>
 </blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ === jQuery; <span class="comment">// true</span></span><br><span class="line">$() === jQuery(); <span class="comment">// false 不同实例</span></span><br><span class="line">$() <span class="keyword">instanceof</span> jQuery; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">var</span> $example = $(); <span class="comment">//=&gt; 我们用JQ选择器获取的值，一般都是用以$开头的变量名来存储（以后看见变量名是以$开头，我们就知道是JQ获取的实例【JQ对象】）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * $example</span></span><br><span class="line"><span class="comment"> * <span class="doctag">xxx:</span>xxx 私有属性</span></span><br><span class="line"><span class="comment"> * 0：某一个元素</span></span><br><span class="line"><span class="comment"> * ...</span></span><br><span class="line"><span class="comment"> * length：类数组长度</span></span><br><span class="line"><span class="comment"> * context：document</span></span><br><span class="line"><span class="comment"> * selector：传递的选择器内容</span></span><br><span class="line"><span class="comment"> * prevObject：当前执行上下文的JQ对象</span></span><br><span class="line"><span class="comment"> * __proto__: jQuery.prototype</span></span><br><span class="line"><span class="comment"> *     [<span class="doctag">xxx:</span>xxx 共有的属性和方法]</span></span><br><span class="line"><span class="comment"> *     add</span></span><br><span class="line"><span class="comment"> *     addClass</span></span><br><span class="line"><span class="comment"> *     ...</span></span><br><span class="line"><span class="comment"> *     __proto__:Object.prototype</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ === jQuery; <span class="comment">// true</span></span><br><span class="line">$() === jQuery(); <span class="comment">// false 不同实例</span></span><br><span class="line">$() <span class="keyword">instanceof</span> jQuery; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">var</span> $example = $(); <span class="comment">//=&gt; 我们用JQ选择器获取的值，一般都是用以$开头的变量名来存储（以后看见变量名是以$开头，我们就知道是JQ获取的实例【JQ对象】）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * $example</span></span><br><span class="line"><span class="comment"> * xxx:xxx 私有属性</span></span><br><span class="line"><span class="comment"> * 0：某一个元素</span></span><br><span class="line"><span class="comment"> * ...</span></span><br><span class="line"><span class="comment"> * length：类数组长度</span></span><br><span class="line"><span class="comment"> * context：document</span></span><br><span class="line"><span class="comment"> * selector：传递的选择器内容</span></span><br><span class="line"><span class="comment"> * prevObject：当前执行上下文的JQ对象</span></span><br><span class="line"><span class="comment"> * __proto__: jQuery.prototype</span></span><br><span class="line"><span class="comment"> *     [xxx:xxx 共有的属性和方法]</span></span><br><span class="line"><span class="comment"> *     add</span></span><br><span class="line"><span class="comment"> *     addClass</span></span><br><span class="line"><span class="comment"> *     ...</span></span><br><span class="line"><span class="comment"> *     __proto__:Object.prototype</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>第一个参数[selector]传递的是一个字符串，就是通过选择器获取到的元素集合（获取的结果都是类类数组集合；获取多个元素也就是索引多点，获取一个元素就只有索引0，一个都没获取到就是一个空的类数组集合【而不是null】）</p>
 <p>一般css或者css3中支持的选择器，jq都支持</p>
@@ -1045,102 +1180,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/10/18/jQuerySourceCode/" data-id="cjx3d53mp000l8sv6e7gqkshd" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/10/18/jQuerySourceCode/" data-id="cjx6a5h2d000newv63ofxlptd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Idea/">Idea</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Thinging/">Thinging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-定时器" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/27/定时器/" class="article-date">
-  <time datetime="2018-09-27T14:25:44.000Z" itemprop="datePublished">2018-09-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/27/定时器/">定时器</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="定时器基础"><a href="#定时器基础" class="headerlink" title="定时器基础"></a>定时器基础</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var timer1 = setTimeout(function()&#123;</span><br><span class="line"></span><br><span class="line">&#125;, 1000);</span><br><span class="line">console.log(timer1); //=&gt; 1</span><br><span class="line"></span><br><span class="line">var timer2 = setInterval(function()&#123;</span><br><span class="line"></span><br><span class="line">&#125;, 1000);</span><br><span class="line">console.log(timer2); //=&gt; 2</span><br></pre></td></tr></table></figure>
-<ul>
-<li>定时器的返回值： 当我们设置定时器（不管是setTimeout还是setInterval），都会有一个返回值，返回值是一个数字，代表当前实在浏览器中设置的第几个定时器（返回的是定时器序号）</li>
-<li>setTimeout和setInterval虽然是处理不同需求的定时器，但是都是浏览器的定时器，所以设置的时候，返回的序号是依次排列的</li>
-<li>setInterval设置完成定时器会有一个返回值，不管执行多少次，这个代表序号的返回值不变（设置定时器就有返回值，执行多少次是定时器的处理）</li>
-</ul>
-<blockquote>
-<p>清除定时器</p>
-<ul>
-<li>clearTimeout([定时器排队序号])</li>
-<li>clearInterval([定时器排队序号])</li>
-<li>定时器需要手动清除</li>
-</ul>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> t1 = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; 当方法执行完成后，定时器没用了，我们清除定时器即可</span></span><br><span class="line">	<span class="comment">//=&gt; clearTimeout(t1);</span></span><br><span class="line">	clearInterval(t1); <span class="comment">//=&gt; 使用它也可以清除掉</span></span><br><span class="line">	t1 = <span class="literal">null</span>; <span class="comment">//=&gt; 我们手动把之前存储序号的变量赋值为null</span></span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="实现动画效果"><a href="#实现动画效果" class="headerlink" title="实现动画效果"></a>实现动画效果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function imgFade(curImg)&#123;</span><br><span class="line">	var n = 0;</span><br><span class="line">	var timer = setInterval(function()&#123;</span><br><span class="line">		if(n &gt; 1)&#123;</span><br><span class="line">			clearInterval(timer);</span><br><span class="line">			timer = null;</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		n += 0.05;</span><br><span class="line">		utils.css(curImg, &apos;opacity&apos;, n);</span><br><span class="line">	&#125;, 17); //=&gt; 17ms是执行定时器动画相对比较理想的时间间隔</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="JS中的同步和异步编程"><a href="#JS中的同步和异步编程" class="headerlink" title="JS中的同步和异步编程"></a>JS中的同步和异步编程</h2><blockquote>
-<p>JS是单线程的（一次只能执行一个任务，当前任务没有完成，下面任务不进行处理）</p>
-<p>同步编程（sync:synchronize）：任务是按照顺序一件件的完成的，当前任务没有完成，下面的任务部进行处理</p>
-<p>异步编程（async）当前任务再等待执行的时候，我们不去执行，继续完成下面的任务，当下面的任务完成后，而是也到达等待的时间了，采取完成当前的任务</p>
-<blockquote>
-<p>定时器都是异步编程的</p>
-<p>所有的时间绑定都是异步编程的 </p>
-<p>AJAX中有异步编程</p>
-<p>有些人把回调函数当作异步编程（牵强）</p>
-</blockquote>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; 同步编程以及如何验证当前任务小号的时间或者性能</span></span><br><span class="line"><span class="keyword">var</span> startTime = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">1000000</span>; i += <span class="number">1</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(i === <span class="number">999999</span>)&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'no'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> Data() - startTime);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'ok'</span>);</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; 项目中要避免死循环，因为循环是同步编程，当前循环无法结束，后续的任务操作都执行不了</span></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>===<span class="number">1</span>)&#123;&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> n = <span class="number">0</span>;</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	n++;</span><br><span class="line">	<span class="built_in">console</span>.log(n);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br><span class="line"><span class="built_in">console</span>.log(n);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>同步异步编程的核心原理</p>
-<ul>
-<li>JS中有两个任务队列（存放任务列表的空间就是任务队列）</li>
-<li>1、主任务队列：同步执行任务（从上到下一次执行）<br>2、等待任务队列：异步执行任务(主任务队列中的任务全部完成，把等待任务队列中的任务拿到主任务队列中执行（哪一个先到，先找哪一个，同时到，按照创建顺序来），当前这个任务完成后，再到等待中去找其他任务)</li>
-</ul>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">&#125;, <span class="number">50</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">&#125;, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">3</span>);</span><br><span class="line">&#125;, <span class="number">30</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">100000000</span>; i += <span class="number">1</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(i === <span class="number">99999999</span>)&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="number">4</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="JS中固定步长和固定时间的匀速运动动画"><a href="#JS中固定步长和固定时间的匀速运动动画" class="headerlink" title="JS中固定步长和固定时间的匀速运动动画"></a>JS中固定步长和固定时间的匀速运动动画</h2><blockquote>
-<p>1、步长固定（每走一步多少固定），但是多长时间运动完成不固定</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var oBox = document.getElementById(&apos;box&apos;),</span><br><span class="line">	target =  document.documentElement.clientWidth - oBox.offsetWidth;</span><br><span class="line">	//=&gt; 动画：每隔一段时间都在自己原有的left基础上累加步长10排序，一直到达目标值结束</span><br><span class="line">	var timer = setInterval(function()&#123;</span><br><span class="line">		var curL = oBox.offsetLeft;</span><br><span class="line">		curL += 10;</span><br><span class="line">		oBox.style.left = curL + &apos;px&apos;;</span><br><span class="line">		if(curL &gt;= target)&#123;</span><br><span class="line">			oBox.style.left = target + &apos;px&apos;;</span><br><span class="line">			clearInterval(timer);</span><br><span class="line">			timer = null;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;, 17);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>2、固定时间的匀速动画</p>
-<ul>
-<li>target： 目标值</li>
-<li>start： 起始值</li>
-<li>change：总距离 target-start</li>
-<li>duration： 总时间</li>
-<li>time：已经运动的时间</li>
-</ul>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">linear</span>(<span class="params">time, begin, change, duration</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> time/duration*change + begin</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> oBox = <span class="built_in">document</span>.getElementById(<span class="string">'box'</span>),</span><br><span class="line">	time = <span class="number">0</span>,</span><br><span class="line">	duration  = <span class="number">1000</span>,</span><br><span class="line">	begin = <span class="built_in">parseInt</span>(getComputedStyle(oBox).left),</span><br><span class="line">	target = <span class="built_in">document</span>.documentElement.clientWidth - oBox.offsetWidth,</span><br><span class="line">	change = target - begin;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">var</span> timer = setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		time += <span class="number">17</span>;</span><br><span class="line">		<span class="keyword">var</span> curL = linear(time, begin, change, duration);</span><br><span class="line">		<span class="keyword">if</span>(time &gt;= duration)&#123;</span><br><span class="line">			clearInterval(timer);</span><br><span class="line">			timer = <span class="literal">null</span>;</span><br><span class="line">			curL = target;</span><br><span class="line">		&#125;</span><br><span class="line">		oBox.style.left = curL + <span class="string">'px'</span>;</span><br><span class="line">	&#125;, <span class="number">17</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="多方向固定时间匀速运动"><a href="#多方向固定时间匀速运动" class="headerlink" title="多方向固定时间匀速运动"></a>多方向固定时间匀速运动</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">		* &#123;</span></span><br><span class="line"><span class="undefined">			margin: 0;</span></span><br><span class="line"><span class="undefined">			padding: 0;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">		html, body &#123;</span></span><br><span class="line"><span class="undefined">			width: 100%;</span></span><br><span class="line"><span class="undefined">			height: 100%;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">		<span class="selector-class">.box</span> &#123;</span></span><br><span class="line"><span class="undefined">			width: 100px;</span></span><br><span class="line"><span class="undefined">			height: 100px;</span></span><br><span class="line"><span class="undefined">			position: absolute;</span></span><br><span class="line"><span class="undefined">			left: 0;</span></span><br><span class="line"><span class="undefined">			top: 0;</span></span><br><span class="line"><span class="css">			<span class="selector-tag">background</span>: <span class="selector-id">#ff6700</span>;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> box = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'box'</span>)[<span class="number">0</span>];</span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> time = <span class="number">0</span>,</span></span><br><span class="line"><span class="undefined">			duration = 1000;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> begin = &#123;</span></span><br><span class="line"><span class="undefined">			left: box.offsetLeft,</span></span><br><span class="line"><span class="undefined">			top: box.offsetTop,</span></span><br><span class="line"><span class="undefined">			opacity: 1</span></span><br><span class="line"><span class="undefined">		&#125;;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> target = &#123;</span></span><br><span class="line"><span class="javascript">			left: <span class="built_in">document</span>.body.clientWidth - box.offsetWidth,</span></span><br><span class="line"><span class="javascript">			top: <span class="built_in">document</span>.body.clientHeight - box.offsetHeight,</span></span><br><span class="line"><span class="undefined">			opacity: 0.2 </span></span><br><span class="line"><span class="undefined">		&#125;;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> change = &#123;&#125;;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> target)&#123;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">if</span>(target.hasOwnProperty(key))&#123;</span></span><br><span class="line"><span class="undefined">				change[key] = target[key] - begin[key];</span></span><br><span class="line"><span class="undefined">			&#125;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">		<span class="function"><span class="keyword">function</span> <span class="title">linear</span>(<span class="params">t, b, c, d</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">return</span> t / d * c + b;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">		box.timer = setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">if</span>(time &gt;= duration<span class="number">-17</span>)&#123;</span></span><br><span class="line"><span class="javascript">				box.style.left = target.left + <span class="string">'px'</span>;</span></span><br><span class="line"><span class="javascript">				box.style.top = target.top + <span class="string">'px'</span>;</span></span><br><span class="line"><span class="undefined">				clearInterval(box.timer);</span></span><br><span class="line"><span class="javascript">				<span class="keyword">return</span>;</span></span><br><span class="line"><span class="undefined">			&#125;</span></span><br><span class="line"><span class="undefined">			time += 17;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">var</span> curPos = &#123;&#125;;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> change)&#123;</span></span><br><span class="line"><span class="undefined">				curPos[key] = linear(time, begin[key], change[key], duration);</span></span><br><span class="line"><span class="undefined">			&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">			<span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> curPos)&#123;</span></span><br><span class="line"><span class="javascript">				<span class="keyword">if</span>(key !== <span class="string">'opacity'</span>)&#123;</span></span><br><span class="line"><span class="javascript">					box.style[key] = curPos[key] + <span class="string">'px'</span>;</span></span><br><span class="line"><span class="javascript">				&#125;<span class="keyword">else</span>&#123;</span></span><br><span class="line"><span class="undefined">					box.style[key] = curPos[key];</span></span><br><span class="line"><span class="undefined">				&#125;</span></span><br><span class="line"><span class="undefined">				</span></span><br><span class="line"><span class="undefined">			&#125;</span></span><br><span class="line"><span class="undefined">		&#125;, 17)</span></span><br><span class="line"><span class="undefined">	</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/09/27/定时器/" data-id="cjx3d53n200138sv6n4nrcrgs" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setTimeout/">setTimeout</a></li></ul>
 
     </footer>
   </div>
@@ -1206,6 +1249,10 @@
       <ul>
         
           <li>
+            <a href="/2019/06/21/回调函数/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2019/06/19/jsonp原理/">(no title)</a>
           </li>
         
@@ -1219,10 +1266,6 @@
         
           <li>
             <a href="/2019/06/08/倒计时抢购/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/06/08/js中常用的编码解码方法/">(no title)</a>
           </li>
         
       </ul>

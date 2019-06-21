@@ -62,6 +62,98 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-定时器" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/27/定时器/" class="article-date">
+  <time datetime="2018-09-27T14:25:44.000Z" itemprop="datePublished">2018-09-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/27/定时器/">定时器</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="定时器基础"><a href="#定时器基础" class="headerlink" title="定时器基础"></a>定时器基础</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var timer1 = setTimeout(function()&#123;</span><br><span class="line"></span><br><span class="line">&#125;, 1000);</span><br><span class="line">console.log(timer1); //=&gt; 1</span><br><span class="line"></span><br><span class="line">var timer2 = setInterval(function()&#123;</span><br><span class="line"></span><br><span class="line">&#125;, 1000);</span><br><span class="line">console.log(timer2); //=&gt; 2</span><br></pre></td></tr></table></figure>
+<ul>
+<li>定时器的返回值： 当我们设置定时器（不管是setTimeout还是setInterval），都会有一个返回值，返回值是一个数字，代表当前实在浏览器中设置的第几个定时器（返回的是定时器序号）</li>
+<li>setTimeout和setInterval虽然是处理不同需求的定时器，但是都是浏览器的定时器，所以设置的时候，返回的序号是依次排列的</li>
+<li>setInterval设置完成定时器会有一个返回值，不管执行多少次，这个代表序号的返回值不变（设置定时器就有返回值，执行多少次是定时器的处理）</li>
+</ul>
+<blockquote>
+<p>清除定时器</p>
+<ul>
+<li>clearTimeout([定时器排队序号])</li>
+<li>clearInterval([定时器排队序号])</li>
+<li>定时器需要手动清除</li>
+</ul>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> t1 = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//=&gt; 当方法执行完成后，定时器没用了，我们清除定时器即可</span></span><br><span class="line">	<span class="comment">//=&gt; clearTimeout(t1);</span></span><br><span class="line">	clearInterval(t1); <span class="comment">//=&gt; 使用它也可以清除掉</span></span><br><span class="line">	t1 = <span class="literal">null</span>; <span class="comment">//=&gt; 我们手动把之前存储序号的变量赋值为null</span></span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="实现动画效果"><a href="#实现动画效果" class="headerlink" title="实现动画效果"></a>实现动画效果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function imgFade(curImg)&#123;</span><br><span class="line">	var n = 0;</span><br><span class="line">	var timer = setInterval(function()&#123;</span><br><span class="line">		if(n &gt; 1)&#123;</span><br><span class="line">			clearInterval(timer);</span><br><span class="line">			timer = null;</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		n += 0.05;</span><br><span class="line">		utils.css(curImg, &apos;opacity&apos;, n);</span><br><span class="line">	&#125;, 17); //=&gt; 17ms是执行定时器动画相对比较理想的时间间隔</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="JS中的同步和异步编程"><a href="#JS中的同步和异步编程" class="headerlink" title="JS中的同步和异步编程"></a>JS中的同步和异步编程</h2><blockquote>
+<p>JS是单线程的（一次只能执行一个任务，当前任务没有完成，下面任务不进行处理）</p>
+<p>同步编程（sync:synchronize）：任务是按照顺序一件件的完成的，当前任务没有完成，下面的任务部进行处理</p>
+<p>异步编程（async）当前任务再等待执行的时候，我们不去执行，继续完成下面的任务，当下面的任务完成后，而是也到达等待的时间了，采取完成当前的任务</p>
+<blockquote>
+<p>定时器都是异步编程的</p>
+<p>所有的时间绑定都是异步编程的 </p>
+<p>AJAX中有异步编程</p>
+<p>有些人把回调函数当作异步编程（牵强）</p>
+</blockquote>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; 同步编程以及如何验证当前任务小号的时间或者性能</span></span><br><span class="line"><span class="keyword">var</span> startTime = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">1000000</span>; i += <span class="number">1</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(i === <span class="number">999999</span>)&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'no'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> Data() - startTime);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'ok'</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=&gt; 项目中要避免死循环，因为循环是同步编程，当前循环无法结束，后续的任务操作都执行不了</span></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>===<span class="number">1</span>)&#123;&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> n = <span class="number">0</span>;</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	n++;</span><br><span class="line">	<span class="built_in">console</span>.log(n);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br><span class="line"><span class="built_in">console</span>.log(n);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>同步异步编程的核心原理</p>
+<ul>
+<li>JS中有两个任务队列（存放任务列表的空间就是任务队列）</li>
+<li>1、主任务队列：同步执行任务（从上到下一次执行）<br>2、等待任务队列：异步执行任务(主任务队列中的任务全部完成，把等待任务队列中的任务拿到主任务队列中执行（哪一个先到，先找哪一个，同时到，按照创建顺序来），当前这个任务完成后，再到等待中去找其他任务)</li>
+</ul>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">&#125;, <span class="number">50</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">&#125;, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">3</span>);</span><br><span class="line">&#125;, <span class="number">30</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">100000000</span>; i += <span class="number">1</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(i === <span class="number">99999999</span>)&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="number">4</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="JS中固定步长和固定时间的匀速运动动画"><a href="#JS中固定步长和固定时间的匀速运动动画" class="headerlink" title="JS中固定步长和固定时间的匀速运动动画"></a>JS中固定步长和固定时间的匀速运动动画</h2><blockquote>
+<p>1、步长固定（每走一步多少固定），但是多长时间运动完成不固定</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var oBox = document.getElementById(&apos;box&apos;),</span><br><span class="line">	target =  document.documentElement.clientWidth - oBox.offsetWidth;</span><br><span class="line">	//=&gt; 动画：每隔一段时间都在自己原有的left基础上累加步长10排序，一直到达目标值结束</span><br><span class="line">	var timer = setInterval(function()&#123;</span><br><span class="line">		var curL = oBox.offsetLeft;</span><br><span class="line">		curL += 10;</span><br><span class="line">		oBox.style.left = curL + &apos;px&apos;;</span><br><span class="line">		if(curL &gt;= target)&#123;</span><br><span class="line">			oBox.style.left = target + &apos;px&apos;;</span><br><span class="line">			clearInterval(timer);</span><br><span class="line">			timer = null;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;, 17);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>2、固定时间的匀速动画</p>
+<ul>
+<li>target： 目标值</li>
+<li>start： 起始值</li>
+<li>change：总距离 target-start</li>
+<li>duration： 总时间</li>
+<li>time：已经运动的时间</li>
+</ul>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">linear</span>(<span class="params">time, begin, change, duration</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> time/duration*change + begin</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> oBox = <span class="built_in">document</span>.getElementById(<span class="string">'box'</span>),</span><br><span class="line">	time = <span class="number">0</span>,</span><br><span class="line">	duration  = <span class="number">1000</span>,</span><br><span class="line">	begin = <span class="built_in">parseInt</span>(getComputedStyle(oBox).left),</span><br><span class="line">	target = <span class="built_in">document</span>.documentElement.clientWidth - oBox.offsetWidth,</span><br><span class="line">	change = target - begin;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">var</span> timer = setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		time += <span class="number">17</span>;</span><br><span class="line">		<span class="keyword">var</span> curL = linear(time, begin, change, duration);</span><br><span class="line">		<span class="keyword">if</span>(time &gt;= duration)&#123;</span><br><span class="line">			clearInterval(timer);</span><br><span class="line">			timer = <span class="literal">null</span>;</span><br><span class="line">			curL = target;</span><br><span class="line">		&#125;</span><br><span class="line">		oBox.style.left = curL + <span class="string">'px'</span>;</span><br><span class="line">	&#125;, <span class="number">17</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="多方向固定时间匀速运动"><a href="#多方向固定时间匀速运动" class="headerlink" title="多方向固定时间匀速运动"></a>多方向固定时间匀速运动</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">		* &#123;</span></span><br><span class="line"><span class="undefined">			margin: 0;</span></span><br><span class="line"><span class="undefined">			padding: 0;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">		html, body &#123;</span></span><br><span class="line"><span class="undefined">			width: 100%;</span></span><br><span class="line"><span class="undefined">			height: 100%;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">		.box &#123;</span></span><br><span class="line"><span class="undefined">			width: 100px;</span></span><br><span class="line"><span class="undefined">			height: 100px;</span></span><br><span class="line"><span class="undefined">			position: absolute;</span></span><br><span class="line"><span class="undefined">			left: 0;</span></span><br><span class="line"><span class="undefined">			top: 0;</span></span><br><span class="line"><span class="undefined">			background: #ff6700;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> box = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'box'</span>)[<span class="number">0</span>];</span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> time = <span class="number">0</span>,</span></span><br><span class="line"><span class="undefined">			duration = 1000;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> begin = &#123;</span></span><br><span class="line"><span class="undefined">			left: box.offsetLeft,</span></span><br><span class="line"><span class="undefined">			top: box.offsetTop,</span></span><br><span class="line"><span class="undefined">			opacity: 1</span></span><br><span class="line"><span class="undefined">		&#125;;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> target = &#123;</span></span><br><span class="line"><span class="javascript">			left: <span class="built_in">document</span>.body.clientWidth - box.offsetWidth,</span></span><br><span class="line"><span class="javascript">			top: <span class="built_in">document</span>.body.clientHeight - box.offsetHeight,</span></span><br><span class="line"><span class="undefined">			opacity: 0.2 </span></span><br><span class="line"><span class="undefined">		&#125;;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> change = &#123;&#125;;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> target)&#123;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">if</span>(target.hasOwnProperty(key))&#123;</span></span><br><span class="line"><span class="undefined">				change[key] = target[key] - begin[key];</span></span><br><span class="line"><span class="undefined">			&#125;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">		<span class="function"><span class="keyword">function</span> <span class="title">linear</span>(<span class="params">t, b, c, d</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">return</span> t / d * c + b;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">		box.timer = setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">if</span>(time &gt;= duration<span class="number">-17</span>)&#123;</span></span><br><span class="line"><span class="javascript">				box.style.left = target.left + <span class="string">'px'</span>;</span></span><br><span class="line"><span class="javascript">				box.style.top = target.top + <span class="string">'px'</span>;</span></span><br><span class="line"><span class="undefined">				clearInterval(box.timer);</span></span><br><span class="line"><span class="javascript">				<span class="keyword">return</span>;</span></span><br><span class="line"><span class="undefined">			&#125;</span></span><br><span class="line"><span class="undefined">			time += 17;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">var</span> curPos = &#123;&#125;;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> change)&#123;</span></span><br><span class="line"><span class="undefined">				curPos[key] = linear(time, begin[key], change[key], duration);</span></span><br><span class="line"><span class="undefined">			&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">			<span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> curPos)&#123;</span></span><br><span class="line"><span class="javascript">				<span class="keyword">if</span>(key !== <span class="string">'opacity'</span>)&#123;</span></span><br><span class="line"><span class="javascript">					box.style[key] = curPos[key] + <span class="string">'px'</span>;</span></span><br><span class="line"><span class="javascript">				&#125;<span class="keyword">else</span>&#123;</span></span><br><span class="line"><span class="undefined">					box.style[key] = curPos[key];</span></span><br><span class="line"><span class="undefined">				&#125;</span></span><br><span class="line"><span class="undefined">				</span></span><br><span class="line"><span class="undefined">			&#125;</span></span><br><span class="line"><span class="undefined">		&#125;, 17)</span></span><br><span class="line"><span class="undefined">	</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://smileyby.github.io/2018/09/27/定时器/" data-id="cjx6a5h3v001bewv6g2a0v5qk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setInterval/">setInterval</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/setTimeout/">setTimeout</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-webpack" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/09/08/webpack/" class="article-date">
@@ -179,7 +271,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/09/08/webpack/" data-id="cjx3d53mx000w8sv6rb97hq2q" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/09/08/webpack/" data-id="cjx6a5h36000yewv6hxpu52kn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
@@ -218,7 +310,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/smileyby2/" data-id="cjx3d53n100128sv6qgttb2vb" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby2/" data-id="cjx6a5h30000vewv6oapevhx1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/草稿箱/">草稿箱</a></li></ul>
@@ -257,7 +349,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/smileyby/" data-id="cjx3d53mu000t8sv69ydp4h0t" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/smileyby/" data-id="cjx6a5h2z000uewv66qtfqmq3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/测试/">测试</a></li></ul>
@@ -304,7 +396,7 @@ module.exports = {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://smileyby.github.io/2018/08/31/hello-world/" data-id="cjx3d53mj000e8sv6pzgf24e9" class="article-share-link">Share</a>
+      <a data-url="http://smileyby.github.io/2018/08/31/hello-world/" data-id="cjx6a5h1c0004ewv6w5q5gk1v" class="article-share-link">Share</a>
       
       
     </footer>
@@ -371,6 +463,10 @@ module.exports = {
       <ul>
         
           <li>
+            <a href="/2019/06/21/回调函数/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2019/06/19/jsonp原理/">(no title)</a>
           </li>
         
@@ -384,10 +480,6 @@ module.exports = {
         
           <li>
             <a href="/2019/06/08/倒计时抢购/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/06/08/js中常用的编码解码方法/">(no title)</a>
           </li>
         
       </ul>
